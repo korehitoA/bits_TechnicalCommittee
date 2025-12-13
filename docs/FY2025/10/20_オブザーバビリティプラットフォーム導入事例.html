@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オブザーバビリティ技術概要</title>
+    <style>
+        body {
+            font-family: 'Meiryo', 'メイリオ', 'Hiragino Sans', 'ヒラギノ角ゴシック ProN', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', '游ゴシック', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0px;
+            background-color: #ffffff;
+            color: #333333;
+            font-size: 11pt;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 10px 0 30px 0;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 10px 0 20px 0;
+            padding: 12px 0 8px 20px;
+            background: linear-gradient(to right, #e8f4fd 0%, #ffffff 100%);
+            border-left: 5px solid #3498db;
+            border-radius: 3px;
+        }
+        
+        h3 {
+            color: #34495e;
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 5px 0 5px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        
+        h4 {
+            color: #7f8c8d;
+            font-size: 11pt;
+            font-weight: bold;
+            margin: 20px 0 12px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+        
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin: 8px 0;
+            padding-left: 5px;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 10pt;
+            color: #6c757d;
+        }
+        
+        .highlight-box {
+            background-color: #e8f6f3;
+            border: 1px solid #1abc9c;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .tech-features {
+            background-color: #fdf2e9;
+            border: 1px solid #e67e22;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .objectives {
+            background-color: #eaf2f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .definition {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .summary-box {
+            background-color: #f4f4f4;
+            border: 2px solid #95a5a6;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .emphasis {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+        
+        table th,
+        table td {
+            border: 1px solid #bdc3c7;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        
+        table th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        table tbody tr {
+            background-color: #f8f9fa;
+        }
+        
+        .references {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 25px 0;
+            font-size: 10pt;
+        }
+        
+        .references h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 11pt;
+        }
+        
+        .references a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                padding: 0; 
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>オブザーバビリティ（Observability）技術概要<br>
+        ～ 楽天銀行株式会社のNew Relic導入事例から学ぶ ～</h1>
+        
+        <h2>オブザーバビリティとは</h2>
+        
+        <h3>概要</h3>
+        
+        <p>　オブザーバビリティ（可観測性）は、Observe（観察する）＋ ability（能力）である「観察する能力」、すなわち「可観測性」と翻訳される言葉です。</p>
+        <p>　従来のシステム監視手法とは異なり、「収集できたログ」だけでなく「背景の事象」をとらえ、「正確な対処」につなげる考え方です。</p>
+        
+        <h3>オブザーバビリティの3本柱</h3>
+        
+        <p>　オブザーバビリティではログ<sup>※1</sup>・メトリクス<sup>※2</sup>・トレース<sup>※3</sup>の3種類のデータを活用しており、これを<span class="emphasis">オブザーバビリティの3本柱</span>と呼びます。</p>
+        <p>　従来のシステム監視と異なり、3種類のデータの連携によって<span class="emphasis">状況の把握と背景事象の正確な理解</span>が達成されます。
+        
+        
+         <div class="note">
+            <p><strong>※1 ログ（Logs）</strong>…特定の時点で発生したイベントの構造化データと非構造化データ。システムの接続ログ、アプリケーションのCRUDログなど。</p>
+            <p><strong>※2 メトリクス（Metrics）</strong>…リソース使用状況やパフォーマンスを数値で表現したデータ。CPU使用率、レスポンス時間など。</p>
+            <p><strong>※3 トレース（Traces）</strong>…分散されたシステム内でのリクエストの流れを追跡する情報。フロントエンド、バックエンド間の通信過程など。</p>
+        </div>
+        
+        
+        <h2>導入事例（楽天銀行株式会社におけるNew Relic導入事例）</h2>
+        
+        <p>　オブザーバビリティツール「New Relic」の導入事例として、「楽天銀行株式会社」を紹介します。
+        
+        
+        <h3>企業概要と導入背景</h3>
+        
+        <p>　楽天銀行株式会社（以下、楽天銀行）は、2001年開業以来成長を続けるデジタルバンクで、2025年5月末時点で口座数1,700万口座、預金残高11兆円を突破する大規模金融機関です。</p>
+        
+        <div class="objectives">
+            <strong>導入の背景となった課題：</strong>
+            <ul>
+                <li><span class="emphasis">24時間365日の無停止運用</span>を原則とする基幹システムの安定性確保</li>
+                <li>口座数の急増、継続的な新規サービスのリリースによる基幹システムの大規模化・複雑化</li>
+            </ul>
+        </div>
+        
+        <p>　楽天銀行は、24時間365日の無停止運用という監視要件の厳しさ、および基幹システムの複雑化に伴い、従来の監視システムに限界を感じていました。</p>
+        
+        <h3>New Relic導入による効果</h3>
+        
+        <p>　楽天銀行がオブザーバビリティツールであるNew Relicを導入したことで、以下のような効果がありました。</p>
+        
+        <div class="objectives">
+            <strong>1．システム障害の早期発見・未然防止</strong>
+            <ul>
+                <li>従来の監視システムは閾値監視（CPUやメモリの使用率などが閾値に達するとアラートが発令される）であった</li>
+                <li>New Relicでは、値の変化をリアルタイムにとらえる傾向監視へと変更</li>
+                <li>障害につながる事象を早期に発見、障害発生を未然に防止しやすくなった</li>
+            </ul>
+        </div>
+        
+        <div class="objectives">
+            <strong>2．開発・基盤・運用が一丸となる監視体制</strong>
+            <ul>
+                <li>New Relicによる観測結果は開発・基盤・運用の各部門に共有される</li>
+                <li>有事の際には各部が協力して対処に当たる体制が築かれている</li>
+                <li>柔軟な観測範囲設定：銀行の厳格なセキュリティ要件を満たす設計</li>
+            </ul>
+        </div>
+        
+        <div class="objectives">
+            <strong>3．原因究明・パフォーマンス分析の高速化</strong>
+            <ul>
+                <li>システム全体から個別機能まで詳細な稼働状況を即座に把握可能</li>
+                <li>システムのパフォーマンス分析にかかる時間も短縮された</li>
+            </ul>
+        </div>
+        
+        
+        <div class="summary-box">
+            <h2>まとめ</h2>
+            <p>　オブザーバビリティは、従来のシステム監視を大幅に進化させる重要な技術概念です。ログ・メトリクス・トレースの3つの柱を統合的に活用することで、<span class="emphasis">複雑な分散システムの内部状態を深く理解し、予防的な問題解決を可能</span>にします。</p>
+            
+            <p>　楽天銀行の導入事例は、オブザーバビリティが実際のビジネス環境でもたらす具体的な価値を示しています。<span class="emphasis">運用効率の大幅改善、システム安定性の向上、部署横断での情報共有、セキュリティ要件への適合</span>など、金融機関レベルの厳格な要件もクリアした成功事例です。</p>
+            
+            <p>　特にマイクロサービスアーキテクチャを採用する企業や、高可用性が求められるクリティカルなシステムを運用する組織において、オブザーバビリティの導入により大きなメリットを得られる可能性があります。</p>
+        </div>
+        
+        <div class="references">
+            <h3>参考サイト</h3>
+            <p>
+                【オブザーバビリティとは何か？まずはその概念を理解しよう | DevOps Hub | SB C&S】<br>
+                <a href="https://licensecounter.jp/devops-hub/blog/splunk1/" target="_blank">https://licensecounter.jp/devops-hub/blog/splunk1/</a>
+            </p>
+            <p>
+                【オブザーバビリティの3つの柱：統合ログ、メトリック、トレース | Elastic Blog】<br>
+                <a href="https://www.elastic.co/jp/blog/3-pillars-of-observability" target="_blank">https://www.elastic.co/jp/blog/3-pillars-of-observability</a>
+            </p>
+            <p>
+                【楽天銀行、銀行業務を支える基幹システムの観測にNew Relicを導入 - New Relic株式会社】<br>
+                <a href="https://newrelic.com/jp/press-release/20250724" target="_blank">https://newrelic.com/jp/press-release/20250724</a>
+            </p>
+            <p>
+                【絶対に止められない基幹システムが大規模化、楽天銀行が採用した監視手法とは？ - ホワイトペーパー】<br>
+                <a href="https://wp.techtarget.itmedia.co.jp/contents/92332" target="_blank">https://wp.techtarget.itmedia.co.jp/contents/92332</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
