@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シャドーITについて</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        
+        body {
+            font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8fbff 100%);
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 190mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+            border-left: 6px solid #3b82f6;
+        }
+        
+        h1 {
+            color: #1e40af;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+            background: linear-gradient(90deg, #dbeafe, #f0f9ff);
+            padding: 20px;
+            margin: -30px -30px 30px -30px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        
+        .risk-section {
+            background: #f0f9ff;
+            border: 2px solid #93c5fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .risk-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .risk-item::before {
+            content: "●";
+            color: #3b82f6;
+            font-size: 16px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .risk-title {
+            font-weight: bold;
+            color: #1e40af;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .risk-description {
+            color: #374151;
+            margin-left: 0;
+            text-indent: 0;
+        }
+        
+        .example-section {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #1e40af;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 5px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                font-size: 12px;
+            }
+            
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>シャドーITについて</h1>
+        
+        <p>「<span class="highlight">シャドーIT</span>」という単語をご存じでしょうか？</p>
+        
+        <p>組織側が把握しておらず、従業員側が独自に導入したIT機器やサービスを指す単語です。</p>
+        
+        <p>逆に、組織側の承認を受けたうえで個人で導入しているものに関しては、「<span class="highlight">BYOD（Bring Your Own Device）</span>」と呼ばれ区別されます。</p>
+        
+        <p>組織的な管理がなされていないIT機器やサービスには、常に大きなリスクがつきまといます。</p>
+        
+        <p>シャドーITとして代表的なものとそのリスクをいくつか提示しましょう。</p>
+        
+        <div class="risk-section">
+            <div class="risk-item">
+                <div class="risk-title">SNS</div>
+                <div class="risk-description">気軽に情報のやり取りができるツールですが、会話内容は運営側に記録されています。運営を通じた情報漏洩や、設定によっては意図しない人へ情報を開示してしまうリスクもあります。</div>
+            </div>
+            
+            <div class="risk-item">
+                <div class="risk-title">個人端末</div>
+                <div class="risk-description">個人の所有物のため、セキュリティ対策はまちまちです。端末への不正アクセスや、ウイルス感染した端末を社内ネットワークに接続した結果、感染が拡大することも考えられます。</div>
+            </div>
+            
+            <div class="risk-item">
+                <div class="risk-title">クラウドストレージ</div>
+                <div class="risk-description">データの保存先はサービス提供元ですから、そこからの情報流出はもちろん、個人アカウントが乗っ取られる可能性もあります。SNSと同様に、設定によっては意図しない人へデータを開示してしまうリスクもあります。</div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <div class="example-title">実例</div>
+            <p>静岡県島田市農林課では、フリーメールの利用により約2400件の個人情報が流出する事件が起きました。</p>
+            
+            <p>そのほかにも、岡山大学病院では医師個人が利用していたクラウドサービスのアカウントが乗っ取られ、約290人分の患者情報が流出しました。</p>
+            
+            <p>ハード面の例を挙げますと、兵庫県尼崎市では、住民基本台帳46万人分を含む個人情報を無許可で格納したUSBメモリーの紛失が発生しました（後日発見されたそうです）。</p>
+        </div>
+        
+        <div class="conclusion">
+            <p>こういった事態を防ぐためには、便利だからといって安易に許可なくIT機器やサービスを業務で使用しない意識を持つことが重要です。</p>
+            
+            <p>さらに、シャドーITが発生する理由である「現状の不便」を改善するようなIT機器やサービスの導入を組織の管理下で行うことや、上記のBYODに関するガイドラインの制定を行うこともよいでしょう。</p>
+            
+            <p>これらは本来、IT技術者であれば当然持つべきリテラシーです。しかし、テレワークが普及し、働く場所が多様化した現在、すべての職種の方にとって重要な知識となっています。今一度、意識を新たにしていただければと思います。</p>
+        </div>
+        
+
+    </div>
+</body>
+</html>
