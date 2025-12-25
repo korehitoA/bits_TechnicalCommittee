@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI品質マネジメントガイドライン 第1版 について</title>
+    <style>
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        
+        .date {
+            color: #7f8c8d;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        ol {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        ol li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .quality-section {
+            margin: 10px 0;
+        }
+        
+        .quality-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .quality-items {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .quality-items li {
+            margin-bottom: 3px;
+            list-style-type: disc;
+        }
+        
+        .conclusion {
+            background-color: #e8f5e8;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .reference {
+            border-top: 2px solid #bdc3c7;
+            padding-top: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .reference a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .reference a:hover {
+            text-decoration: underline;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生成AI品質マネジメントガイドライン 第1版 について</h1>
+        
+        <p>2025年5月26日、「生成AI品質マネジメントガイドライン 第1版」が発行されました。本ガイドラインは、生成AIシステムを開発・運用する企業、その中でも特に他社製の基盤モデルを用いた開発・運用を行う企業を主な対象として、システムの品質やリスクマネジメントを行うための指針が記載されています。皆様は今後、自社や現場で生成AIを使用し、システム開発等を進めることが多くなっていくことと思います。生成AIを使用する際は一度、目を通してみてはいかがでしょうか。以下に、本ガイドラインの大まかな構成と、ガイドラインに記載されている内容例を抜粋します。</p>
+        
+        <h2>■ ガイドラインの構成</h2>
+        
+        <p>本ガイドラインは、主に下記のような構成で記載されています。</p>
+        
+        <ol>
+            <li>品質マネジメントの考え方</li>
+            <li>大規模言語モデルを利用したAIシステムが満たすべき品質</li>
+            <li>扱うデータの品質</li>
+            <li>システム管理の品質</li>
+            <li>セキュリティ対策</li>
+        </ol>
+        
+        <p>各構成の内容についてはここでは割愛しますが、どの項目も生成AIを扱う上で、どのような観点を持てばよいのか、体系立てて記載されています。また、上記の内容は生成AIに限らず、現行のシステム品質を保持する際にも応用できるのではないかと思います。</p>
+        
+        <h2>■ ガイドラインの内容例（抜粋）</h2>
+        
+        <p>ガイドラインの構成のうち、「２．大規模言語モデルを利用したAIシステムが満たすべき品質」の内容の一部を下記に抜粋します。</p>
+        
+        <p>生成AIシステムが満たすべき品質を考慮する際に、必要な要素を下記のように定義しています。</p>
+        
+        <div class="quality-section">
+            <div class="quality-title">要求満足性：</div>
+            <ul class="quality-items">
+                <li>システムがもつ機能そのものが利用者の要求を満たしているか</li>
+                <li>システムのもつ機能のふるまいが利用者の要求を満たしているか</li>
+            </ul>
+            
+            <div class="quality-title">信頼性：</div>
+            <ul class="quality-items">
+                <li>想定された作動条件下で、システムが仕様通りの機能を実行しているか</li>
+                <li>異常なデータが入力された場合、通常時と比較してシステムが滑らかに機能しているか</li>
+                <li>同一入力を繰り返したとき、各入力に対する出力内容に整合性があるか</li>
+                <li>デッドロックや無限ループといった処理の進行に欠陥はないか</li>
+                <li>ユーザが使用するに当たり、システム運用が可能か</li>
+                <li>故障しても、意図通りに運用できるか</li>
+                <li>故障により中断しても影響を受けた情報を回復し、システムを復元できるか</li>
+            </ul>
+            
+            <div class="quality-title">インタラクション性：<span class="subtitle">（インタラクション＝相互作用）</span></div>
+            <ul class="quality-items">
+                <li>システムがユーザにとって適切かどうか事前に認識できるか</li>
+                <li>一部のユーザにしかシステムを使用できない、という状態になっていないか</li>
+                <li>システムの運用、操作、制御が容易か</li>
+                <li>生成AIのシステムが外部情報で補完してデータを出力する際、正しい情報を補えているか</li>
+            </ul>
+            
+            <div class="quality-title">セキュリティ：</div>
+            <ul class="quality-items">
+                <li>利用許可条件に従って、情報の保護、処理が行えるか</li>
+                <li>稼働中のシステムの状態を安定させるために外部から介入ができるか</li>
+                <li>システム自体の情報やアクセス先の情報の身元が明らかか</li>
+                <li>システムがデータを出力する際、データの出力要因を再現できるか</li>
+            </ul>
+            
+            <div class="quality-title">安全性：</div>
+            <ul class="quality-items">
+                <li>システム作動時、危害が生じるような入力を制限できるか</li>
+                <li>システム故障時、危害が生じるような出力を制限できるか</li>
+                <li>システムから出力されたデータがAI技術によって生成されたことを確認できるか</li>
+            </ul>
+            
+            <div class="quality-title">プライバシー：</div>
+            <ul class="quality-items">
+                <li>想定外のプライバシー情報の漏えいがないか</li>
+            </ul>
+            
+            <div class="quality-title">公平性：</div>
+            <ul class="quality-items">
+                <li>配慮の必要なデータを取り扱う際、想定外の偏りが生じていないか</li>
+            </ul>
+            
+            <div class="quality-title">性能効率性：</div>
+            <ul class="quality-items">
+                <li>応答時間や処理時間が期待通りか</li>
+                <li>処理計算の際、リソースを過剰に使用していないか</li>
+            </ul>
+            
+            <div class="quality-title">移植性：</div>
+            <ul class="quality-items">
+                <li>システムを他の環境に移すことが容易か</li>
+            </ul>
+            
+            <div class="quality-title">保守性：</div>
+            <ul class="quality-items">
+                <li>モジュール化されているか</li>
+                <li>システムの修正が容易か</li>
+                <li>システムのテストが容易か</li>
+            </ul>
+        </div>
+        
+        <div class="conclusion">
+            <p>システムを扱う我々からすれば、上記の内容は当たり前のことですし、AIに限った話でないものが多いと思った方も多いのではないでしょうか。生成AIもシステムである以上、我々が現在扱っているものとの共通点は数多くあります。本記事やガイドラインをきっかけに、より積極的に生成AIを利活用してみてはいかがでしょうか。</p>
+        </div>
+        
+        <div class="reference">
+            <strong>-- 参考文献 --</strong><br>
+            <a href="https://www.aist.go.jp/aist_j/press_release/pr2025/pr20250526/pr20250526.html" target="_blank">https://www.aist.go.jp/aist_j/press_release/pr2025/pr20250526/pr20250526.html</a>
+        </div>
+    </div>
+</body>
+</html>
