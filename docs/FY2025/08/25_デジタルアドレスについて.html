@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタルアドレスについて</title>
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        p {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul {
+            margin: 20px 0;
+            padding-left: 0;
+        }
+        
+        li {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+        
+        li:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .challenge-item {
+            background: rgba(231, 76, 60, 0.05);
+            border-left-color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .challenge-item:hover {
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3) 0%, rgba(255, 255, 0, 0.3) 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>デジタルアドレスについて</h1>
+        
+        <h2>１．デジタルアドレスとは？</h2>
+        <p>従来の住所は、表記ゆれや誤入力が発生しやすく、誤配や非効率の原因となることがありました。デジタルアドレスは、この課題を解決するために導入されました。</p>
+        <p>具体的には、日本郵便が運営している「ゆうID」に登録された住所に対して発行される<span class="highlight">ランダムな7桁の英数字コード(例：QE8-HMVR)</span>です。このコードは、住所全体（建物名や部屋番号を含む）を表すため、短いコードの入力だけで正確な住所情報を自動で呼び出すことができます。</p>
+        
+        <h2>２．特徴</h2>
+        <p>デジタルアドレスには以下の特徴があります。</p>
+        <ul>
+            <li>
+                <div class="feature-title">個人・法人がデジタルアドレスの発行が可能</div>
+                住所からデジタルアドレスの作成ができます。
+            </li>
+            <li>
+                <div class="feature-title">正引きが可能</div>
+                デジタルアドレスから住所の取得ができます。なお、氏名や住所からデジタルアドレスを逆引きすることはできません。
+            </li>
+            <li>
+                <div class="feature-title">API経由でアクセス可能</div>
+                API登録すれば、デジタルアドレスから住所を取得できます。
+            </li>
+            <li>
+                <div class="feature-title">ユーザーが管理可能</div>
+                デジタルアドレスの関連付けを作成したユーザーは、削除や変更ができます。
+            </li>
+        </ul>
+        
+        <h2>３．課題</h2>
+        <ul>
+            <li class="challenge-item">デジタルアドレスと住所の紐づけ自体は公開されていませんが、API登録を行えば誰でもデジタルアドレスから住所を取得することができます。</li>
+            <li class="challenge-item">ランダムな文字列ではありますが、ブルートフォースアタックに対して脆弱という問題があります。</li>
+            <li class="challenge-item">普及するには、多くのWebサイトやブラウザでの対応が必要になります。</li>
+        </ul>
+        
+        <h2>４．最後に</h2>
+        <div class="conclusion">
+            <p>記事執筆時点（2025年7月）では、デジタルアドレスは抱えている課題に対するメリットが限定的で、今後の発展に期待という状況です。</p>
+            <p>考え方・技術的には非常に興味深いアプローチであり、住所の標準化や入力ミスの削減という観点では大きな可能性を秘めています。特に、ECサイトでの配送先入力や、各種申込書での住所入力において、UXの向上が期待できます。</p>
+            <p>しかし、実際の普及を考えると、いくつかの重要な課題が浮かび上がります。まず、セキュリティ面での懸念は深刻で、ブルートフォースアタックへの対策や、API経由での住所取得に対するアクセス制御の強化が必要です。また、普及には多くのWebサイトやアプリケーションでの対応が必要となり、事業者側の導入コストや技術的ハードルも考慮する必要があります。</p>
+            <p>デジタルアドレスが真に社会に根付くためには、これらの課題を解決しつつ、利用者と事業者双方にとって明確なメリットを提供することが不可欠でしょう。今後の技術改良とエコシステムの発展に注目していきたいと思います。</p>
+        </div>
+    </div>
+</body>
+</html>
