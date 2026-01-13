@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランサムウェア - 被害に遭わないために</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #c62828;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            border-bottom: 3px solid #c62828;
+            padding-bottom: 15px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.5em;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #1565c0;
+            background-color: #e3f2fd;
+            padding: 10px 15px;
+            border-left: 5px solid #1565c0;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            color: #2e7d32;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            text-indent: 1em;
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .numbered-section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .impact-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .impact-table th {
+            background-color: #1565c0;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .impact-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            vertical-align: top;
+        }
+        .impact-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .impact-category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 25%;
+        }
+        .impact-category.internal {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .impact-category.external {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .impact-table ul {
+            margin: 0;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        .impact-table li {
+            margin-bottom: 8px;
+        }
+        .impact-table li:last-child {
+            margin-bottom: 0;
+        }
+        .footer-note {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            text-indent: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ランサムウェア<br><span class="subtitle">～被害に遭わないために～</span></h1>
+
+        <h2>ランサムウェアの脅威</h2>
+        <p>2025年9月29日にアサヒグループHDが、10月19日にはアスクルがシステム障害の発生を発表しました。その後両社ともにランサムウェア攻撃を受けたことを公表、サイバーテロ集団による犯行声明も出される事態となりました。11月24日時点でも、両社ともに完全な復旧には至っておりません。</p>
+
+        <h2>ランサムウェアとは</h2>
+        <p>ランサムウェアとは不正プログラムの一種です。感染すると保存されているデータが<strong>不正に暗号化</strong>され、使用できない状態となります。加害者は被害者に対し、そのデータを復号することと引き換えに対価を要求します。</p>
+
+        <h2>被害が長期化する原因</h2>
+        <div class="numbered-section">
+            <div class="section-title">1. データ再構築の長期化</div>
+            <p>ランサムウェアによって暗号化されたデータの復号は至難の業です。特にバックアップサーバのデータまで暗号化されてしまうと、過去の紙の記録、控えなどから<strong>「手作業」</strong>でデータを再構築する必要があります。そのため、大幅な時間を要してしまいます。</p>
+        </div>
+        <div class="numbered-section">
+            <div class="section-title">2. 原因の究明と侵入口の除去</div>
+            <p>データを再構築しても、原因がわからない場合や侵入口を除去しきれなかった場合、復旧直後に再攻撃を受けてしまいます。そのため、時間をかけてでも<strong>徹底的な調査・分析</strong>が必要です。</p>
+        </div>
+
+        <h2>内外部への影響</h2>
+        <table class="impact-table">
+            <thead>
+                <tr>
+                    <th>影響範囲</th>
+                    <th>具体的な影響内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="impact-category internal">
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                            内部への影響
+                        </div>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>業務停止に伴う<strong>売上機会の損失</strong></li>
+                            <li>復旧、調査等にかかる<strong>金銭的損失</strong></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="impact-category external">
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                            外部への影響
+                        </div>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><strong>情報漏洩</strong>に伴う二次被害のリスク</li>
+                            <li>取引停止に伴う<strong>サプライチェーンの混乱</strong></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>予防策(感染しないために)</h2>
+        <div class="numbered-section">
+            <div class="section-title">1. 定期的なバックアップ</div>
+            <p>情報を一極化せず、できるだけ<strong>異なるメディア</strong>に保存していく必要があります。</p>
+        </div>
+        <div class="numbered-section">
+            <div class="section-title">2. ソフトウェア・セキュリティソフトの最新化</div>
+            <p>脆弱性がある状態を避け、かつ感染リスクを下げるため、ソフトウェアやセキュリティシステムなどの<strong>最新化</strong>が重要です。VPN接続や仮想環境からの認証情報を悪用されるケースも目立っているため、特に注意が必要です。</p>
+        </div>
+        <div class="numbered-section">
+            <div class="section-title">3. セキュリティ教育の実践</div>
+            <p>アサヒグループHDでの被害発生時、社員が受け取った悪質メールの添付ファイルを不用意に開いたことでマルウェアが拡散しました。このような事象を回避するため、日ごろから<strong>社員へのセキュリティ教育</strong>が重要となります。</p>
+        </div>
+
+        <div class="footer-note">
+            <p>上記2社は大きな会社だったこともあり、ニュースでも大きく取り上げられることとなりました。実際は中小企業でも被害が多発しています。あまり他人事と思わず、日ごろからセキュリティ対策を実践していく必要があります。</p>
+        </div>
+    </div>
+</body>
+</html>

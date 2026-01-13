@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIのリスクについて</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a0dab;
+            border-bottom: 2px solid #1a0dab;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2d2d2d;
+            margin-top: 30px;
+            border-left: 5px solid #1a0dab;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #555;
+            margin-top: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .emphasis {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        .note {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        .diagram {
+            background-color: #f0f7ff;
+            border: 2px solid #1a0dab;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+        .highlight-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step {
+            background-color: #e8f4f8;
+            border-left: 4px solid #1a0dab;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+        .risk-box {
+            background-color: #fff0f0;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .decision-box {
+            background-color: #f0fff4;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>AIのリスクについて</h1>
+
+    <h2>はじめに</h2>
+    <p>業務効率化や意思決定支援など、様々な場面でAIが活用されるようになってきました。特に、多くのAIエージェントは、ファイル編集やコマンド実行などのPC操作を自動的に行えるようになり、その可能性はさらに広がっています。また、MCP（Model Context Protocol）を利用することで、より高度な機能や外部サービスとの連携も可能になりました。</p>
+
+    <p>しかし、その便利さの裏側には、見過ごせないリスクが存在します：</p>
+
+    <ul>
+        <li><strong>情報漏洩のリスク</strong>: 情報が複数の経路を経由することによる機密情報の漏洩</li>
+        <li><strong>攻撃のリスク</strong>: PC操作の権限を持つことによる、システムへの攻撃や乗っ取り</li>
+        <li><strong>判断ミスのリスク</strong>: AIの誤った判断による、意図しない破壊的な操作</li>
+    </ul>
+
+    <p>AIを安全かつ効果的に活用していくためには、これらのリスクを正しく理解し、組織としてどこまで信頼・許容するのか、どのような対策を講じるべきかを明確にすることが必要です。</p>
+
+    <p>本資料では、AI利用における主要なリスクについて解説します。</p>
+
+    <h3>本資料の前提</h3>
+    <div class="note">
+        <p>本資料は、一般的な<strong>クラウド型AIサービス</strong>を利用する場合を想定しています。オンプレミスでLLMを運用する場合や、イントラネット内で完結する環境では、リスクの種類や程度が異なり、多くのリスクへの対策となります。</p>
+    </div>
+
+    <h2>AIに入力した情報の流れとPC操作</h2>
+
+    <h3>基本的な情報の流れ</h3>
+    <p>AIエージェントでは、入力した情報は以下のような経路を辿ります：</p>
+
+    <div class="diagram">[1. AIアプリケーション]
+   ↓ プロンプト入力
+[2. LLM] (クラウド上のサーバー)
+   ↓ 「PCを操作する必要がある」と判断
+[3. 操作の実行]
+   ├─ アプリ内蔵機能（Cursorのファイル編集等）
+   └─ MCPサーバー経由（ローカル/リモート共にあり）
+   ↓ 実際のPC操作を実行
+[4. ローカルPC] (ファイル、データベース、システム等)
+   ↓ 操作結果を返す
+   ↓ さらに操作が必要な場合は [2] に戻る
+   ↓ 完了した場合
+[ユーザーに回答]</div>
+
+    <h3>各段階で何が起きているか</h3>
+
+    <h4>ステップ1-2: プロンプト入力とクラウドへの送信</h4>
+    <div class="step">
+        <ul>
+            <li>プロンプトがインターネット経由でLLM提供企業のクラウドサーバーに送信される</li>
+            <li>アプリケーションによっては、アプリ開発会社のサーバーにも送信される場合がある</li>
+        </ul>
+    </div>
+
+    <h4>ステップ2-3: LLMの判断</h4>
+    <div class="step">
+        <p>LLMが指示を解釈し、どのように対応するかを判断</p>
+        <ul>
+            <li><strong>パターンA</strong>: ツールを使わず、記憶から直接回答する</li>
+            <li><strong>パターンB</strong>: ツールを使ってPC操作や情報取得を行う</li>
+        </ul>
+        <p><strong>なぜLLMがツールの存在を知っているのか？</strong></p>
+        <ul>
+            <li>アプリ起動時に利用可能なツール一覧を取得済みのため、必要なツールを選択できる</li>
+        </ul>
+        <p>パターンBの場合、AIアプリケーションに指示を返す</p>
+    </div>
+
+    <h4>ステップ3: 操作の実行</h4>
+    <div class="step">
+        <p>LLMからの指示を受けて、以下のいずれかの方法で操作を実行します：</p>
+        
+        <p><strong>方法1: アプリ内蔵機能</strong></p>
+        <ul>
+            <li>AIアプリケーション自身が持つ機能を使用</li>
+            <li>例：Cursorのファイル編集、ターミナル実行機能</li>
+            <li>PC上で直接実行される</li>
+        </ul>
+
+        <p><strong>方法2: MCP（Model Context Protocol）経由</strong></p>
+        <ul>
+            <li>MCPサーバーを通じて操作を実行</li>
+            <li>より高度な操作や外部サービス連携に使用</li>
+            <li><strong>MCPサーバーの配置</strong>：
+                <ul>
+                    <li>ローカル型：ローカルPC上で動作</li>
+                    <li>リモート型：ネットワーク上のサーバーで動作</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h4>ステップ4: 実際のPC操作</h4>
+    <div class="step">
+        <p>実行される操作の例：</p>
+        <ul>
+            <li>ファイルの読み取り・書き込み・削除</li>
+            <li>データベースへのクエリ・更新</li>
+            <li>外部サービスへのメッセージ送信</li>
+            <li>システムコマンドの実行</li>
+        </ul>
+        <p>実行結果をLLMに返す</p>
+        <p>LLMがその結果を解釈して、次の行動や回答を実施</p>
+    </div>
+
+    <h3>情報が経由する主なポイント</h3>
+    <p>この一連の流れで、入力した情報は以下の場所を経由します：</p>
+
+    <ol>
+        <li><strong>ローカルPC</strong> - AIアプリケーション内</li>
+        <li><strong>アプリ開発会社のサーバー</strong> - Cursor等の第三者製アプリの場合（場合による）</li>
+        <li><strong>LLM提供企業のサーバー</strong> - クラウド上（Anthropic、OpenAI等）</li>
+        <li><strong>MCPサーバー</strong> - ローカルまたはリモート（PC操作時）</li>
+        <li><strong>実際のリソース</strong> - ファイル、データベース、外部サービス等</li>
+    </ol>
+
+    <p>これらの間の通信は全てインターネット回線を経由します。<br>
+    そして、読み取ったファイルの内容も、同じ経路を逆に辿ってLLMに送られます。</p>
+
+    <h3>リスクにつながるポイント</h3>
+    <p>ここまで説明してきた情報の流れの中で、「はじめに」で示した3つのリスクが発生します：</p>
+
+    <h4>1. 情報漏洩のリスク</h4>
+
+    <p><strong>どの段階で発生するか</strong>:</p>
+    <ul>
+        <li><strong>ステップ1-2（クラウド送信）</strong>: プロンプトや取得したデータがLLM提供企業のサーバーに送信される</li>
+        <li><strong>アプリ開発会社のサーバー</strong>: 第三者製アプリの場合、そちらのサーバーにも送信される可能性</li>
+        <li><strong>インターネット回線</strong>: 通信内容が盗聴される可能性</li>
+        <li><strong>MCPサーバー（リモート）</strong>: リモートサーバーに情報が保存される可能性</li>
+    </ul>
+
+    <div class="risk-box">
+        <p><strong>主なリスク</strong>:</p>
+        <ul>
+            <li>機密情報や個人情報がクラウド事業者に渡る</li>
+            <li>各ポイントでログとして記録され、複数の場所に情報が残る</li>
+            <li>ネットワーク盗聴により情報が漏れる</li>
+            <li>データ保管サーバー侵害時に大量の情報が流出する</li>
+        </ul>
+    </div>
+
+    <p><strong>企業の方針と信頼性の問題</strong>:</p>
+    <p>多くのクラウドサービスでは、「学習に利用しない」「データ保管をしない」「一定期間後に削除」といった情報の扱いに関するルールがプライバシーポリシーで定められています。サービスを選択する際は、これらの方針やデータ保管場所（国・地域）、セキュリティ認証（ISO 27001、SOC 2等）を理解することが重要です。</p>
+
+    <p>それでも、以下の理由から完全に保障されるわけではありません：</p>
+    <ul>
+        <li>企業の謳っている内容が守られているかを技術的に検証できない</li>
+        <li>企業の社員や管理者によるデータアクセス、国家機関からの開示要請によるデータ取得の可能性</li>
+    </ul>
+
+    <div class="decision-box">
+        <p><strong>情報の分類と判断基準</strong>:</p>
+        <p>AIツールに関しては、使う/使わないの二択ではありません。<span class="emphasis">どの情報なら許容できるかを判断すること</span>も重要です。<br>
+        例えば、公開情報や一般的な技術情報は許容できても、顧客情報や財務データは避けるべきといった判断です。<br>
+        組織として、企業をどこまで信頼し、どのレベルの情報までAIに入力可能かを明確にすることが重要です。</p>
+    </div>
+
+    <h4>2. 攻撃のリスク</h4>
+
+    <p><strong>どの段階で発生するか</strong>:</p>
+    <ul>
+        <li><strong>MCPサーバーのインストール・更新時</strong>: 配布元の改ざん、サプライチェーン攻撃</li>
+        <li><strong>インターネット通信時</strong>: 通信中のプロンプトや応答内容改ざん（MCPインストール時、LLMとの通信時、リモートMCPサーバーとの通信時など）</li>
+        <li><strong>ステップ3（操作実行）</strong>: 悪意のあるMCPサーバーや内蔵機能の脆弱性を突いた攻撃</li>
+        <li><strong>ステップ2-3（判断）</strong>: 外部から取得した情報に含まれる悪意のある指示を実行（プロンプトインジェクション）</li>
+        <li><strong>ステップ4（PC操作）</strong>: ローカルPCへの直接的な攻撃</li>
+    </ul>
+
+    <p><strong>AIエージェントやMCPに与えられる権限</strong>:</p>
+    <p>AIエージェントやMCPサーバーには、ファイル操作、コマンド実行、データベースアクセスなど、PCを直接操作する強力な権限が与えられています。この権限があるからこそ便利に使えるのですが、悪用されると深刻な被害につながります。</p>
+
+    <div class="risk-box">
+        <p><strong>主なリスク</strong>:</p>
+        <p>攻撃が成功すると、最終的に<span class="emphasis">PCが乗っ取られる</span>リスクが高いです。具体的には、マルウェアやバックドアの設置、ファイルの破壊・暗号化、認証情報の窃取などが行われる可能性があります。</p>
+    </div>
+
+    <div class="decision-box">
+        <p><strong>権限の制限と判断基準</strong>:</p>
+        <p>使用するツールやMCPサーバーを組織として信頼した上で、ファイルの読み取りのみ許可するか、書き込みやコマンド実行まで許可するかといった、<span class="emphasis">AIツールやMCPサーバーにどこまでの権限を与えるか</span>を判断する必要があります。</p>
+    </div>
+
+    <h4>3. 判断ミスのリスク</h4>
+
+    <p>このリスクは、悪意のある攻撃とは異なり、<span class="emphasis">AIの技術的限界や誤解によって発生</span>します。信頼できるLLM・MCPサーバーを使用していても、AIが誤った判断をすることで被害が発生する可能性があります。</p>
+
+    <p><strong>どの段階で発生するか</strong>:</p>
+    <ul>
+        <li><strong>ステップ2-3（LLMの判断）</strong>: AIが状況を誤解し、不適切な判断をする</li>
+        <li><strong>ステップ4（PC操作）</strong>: 誤った操作が実行され、さらに連鎖する
+            <ul>
+                <li>LLMは操作結果を見て次の操作を判断します（ステップ2に戻る）</li>
+                <li>最初の判断が間違っていると、その誤った結果に基づいて次も誤判断</li>
+                <li>これが繰り返されることで、被害が連鎖的に拡大する可能性があります</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="risk-box">
+        <p><strong>主なリスク</strong>:</p>
+        <ul>
+            <li><strong>ハルシネーション</strong>: 事実と異なる情報を生成し、それに基づいて操作</li>
+            <li><strong>過剰な操作</strong>: 「古いファイルを削除」が重要ファイルまで削除</li>
+            <li><strong>文脈の誤解</strong>: 曖昧な指示を誤って解釈し、意図しない動作</li>
+            <li><strong>連鎖的な誤操作</strong>: 一つの誤判断が複数の破壊的操作を引き起こす</li>
+        </ul>
+    </div>
+
+    <div class="decision-box">
+        <p><strong>人間の関与と判断基準</strong>:</p>
+        <p>判断ミスは技術的に避けられないため、<span class="emphasis">AIが間違う前提で、人間がどのように関与するか</span>を判断する必要があります。<br>
+        取り返しのつかない操作については、特に慎重な運用ルールが求められます。</p>
+    </div>
+
+    <h4>その他のリスク</h4>
+    <p>上記の3つ以外にも、法的リスク・可用性リスク・依存性リスクなど様々なリスクが存在します。</p>
+
+    <hr>
+
+    <h2>まとめ</h2>
+    <p>AI技術は、業務効率化や生産性向上に大きく貢献し、今や欠かせないツールとなっています。特にAIエージェントは、単なる情報提供だけでなく、実際のPC操作を自動化することで、さらなる可能性を広げています。</p>
+
+    <p>一方で、本資料で示したように、情報漏洩、攻撃、判断ミスといった様々なリスクも存在します。</p>
+
+    <div class="highlight-box">
+        <p>重要なのは、<span class="emphasis">AIの便利さとリスクの両面を正しく理解した上で、組織としてAI企業やAIの精度をどこまで信頼・許容し、どのように活用するかを判断すること</span>です。リスクを恐れて活用を避けるのではなく、適切な対策と運用ルールを定めながら、AIの力を最大限に引き出していくことが求められています。</p>
+    </div>
+
+    <hr>
+
+</body>
+</html>
+
+
