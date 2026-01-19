@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft 365 Copilot Tuning 解説資料</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0078d4;
+        }
+        
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0078d4;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .intro {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            padding: 20px;
+            border-left: 5px solid #0078d4;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0078d4;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+        
+        .feature-item {
+            background: linear-gradient(135deg, #f8fff8 0%, #f0fff0 100%);
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left: 4px solid #107c10;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #0d5a0d;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .characteristic-item {
+            background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%);
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left: 4px solid #ff9800;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .characteristic-title {
+            font-weight: 600;
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .pricing-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            padding: 20px;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .attention-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 20px;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .attention-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #cce7ff 100%);
+            padding: 25px;
+            border: 2px solid #0078d4;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .references {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .references-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .reference-item {
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+        
+        .reference-item a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        
+        .reference-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        @media print {
+            body {
+                padding: 15mm;
+                font-size: 12px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .feature-item,
+            .characteristic-item,
+            .pricing-box,
+            .attention-box,
+            .summary-box {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="main-title">Microsoft 365 Copilot Tuning</h1>
+        <p class="subtitle">～業務特化型AIエージェント構築の新機能～</p>
+    </div>
+
+    <div class="intro">
+        <p>Microsoftは2025年5月に、企業データを使ってAIモデルをファインチューニングし、業務に特化したAIエージェントを簡単に構築できる新機能「<span class="highlight">Microsoft 365 Copilot Tuning</span>」を発表しました。</p>
+        <p>本記事では、Microsoft 365 Copilot Tuningについて詳しく解説します。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●Microsoft 365 Copilot Tuningでできること・主な機能</h2>
+        
+        <div class="feature-item">
+            <div class="feature-title">①業務特化型エージェントの構築</div>
+            <p>Microsoft 365 Copilot Tuningでは、企業内に蓄積されたドキュメントやナレッジベースをもとに、業務に特化したAIエージェントを構築できます。</p>
+            <p>例えば、社内規定や契約書のテンプレート、技術サポート資料といったドメイン固有のデータを用いて、自然言語処理タスクに最適化されたエージェントを簡単に生成可能です。</p>
+            <p>この機能は、<strong>低コード環境</strong>で提供されており、専門的なAI知識がなくても業務部門主導で導入を進められるのが特徴です。</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-title">②Retrieval-Augmented Generation（RAG）による高精度な応答</div>
+            <p>Copilot Tuningは、<strong>RAG（検索拡張生成）</strong>という技術を基盤にしています。</p>
+            <p>RAGにより、社内用語や特有の言い回しにも対応できる高精度な回答生成が可能となり、ユーザーが求める実務レベルの正確性と一貫性を担保します。</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-title">③Q&A対応エージェント</div>
+            <p>テクニカルサポートや社内ヘルプデスク向けに、Q&A形式での応答に特化したエージェントを構築できます。</p>
+            <p>SharePointやMicrosoft Graphと連携して、技術マニュアルや業務フローなどをもとに、社内用語や略語に対応した的確な回答を生成でき、問い合わせ対応の効率化と品質向上が期待できます。</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-title">④文書自動生成エージェント</div>
+            <p>提案書、契約書、社内通達といった文書を、企業独自のフォーマットや文体で自動生成するエージェントを構築できます。</p>
+            <p>過去に作成された成功事例やテンプレートデータを学習させることで、ドラフト作成の時間を大幅に短縮できます。生成された文書は、WordやTeams上ですぐに確認・編集可能です。</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-title">⑤要約・分析エージェント</div>
+            <p>会議議事録やプロジェクト報告書、リサーチ資料など、大量の情報を自動で要約・分析するエージェントを作成できます。</p>
+            <p>特定の指標やKPIに基づいた要約を行うため、経営層や関係者への報告資料作成に活用されます。複雑な文書をRAGモデルが補助することで、情報の取りこぼしを防ぎつつ重要ポイントを明確化できます。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●Microsoft 365 Copilot Tuningの特徴</h2>
+        
+        <div class="characteristic-item">
+            <div class="characteristic-title">①低コードでのモデルチューニング</div>
+            <p>データサイエンティストによるコーディングや手動のタスク設計が不要で、Copilot Studio上で数クリックするだけでファインチューニングが可能です。業務部門の担当者自身が主導できます。</p>
+        </div>
+
+        <div class="characteristic-item">
+            <div class="characteristic-title">②セキュアなデータ利用</div>
+            <p>トレーニングに使用されるファイルの内容には誰もアクセスできず、アクセスリスト（ACL）も自動的に適用されます。モデル利用権限もデータのアクセス権と連携し、データ漏洩リスクを最小化します。</p>
+        </div>
+
+        <div class="characteristic-item">
+            <div class="characteristic-title">③前提タスクとテンプレートの提供</div>
+            <p>エージェント作成に必要なタスク（ドキュメント生成、要約、Q&A）はテンプレート化されており、利用者は内容の設計に集中できます。拡張性も高く、今後対応タスクや接続可能データソースは増える予定です。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●Microsoft 365 Copilot Tuningの料金プラン</h2>
+        <div class="pricing-box">
+            <p>この機能は<strong>「Early Access Program（EAP）」</strong>というプログラムを通じて提供されており、参加にはMicrosoft 365 Copilotライセンスを5,000以上保有する必要があります。</p>
+            <p>また、選定されたユースケース（要約、Q&A、ドキュメント生成）に基づく追加審査があります。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●使う上での注意点</h2>
+        <div class="attention-box">
+            <div class="attention-title">セキュリティとプライバシー保護</div>
+            <p>Microsoft 365 Copilot Tuningは、企業データを用いたAIモデルのファインチューニングを行うため、セキュリティとプライバシー保護が重要です。</p>
+            <ul>
+                <li>トレーニングデータは非公開のまま処理され、モデル利用にはアクセス権の整合性が確保されます</li>
+                <li>EAP参加にはMicrosoft側の審査があり、対応タスクも事前定義された3種類「Q&A対応エージェント」「文書自動生成エージェント」「要約・分析エージェント」に限定され、現時点でカスタムタスクの追加は不可となっています</li>
+                <li>顧客データは基盤モデルの訓練には使用されず、Microsoft 365のサービス境界内に限定されます</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●まとめ</h2>
+        <div class="summary-box">
+            <p>Microsoft 365 Copilot Tuningは、専門知識を持つ現場担当者が低コードでAIを自社仕様に最適化できる新時代のソリューションです。</p>
+            <p>ChatやWordなどのMicrosoft 365製品と連携しながら、業務に即したエージェントを構築できるため、生産性向上やサービス品質の強化に寄与します。</p>
+            <p>特に専門性の高い業務に対して、セキュアかつ効率的にAIを導入したい企業にとって、魅力的な選択肢となるでしょう。</p>
+        </div>
+    </div>
+
+    <div class="references">
+        <h3 class="references-title">【参照サイト】</h3>
+        <div class="reference-item">・AI Market「Microsoft 365 Copilot Tuningとは？できること、特徴、料金体系、利用時の注意点を徹底解説！」<br><a href="https://ai-market.jp/services/microsoft-365-copilot-tuning/">https://ai-market.jp/services/microsoft-365-copilot-tuning/</a></div>
+    </div>
+</body>
+</html>

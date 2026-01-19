@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>202511_情報処理技術者試験が2026年度に全てCBT化</title>
+    <style>        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #d32f2f;
+        }
+        
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .intro {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            padding: 20px;
+            border-left: 5px solid #d32f2f;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #d32f2f;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ffebee;
+        }
+        
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 18px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1976d2;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .target-item {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 4px solid #1976d2;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f2f7 100%);
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left: 4px solid #0288d1;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .info-title {
+            font-weight: 600;
+            color: #0277bd;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .note-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 15px;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 8px;
+        }
+        
+        .table-wrapper {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #d32f2f;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .time-table {
+            background: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #333;
+            border-radius: 0 5px 5px 0;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #cce7ff 100%);
+            padding: 25px;
+            border: 2px solid #d32f2f;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .references {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .references-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .reference-item {
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        
+        .reference-item a {
+            color: #d32f2f;
+            text-decoration: none;
+        }
+        
+        .reference-item a:hover {
+            text-decoration: underline;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .process-item {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid #388e3c;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .process-title {
+            font-weight: 600;
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+        
+        @media print {
+            body {
+                padding: 15mm;
+                font-size: 12px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .definition-box,
+            .info-box,
+            .note-box,
+            .summary-box,
+            .process-item {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="main-title">2026年度からレベル3以上の情報処理技術者試験がすべてCBT化へ</h1>
+    </div>
+
+    <div class="intro">
+        <p>独立行政法人情報処理推進機構（IPA）は2025年8月12日、応用情報技術者試験および高度試験、さらには情報処理安全確保支援士試験について、2026年度（令和8年度）からペーパー方式を廃止し、すべてCBT（Computer Based Testing）方式に移行する方針を発表しました。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●CBT（Computer Based Testing）方式とは</h2>
+        <div class="definition-box">
+            <p>パソコンを利用して実施する試験です。受験者は試験会場に行き、用意されたパソコンの画面に表示される問題を読み、キーボードとマウスを用いて問題に解答します。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●移行の背景と概要</h2>
+        <p>現在、応用情報技術者試験、高度試験および情報処理安全確保支援士試験については、春期（4月）と秋期（10月）の年2回、ペーパー方式で実施されています。社会でのデジタル化の動向を踏まえ、受験者の負担軽減や利便性向上を目的に、試験の実施方式を見直すこととなりました。</p>
+        <p>これにより、これまでレベル2以下（ITパスポート、基本情報技術者、情報セキュリティマネジメント試験など）ではすでにCBT方式で運営されてきたのに加えて、記述式・論述式問題を含むレベル3以上の試験区分もCBT方式になります。</p>
+        
+        <div class="note-box">
+            <div class="note-title">※重要な確認事項</div>
+            <p>これら試験区分で問う知識・技能の範囲そのものに変更はありません。また出題形式（多肢選択式・記述式・論述式）、出題数および試験時間も同様に変更はありません。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●対象となる試験区分</h2>
+        <div class="target-item">
+            <strong>応用情報技術者試験（AP）</strong>
+        </div>
+        <div class="target-item">
+            <strong>高度試験</strong><br>
+            <strong>　・ITストラテジスト試験（ST）</strong><br>
+            <strong>　・システムアーキテクト試験（SA）</strong><br>
+            <strong>　・プロジェクトマネージャ試験（PM）</strong><br>
+            <strong>　・ネットワークスペシャリスト試験（NW）</strong><br>
+            <strong>　・データベーススペシャリスト試験（DB）</strong><br>
+            <strong>　・エンベデッドシステムスペシャリスト試験（ES）</strong><br>
+            <strong>　・ITサービスマネージャ試験（SM）</strong><br>
+            <strong>　・システム監査技術者試験（AU）</strong>
+        </div>
+        <div class="target-item">
+            <strong>情報処理安全確保支援士試験（SC）</strong>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●実施方式移行後の試験実施時期</h2>
+        <p>春期（4月）と秋期（10月）であった試験実施を変更し、一定期間内に複数日で試験を実施する予定です。</p>
+        <p>試験会場は全国に設置され、実施期間中に空席のある試験会場・試験実施日から、各自の都合に合わせて選択して申し込んでいただきます。</p>
+        <p>なお、すでにCBT方式となっているITパスポート試験、情報セキュリティマネジメント試験および基本情報技術者試験については変更はなく、年間を通じてCBT方式で試験を実施します。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●科目名称の変更</h2>
+        <p>受験者は会場ごとに設定された予約枠から自由に受験日時を選択できるようになるため、科目名が以下のように変更される予定です。</p>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>従来の呼称</th>
+                    <th>新しい呼称</th>
+                </tr>
+                <tr>
+                    <td>午前試験</td>
+                    <td>科目A試験</td>
+                </tr>
+                <tr>
+                    <td>午前Ⅰ試験</td>
+                    <td>科目A-1試験</td>
+                </tr>
+                <tr>
+                    <td>午前Ⅱ試験</td>
+                    <td>科目A-2試験</td>
+                </tr>
+                <tr>
+                    <td>午後試験</td>
+                    <td>科目B試験</td>
+                </tr>
+                <tr>
+                    <td>午後Ⅰ試験</td>
+                    <td>科目B-1試験</td>
+                </tr>
+                <tr>
+                    <td>午後Ⅱ試験</td>
+                    <td>科目B-2試験</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="info-box">
+            <div class="info-title">免除制度の継続</div>
+            <p>科目名称の変更によって、従来の免除制度（高度試験の午前Ⅰ免除制度、情報処理安全確保支援士試験の午前Ⅰ免除制度および午前Ⅱ免除制度）に変更はなく、午前Ⅰ免除制度は科目A-1試験免除制度として、午前Ⅱ免除制度は科目A-2試験免除制度として継続する予定です。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●実施方式移行後の試験時間区分</h2>
+        <div class="note-box">
+            <div class="note-title">注意事項</div>
+            <p>各試験時間に変更はありません。科目A-1試験と科目A-2試験、科目B-1試験と科目B-2試験の間には、休憩（10分）を設ける予定です。なお、科目A-1試験、科目A-2試験が免除できる場合は、当該試験時間を除いて受験することが可能です。</p>
+        </div>
+        
+        <div class="subsection-title">応用情報技術者試験の試験時間</div>
+        <div class="time-table">
+            科目A試験…150分<br>
+            科目B試験…150分
+        </div>
+
+        <div class="subsection-title">高度試験の試験時間</div>
+        <div class="time-table">
+            科目A-1試験…50分 ⇒ 休憩…10分 ⇒ 科目A-2試験…40分<br>
+            科目B-1試験…90分 ⇒ 休憩…10分 ⇒ 科目B-2試験…120分
+        </div>
+
+        <div class="subsection-title">情報処理安全確保支援士試験の試験時間</div>
+        <div class="time-table">
+            科目A-1試験…50分 ⇒ 休憩…10分 ⇒ 科目A-2試験…40分<br>
+            科目B試験…150分
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●試験実施のイメージ</h2>
+        <div class="image-wrapper" style="margin-top: 25px; margin-bottom: 30px; text-align: center;">
+            <img src="https://www.ipa.go.jp/shiken/2026/nl10bi000000g9ik-img/nl10bi000000he6y.png" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px;">
+            <p style="margin-top: 10px; font-size: 13px; color: #666; font-style: italic;">図：CBT方式移行後の試験実施イメージ（IPA資料より）</p>
+        </div>
+        <div class="process-item">
+            <div class="process-title">科目グループの分離実施</div>
+            <p>科目A試験、科目A-1試験および科目A-2試験（「科目A群」という）と科目B試験、科目B-1試験および科目B-2試験（「科目B群」という）は、実施期間を分けて実施を予定しています。</p>
+        </div>
+
+        <div class="process-item">
+            <div class="process-title">同時予約方式</div>
+            <p>申込みの際は、「科目A群」と「科目B群」を同時に予約していただく予定です。</p>
+        </div>
+
+        <div class="process-item">
+            <div class="process-title">自由な時間帯選択</div>
+            <p>CBT方式移行後は、「科目A群」、「科目B群」ともに、会場ごとに試験実施時間帯が異なります。受験者は会場ごとに設定された予約枠から自由に選択できます。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">●まとめ</h2>
+        <div class="summary-box">
+            <p>試験方式が変わるものの、求められる知識・技能自体はこれまで通りであるため、既存の学習資源や過去問演習の意義は引き続き重要なものとなります。</p>
+            <p>受験者にとっては、受験日時・会場の自由度が大きく拡大する利点があるので、これから試験を受ける方々は、制度変更をチャンスと捉えて、早めの準備と情報収集をしっかり行っておくことをお勧めします。</p>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="references">
+        <div class="reference-item">・IPA「応用情報技術者試験、高度試験及び情報処理安全確保支援士試験におけるCBT方式での実施について」<br><a href="https://www.ipa.go.jp/shiken/2026/ap_koudo_sc-cbt.html">https://www.ipa.go.jp/shiken/2026/ap_koudo_sc-cbt.html</a></div>
+    </div>
+</body>
+</html>
