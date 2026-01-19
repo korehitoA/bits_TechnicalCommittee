@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Wi-Fi 7/8 解説 & 快適な無線環境構築ガイド</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic UI",
+                   "YuGothic", "Meiryo", sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+      color: #222;
+    }
+    .page {
+      max-width: 960px;
+      margin: 24px auto 40px;
+      background: #ffffff;
+      padding: 32px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-radius: 8px;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 0;
+      color: #111827;
+    }
+    h1 {
+      font-size: 1.8rem;
+      border-bottom: 3px solid #65a30d;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 1.4rem;
+      border-left: 4px solid #65a30d;
+      padding-left: 8px;
+      margin-top: 32px;
+    }
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+    p {
+      margin: 0 0 12px;
+    }
+    .article-meta {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    .article {
+      margin-bottom: 40px;
+    }
+    .note {
+      padding: 10px 12px;
+      border-left: 4px solid #65a30d;
+      background: #f4fce3;
+      font-size: 0.9rem;
+      margin: 16px 0;
+    }
+    .figure {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 20px 0;
+      background: #f9fafb;
+    }
+    .figure-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .figure-caption {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f4fce3;
+      font-weight: 600;
+    }
+    .band-bar-wrap {
+      margin-top: 8px;
+    }
+    .band-bar {
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #111827;
+    }
+    .band-24 { background: #d9f99d; }
+    .band-5  { background: #a7f3d0; }
+    .band-6  { background: #bef264; }
+
+    .bottleneck-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .bottleneck-layer {
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bottleneck-layer span.label {
+      font-weight: 600;
+    }
+    .bottleneck-layer span.detail {
+      font-size: 0.8rem;
+      color: #374151;
+    }
+    .layer-inet { background: #fee2e2; }
+    .layer-router { background: #eaffd0; }
+    .layer-device { background: #dcfce7; }
+
+    .layout-two-cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .layout-two-cols > div {
+      flex: 1 1 260px;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+    }
+    .layout-two-cols h4 {
+      margin: 0 0 6px;
+      font-size: 0.9rem;
+    }
+
+    .room-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .room-cell {
+      border-radius: 6px;
+      border: 1px dashed #d1d5db;
+      padding: 8px;
+      font-size: 0.8rem;
+      min-height: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .room-cell .label {
+      font-weight: 600;
+    }
+    .room-cell .status-good {
+      color: #16a34a;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .room-cell .status-bad {
+      color: #dc2626;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #e5e7eb;
+      margin-left: 4px;
+      color: #374151;
+    }
+
+    ul {
+      margin: 0 0 12px 18px;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .page {
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
+      }
+    }
+
+    .distance-arrow-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #374151;
+    }
+    .distance-arrow-line {
+      flex: 1;
+      height: 2px;
+      margin: 0 8px;
+      background: linear-gradient(to right, #15803d, #facc15, #dc2626);
+      position: relative;
+    }
+    .distance-arrow-line::after {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 7px solid #dc2626;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- ============================ -->
+    <!-- 記事① Wi-Fi 7/8 と基礎知識 -->
+    <!-- ============================ -->
+    <section class="article" id="article-1">
+      <h1>次世代無線通信規格「Wi-Fi 7 / Wi-Fi 8」と<br>知っておきたい Wi-Fi の基礎知識</h1>
+
+      <p>
+        近年、無線通信技術は急速に進化しており、「Wi-Fi 6」「Wi-Fi 7」といった規格名を耳にする機会が増えています。
+        一方で、「結局なにが変わったのか」「自分の環境にどの程度関係があるのか」が分かりにくいという声も多く聞かれます。
+      </p>
+      <p>
+        本記事では、最新世代である <strong>Wi-Fi 7</strong> と、現在策定が進められている <strong>Wi-Fi 8</strong> の概要を整理しつつ、
+        その前提となる Wi-Fi の基礎知識について解説します。
+      </p>
+
+      <h2>1. Wi-Fi の世代（規格）と特徴</h2>
+      <p>
+        Wi-Fi には「IEEE 802.11◯◯」という正式名称がありますが、一般向けには
+        「Wi-Fi 5」「Wi-Fi 6」のような世代番号で表現されることが増えています。
+        数字が大きいほど、一般的には「高速・低遅延・混雑に強い」方向へ進化していると考えて問題ありません。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図1：Wi-Fi 世代ごとの概略比較</div>
+        <table>
+          <thead>
+            <tr>
+              <th>世代名</th>
+              <th>規格名（IEEE）</th>
+              <th>主な特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wi-Fi 5</td>
+              <td>802.11ac</td>
+              <td>5GHz 帯を中心とした高速通信。現在も広く利用されている。</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi 6</td>
+              <td>802.11ax</td>
+              <td>同時接続数の増加、混雑環境での効率向上。</td>
+            </tr>
+            <tr>
+              <td>Wi-Fi 6E</td>
+              <td>802.11ax（6GHz 拡張）</td>
+              <td>新たに 6GHz 帯を利用可能になり、混雑を回避しやすくなった。</td>
+            </tr>
+            <tr>
+              <td><strong>Wi-Fi 7</strong></td>
+              <td><strong>802.11be</strong></td>
+              <td>高速・低遅延・安定性をさらに強化。MLO 等の新機能を搭載。</td>
+            </tr>
+            <tr>
+              <td><strong>Wi-Fi 8（予定）</strong></td>
+              <td><strong>802.11bn</strong></td>
+              <td>AI 活用やさらなる高速化が検討されている次世代規格（策定中）。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="figure-caption">
+          ※実際の最大速度・機能は機器や環境により異なります。ここでは特徴のイメージを記載しています。
+        </div>
+      </div>
+
+      <h2>2. Wi-Fi の周波数帯とその特徴</h2>
+      <p>
+        Wi-Fi では主に <strong>2.4GHz 帯</strong>、<strong>5GHz 帯</strong>、<strong>6GHz 帯</strong> の 3 種類の周波数帯が使われます。
+        それぞれ「届きやすさ」「速度」「混雑しやすさ」が異なります。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図2：周波数帯ごとのイメージ</div>
+        <div class="band-bar-wrap">
+          <div class="band-bar band-24">
+            2.4GHz 帯（遠距離・障害物に強い / 混雑しやすい）
+          </div>
+          <div class="band-bar band-5">
+            5GHz 帯（高速・中距離 / 一般的な動画・ゲーム用途に向く）
+          </div>
+          <div class="band-bar band-6">
+            6GHz 帯（超高速・短距離 / 対応機器は現状限られる）
+          </div>
+        </div>
+        <div class="figure-caption">
+          2.4GHz は「広く届くが混みやすい道路」、5GHz は「バランスの良い都市高速」、
+          6GHz は「新設された空いている高速道路」のようなイメージです。
+        </div>
+      </div>
+
+      <p>それぞれの特徴を整理すると、以下のようになります。</p>
+      <ul>
+        <li><strong>2.4GHz 帯：</strong>到達距離は長いが、家電や他の機器との干渉が多く、速度は控えめ。</li>
+        <li><strong>5GHz 帯：</strong>比較的高速で混雑しにくく、現在もっとも一般的な帯域。</li>
+        <li><strong>6GHz 帯：</strong>空きが多く高速だが、届く距離は短く、対応機器もまだ少ない。</li>
+      </ul>
+
+      <h2>3. 通信速度を決める 3 つの要素（ボトルネック）</h2>
+      <p>
+        「Wi-Fi が遅い」と感じたとき、その原因は必ずしも Wi-Fi 規格だけとは限りません。
+        通信速度は、次の 3 つの要素のうち、もっとも遅い部分（ボトルネック）に左右されます。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図3：通信経路とボトルネックのイメージ</div>
+        <div class="bottleneck-diagram">
+          <div class="bottleneck-layer layer-inet">
+            <span class="label">インターネット回線</span>
+            <span class="detail">例：光回線、VDSL、モバイル回線など</span>
+          </div>
+          <div class="bottleneck-layer layer-router">
+            <span class="label">ルーター / アクセスポイント</span>
+            <span class="detail">利用している Wi-Fi 規格・性能</span>
+          </div>
+          <div class="bottleneck-layer layer-device">
+            <span class="label">端末（PC・スマホ等）</span>
+            <span class="detail">対応している Wi-Fi 規格・アンテナ性能</span>
+          </div>
+        </div>
+        <div class="figure-caption">
+          いずれか 1 箇所でも性能が低いと、全体の速度はそこに制限されます。
+          例：回線が 100Mbps の場合、Wi-Fi 7 ルーターを導入してもインターネット側は 100Mbps を超えられません。
+        </div>
+      </div>
+
+      <h2>4. Wi-Fi 7（IEEE 802.11be）の主な特徴</h2>
+      <p>
+        <strong>Wi-Fi 7</strong> は、現時点で実用化が進んでいる規格の中で最も高性能な世代です。
+        主な特徴は以下の通りです。
+      </p>
+
+      <h3>4-1. マルチリンクオペレーション（MLO）</h3>
+      <p>
+        従来は 2.4GHz / 5GHz / 6GHz のいずれか 1 つを使って通信していましたが、
+        Wi-Fi 7 の <strong>MLO（Multi-Link Operation）</strong> では、
+        複数の周波数帯を同時に利用できるようになります。
+      </p>
+      <ul>
+        <li>混雑している帯域から空いている帯域への自動切り替え</li>
+        <li>複数の帯域を束ねることによる高スループット・低遅延</li>
+      </ul>
+
+      <h3>4-2. 320MHz の広帯域化</h3>
+      <p>
+        特に 6GHz 帯では、最大 320MHz 幅という非常に広い帯域を利用できます。
+        これは道路で言えば「車線数が倍になった」ようなもので、
+        一度に流せるデータ量（理論上の最大速度）が大幅に増加します。
+      </p>
+
+      <h3>4-3. 4K-QAM による通信効率向上</h3>
+      <p>
+        変調方式として <strong>4096-QAM（4K-QAM）</strong> が採用され、同じ電波の中により多くの情報を詰め込めるようになりました。
+        その結果、実効速度が Wi-Fi 6 と比べてさらに向上します。
+      </p>
+
+      <h2>5. Wi-Fi 8（IEEE 802.11bn：策定中）の展望</h2>
+      <p>
+        <strong>Wi-Fi 8</strong> は現在策定が進められている次世代規格で、商用化は 2030 年前後と予想されています。
+        詳細仕様は確定していないものの、以下のような方向性が検討されています。
+      </p>
+      <ul>
+        <li>AI を活用した電波環境の自動最適化</li>
+        <li>100Gbps 級のさらなる高速化</li>
+        <li>遅延の一層の低減（XR/AR、産業用ロボットなどを想定）</li>
+        <li>6GHz 帯の高度な活用と周波数効率の向上</li>
+      </ul>
+
+      <h2>【補足】Windows 端末で現在接続中の Wi-Fi 規格を確認する方法</h2>
+      <p>
+        Wi-Fi 7 や Wi-Fi 6 の性能を活かすには、「ルーターが対応しているか」だけでなく、
+        <strong>実際に端末がどの規格で接続しているか</strong>を確認することも重要です。
+        ここでは、Windows 端末での確認方法を紹介します。
+      </p>
+
+      <h3>方法：設定画面から確認する</h3>
+      <ol>
+        <li>スタートメニューから <strong>設定</strong> を開く</li>
+        <li><strong>ネットワークとインターネット</strong> → <strong>Wi-Fi</strong> を選択</li>
+        <li>現在接続中の Wi-Fi ネットワーク名をクリック</li>
+        <li>表示される <strong>プロパティ</strong> 画面で「<strong>プロトコル</strong>」を確認</li>
+      </ol>
+
+      <div class="figure">
+        <div class="figure-title">プロトコル表示と Wi-Fi 世代の対応関係</div>
+        <table>
+          <thead>
+            <tr>
+              <th>表示されるプロトコル</th>
+              <th>Wi-Fi 世代</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>802.11n</td>
+              <td>Wi-Fi 4</td>
+            </tr>
+            <tr>
+              <td>802.11ac</td>
+              <td>Wi-Fi 5</td>
+            </tr>
+            <tr>
+              <td>802.11ax</td>
+              <td>Wi-Fi 6 / Wi-Fi 6E</td>
+            </tr>
+            <tr>
+              <td>802.11be</td>
+              <td>Wi-Fi 7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <strong>ポイント：</strong><br>
+        ルーターが高性能でも、端末側の対応状況や電波環境によっては古い規格で接続されることがあります。
+        体感速度に違和感がある場合は、まずここを確認してみましょう。
+      </div>
+
+      <h2>6. まとめ</h2>
+      <p>
+        Wi-Fi 7 / 8 は単なる「速度アップ」にとどまらず、低遅延・安定性・効率の観点からも大きな進化が期待される規格です。
+        一方で、実際の体感速度は回線・ルーター・端末のいずれか 1 つでも性能が不足していると頭打ちになります。
+      </p>
+      <p>
+        次の記事では、こうした基礎知識を踏まえたうえで、
+        自宅やオフィスで <strong>「実際にどのように Wi-Fi 環境を整えていくか」</strong> という実践的な観点から解説します。
+      </p>
+    </section>
+
+    <!-- ============================ -->
+    <!-- 記事② 快適な無線環境づくり -->
+    <!-- ============================ -->
+    <section class="article" id="article-2">
+      <h1>快適な無線環境をつくるためのポイント<br>〜自宅・オフィスで今すぐ実践できる改善策〜</h1>
+
+      <p>
+        オンライン会議やクラウドサービスの利用が増えた現在、Wi-Fi の品質は業務効率に直結します。
+        「速度が遅い」「接続が不安定」といった課題は、機器の入れ替えだけでなく、
+        設置場所や設定の見直しなど、比較的簡単な対策で改善できることも少なくありません。
+      </p>
+      <p>
+        本記事では、前記事の基礎知識を踏まえつつ、<strong>自宅・オフィスで実践しやすい改善ポイント</strong> を図解とともに紹介します。
+      </p>
+
+      <h2>1. ルーターの設置場所を見直す</h2>
+      <p>
+        Wi-Fi の電波は「高い位置」「障害物の少ない位置」から発信した方が届きやすくなります。
+        逆に、床置きや家具の中、金属製ラックの陰などは電波が大きく減衰します。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図4：ルーター設置場所のイメージ</div>
+        <div class="layout-two-cols">
+          <div>
+            <h4>良い例</h4>
+            <ul>
+              <li>家・オフィスの中心付近に設置</li>
+              <li>棚の上など、床から 1m 以上の高さ</li>
+              <li>周囲に大きな金属や家電が少ない</li>
+            </ul>
+          </div>
+          <div>
+            <h4>悪い例</h4>
+            <ul>
+              <li>床に直置き</li>
+              <li>テレビボードの中やクローゼットの奥</li>
+              <li>電子レンジ・冷蔵庫のすぐ横</li>
+            </ul>
+          </div>
+        </div>
+        <div class="figure-caption">
+          設置場所を変えるだけで速度や安定性が改善するケースも多く見られます。
+        </div>
+      </div>
+
+      <h2>2. 間取りを意識した電波の届き方</h2>
+      <p>
+        住居やオフィスの間取りによっても、電波の届きやすさは大きく変わります。
+        以下は簡易的なイメージ図です。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図5：部屋と電波到達のイメージ（簡略図）</div>
+        <div class="room-diagram">
+          <div class="room-cell">
+            <div class="label">リビング</div>
+            <div>ルーターをここに設置</div>
+            <div class="status-good">◎ 電波強い</div>
+          </div>
+          <div class="room-cell">
+            <div class="label">書斎</div>
+            <div>扉 1 枚と壁 1 枚を挟む</div>
+            <div class="status-good">○ 通常利用は問題なし</div>
+          </div>
+          <div class="room-cell">
+            <div class="label">寝室</div>
+            <div>壁 2 枚＋距離が遠い</div>
+            <div class="status-bad">△ 速度低下の可能性</div>
+          </div>
+        </div>
+        <div class="distance-arrow-container">
+          <span>ルーターに近い</span>
+          <div class="distance-arrow-line"></div>
+          <span>ルーターから遠い</span>
+        </div>
+        <div class="figure-caption">
+          距離が離れたり、壁の枚数が増えるほど電波強度は低下します。
+          必要に応じてメッシュ Wi-Fi などの導入も検討しましょう。
+        </div>
+      </div>
+
+      <h2>3. 周波数帯の使い分け</h2>
+      <p>
+        使用用途や設置場所に応じて、2.4GHz / 5GHz / 6GHz を使い分けることで、
+        性能を引き出しやすくなります。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図6：用途別・周波数帯の目安</div>
+        <table>
+          <thead>
+            <tr>
+              <th>用途</th>
+              <th>推奨帯域</th>
+              <th>理由</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>スマート家電・IoT 機器</td>
+              <td>2.4GHz<span class="badge">広く届く</span></td>
+              <td>多少遅くても問題になりにくく、到達距離を優先。</td>
+            </tr>
+            <tr>
+              <td>動画視聴・一般的な業務</td>
+              <td>5GHz<span class="badge">バランス型</span></td>
+              <td>速度と安定性のバランスが良く、多くの環境で扱いやすい。</td>
+            </tr>
+            <tr>
+              <td>オンライン会議・クラウド作業・ゲーム</td>
+              <td>5GHz / 6GHz<span class="badge">高性能</span></td>
+              <td>低遅延と高速性を重視。6GHz は対応機器がある場合に有効。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>4. メッシュ Wi-Fi の活用</h2>
+      <p>
+        戸建て住宅やフロアが広いオフィスでは、1 台のルーターだけでは電波が届きにくい場合があります。
+        このようなケースでは、従来型の中継器よりも <strong>メッシュ Wi-Fi</strong> の導入が有効です。
+      </p>
+
+      <div class="figure">
+        <div class="figure-title">図7：中継器方式とメッシュ方式の違い（イメージ）</div>
+        <div class="layout-two-cols">
+          <div>
+            <h4>中継器方式</h4>
+            <ul>
+              <li>親機 → 中継器 → 端末と段階的に接続</li>
+              <li>中継器の位置が悪いと速度低下や不安定さが目立つ</li>
+              <li>SSID が複数になる場合もある</li>
+            </ul>
+          </div>
+          <div>
+            <h4>メッシュ Wi-Fi</h4>
+            <ul>
+              <li>複数のアクセスポイントが連携して「1つのネットワーク」を構成</li>
+              <li>端末側から見るとシームレスに接続先が切り替わる</li>
+              <li>広い範囲で安定した通信を実現しやすい</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h2>5. 機器の世代とケーブルの確認</h2>
+      <p>
+        Wi-Fi 7 などの新しい規格の性能を活かすには、ルーターだけでなく、
+        端末や有線部分の機器も対応していることが重要です。
+      </p>
+
+      <h3>5-1. ルーターと端末の世代</h3>
+      <ul>
+        <li>ルーターが「Wi-Fi 5」までしか対応していない場合、端末が Wi-Fi 6/7 対応でも性能を出し切れません。</li>
+        <li>端末側が古い場合も同様で、ルーターを最新化しても効果が限定的になることがあります。</li>
+        <li>可能であれば、ルーターと主要端末を同じ世代付近にそろえると効果的です。</li>
+      </ul>
+
+      <h3>5-2. LAN ケーブルの種類</h3>
+      <p>有線部分のボトルネックを避けるため、LAN ケーブルの規格も確認しておきます。</p>
+
+      <div class="figure">
+        <div class="figure-title">図8：LAN ケーブル規格の目安</div>
+        <table>
+          <thead>
+            <tr>
+              <th>規格</th>
+              <th>理論上の最大速度</th>
+              <th>一般的な用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cat5e</td>
+              <td>1Gbps</td>
+              <td>通常の家庭・オフィス利用では十分な性能。</td>
+            </tr>
+            <tr>
+              <td>Cat6</td>
+              <td>1Gbps（ノイズに強い）</td>
+              <td>安定性を重視したい場合に有効。</td>
+            </tr>
+            <tr>
+              <td>Cat6a</td>
+              <td>10Gbps</td>
+              <td>高速回線やサーバ用途など、高負荷環境向け。</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="figure-caption">
+          一般的な家庭・オフィス用途では、Cat5e〜Cat6 を目安とすれば問題ないケースが大半です。
+        </div>
+      </div>
+
+      <h2>6. 回線側がボトルネックの場合</h2>
+      <p>
+        ルーターや設置場所を見直しても改善が見られない場合、
+        インターネット回線そのものがボトルネックになっている可能性があります。
+      </p>
+      <ul>
+        <li>夜間だけ極端に遅い場合：マンション全体や地域回線の混雑の可能性</li>
+        <li>VDSL 方式（最大 100Mbps 程度）の場合：構造的に高速化が難しい</li>
+        <li>古い ONU（光回線終端装置）やルーター一体型機器の場合：機器交換で改善する余地あり</li>
+      </ul>
+
+      <div class="note">
+        <strong>ポイント：</strong><br>
+        「ルーターを高性能なものに替えても速度が変わらない」場合は、
+        回線契約や建物側の設備を含めて見直す必要があります。
+      </div>
+
+      <h2>7. まとめ</h2>
+      <p>
+        Wi-Fi 環境の改善は、高価な機器の導入だけでなく、<strong>設置場所・周波数帯の使い分け・機器の世代確認</strong> など、
+        比較的取り組みやすい対策から大きな効果が得られることがあります。
+      </p>
+      <p>
+        特にリモートワークやオンライン会議が日常的になった現在、安定したネットワーク環境は業務効率に直結します。
+        本記事の内容が、各自の自宅・オフィスのネットワーク環境を見直すきっかけになれば幸いです。
+      </p>
+    </section>
+  </div>
+</body>
+</html>
