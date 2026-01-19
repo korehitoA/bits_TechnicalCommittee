@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ノーコード／ローコード入門</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', 'Meiryo', 'メイリオ', sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30mm 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #232f3e;
+            border-bottom: 4px solid #ff9900;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #232f3e;
+            border-left: 5px solid #ff9900;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        h4 {
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9900;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #0073bb;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        table th {
+            background-color: #232f3e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .summary-box {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .reference-list {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .reference-list a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .reference-list a:hover {
+            text-decoration: underline;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 10mm;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ノーコード／ローコードとは？</h1>
+
+        <h2>1. ノーコード／ローコードとは？</h2>
+
+        <h3>1-1. ノーコード</h3>
+        <p>ノーコードは、ソースコードを書かずにアプリやシステムを開発できる手法・プラットフォームです。画面上の部品（ボタン・入力欄・一覧など）をドラッグ＆ドロップで配置し、設定項目を選ぶことで、業務アプリやワークフローを組み立てます。</p>
+        
+        <div class="info-box">
+            <ul style="margin-bottom: 0;">
+                <li>画面操作だけで開発できる</li>
+                <li>非エンジニアでも扱いやすい</li>
+                <li>比較的シンプルな業務アプリやプロトタイプ向き</li>
+            </ul>
+        </div>
+
+        <h3>1-2. ローコード</h3>
+        <p>ローコードは、GUIでの開発を中心にしつつ、一部のみコードを書く開発手法です。画面や基本的な処理はノーコードと同様にツール側の機能で構成し、「足りないところだけ」コードで補います。</p>
+        
+        <div class="info-box">
+            <ul style="margin-bottom: 0;">
+                <li>なるべくコードを書かないが、一部は記述する</li>
+                <li>プログラミング知識を持つ人が担当する前提</li>
+                <li>他ツールとの連携や複雑なカスタマイズもしやすい</li>
+            </ul>
+        </div>
+
+        <h3>1-3. フルコードとの関係</h3>
+        <p>すべての処理をプログラミングで書く従来の開発は、ここではフルコード開発と呼びます。</p>
+
+        <div class="highlight-box">
+            <strong>図1：3つの開発スタイルのイメージ</strong>
+            <pre style="margin-top: 10px; font-family: monospace; line-height: 1.6;">
+フルコード開発
+ └ すべてコードを書く（自由度は高いが時間とスキルが必要）
+
+ローコード開発
+ └ 画面操作が中心＋必要なところだけコードを書く
+
+ノーコード開発
+ └ コードを書かず画面操作だけで作る</pre>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>2. ノーコードとローコードの違い</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>ノーコード</th>
+                    <th>ローコード</th>
+                    <th>フルコード</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>コーディング</strong></td>
+                    <td>不要</td>
+                    <td>一部のみ必要・可能</td>
+                    <td>すべて必要</td>
+                </tr>
+                <tr>
+                    <td><strong>必要なスキル</strong></td>
+                    <td>プログラミング知識は基本不要</td>
+                    <td>一定のプログラミングスキルが必要</td>
+                    <td>高度なプログラミングスキルが必要</td>
+                </tr>
+                <tr>
+                    <td><strong>開発の自由度</strong></td>
+                    <td>用意された機能の範囲で構成</td>
+                    <td>ノーコードより高く、拡張・連携もしやすい</td>
+                    <td>最も高い</td>
+                </tr>
+                <tr>
+                    <td><strong>向いている規模・用途</strong></td>
+                    <td>簡易アプリ、部門内ツール、試作品</td>
+                    <td>中〜大規模の業務アプリ、既存システム連携</td>
+                    <td>基幹システム、特殊要件が多い領域</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. ノーコードのメリット</h2>
+
+        <h3>3-1. 開発の時間・コスト削減</h3>
+        <p>ノーコードでは、機能部品を組み合わせるだけで開発できるため、</p>
+        <ul>
+            <li>コーディング作業がほぼ不要</li>
+            <li>簡単なアプリなら短時間で作成可能</li>
+            <li>外注や高度なエンジニアに頼り切らなくてよい</li>
+        </ul>
+        <p>といった形で、開発期間とコストを抑えやすくなります。</p>
+
+        <h3>3-2. 非エンジニアでも開発参加しやすい</h3>
+        <p>ノーコードツールは、直感的なGUIで操作できるよう設計されています。</p>
+        <ul>
+            <li>画面で部品を配置し、プロパティを選ぶだけ</li>
+            <li>プログラミングの文法を覚えなくても操作可能</li>
+        </ul>
+        <p>そのため、業務担当者や現場メンバーが自分たちのニーズに合わせて画面やフローを調整しやすくなります。</p>
+
+        <h3>3-3. 業務変更への追従がしやすい</h3>
+        <p>業務フローが変わったときも、ノーコードであれば</p>
+        <ul>
+            <li>対象画面やフローを開いて</li>
+            <li>項目の追加・削除や分岐条件の変更を行う</li>
+        </ul>
+        <p>といった対応を、現場に近い人が行えるため、変更リードタイムを短縮しやすい点もメリットとして挙げられています。</p>
+
+        <div class="page-break"></div>
+
+        <h2>4. ノーコードのデメリット</h2>
+
+        <h3>4-1. できることが限られる</h3>
+        <p>ノーコード開発では、ツールに用意された機能の範囲内でしか仕様を実現できないという制約があります。</p>
+        <ul>
+            <li>細かいカスタマイズ</li>
+            <li>複雑な業務ロジック</li>
+            <li>特殊な外部システムとの連携</li>
+        </ul>
+        <p>などは、うまく表現できない場合があります。</p>
+
+        <h3>4-2. 大規模・基幹システムには不向きになり得る</h3>
+        <p>自由度の低さから、基幹業務システムのような大規模・高い柔軟性が必要な領域では、自社の要件を十分に満たせない可能性があるとされています。</p>
+        <ul>
+            <li>特定部門だけで使うツール</li>
+            <li>限られた業務を支援するアプリ</li>
+        </ul>
+        <p>など、スコープが比較的限定される場面での活用が現実的です。</p>
+
+        <h3>4-3. プラットフォーム依存（ベンダーロックイン）</h3>
+        <p>ノーコードは特定のプラットフォーム上にシステムを構築するため、</p>
+        <ul>
+            <li>料金改定や仕様変更の影響を受けやすい</li>
+            <li>サービス終了時には、別プラットフォームで作り直しが必要</li>
+            <li>プラットフォーム間のデータ移行や乗り換えが難しい</li>
+        </ul>
+        <p>といった「ロックイン」のリスクを伴います。</p>
+
+        <h2>5. ローコードの特徴</h2>
+
+        <h3>5-1. ローコードのメリット</h3>
+        <p>ローコードには、次のようなメリットがまとめられています。</p>
+        <ul>
+            <li><strong>開発期間を短縮できる</strong><br>GUIで機能を組み合わせるため、ゼロからコードを書くより早い</li>
+            <li><strong>開発コストを圧縮できる</strong><br>期間短縮により人件費を抑えられる<br>高度なスキルを持つエンジニアを大量に確保しなくてもよい</li>
+            <li><strong>柔軟な機能拡張ができる</strong><br>ツール内の機能＋不足部分をプログラミングで補える<br>「スクラッチ開発」と「ノーコード」のいいとこ取りがしやすい</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h3>5-2. ローコードのデメリット</h3>
+        <p>一方、ローコードにも注意点があります。</p>
+        <ul>
+            <li><strong>誰でも使えるわけではない</strong><br>機能拡張やカスタマイズにはコード記述スキルが必要で、プログラミング未経験者だけで完結するのは難しい</li>
+            <li><strong>フルスクラッチより自由度は低い</strong><br>ツールの仕様の範囲内での開発になるため、完全なゼロベース開発よりは柔軟性が劣る</li>
+        </ul>
+
+        <h2>6. 活用シーンと使い分けのイメージ</h2>
+        <p>これまでの内容から、向いている場面を整理すると次のようになります。</p>
+
+        <div class="highlight-box">
+            <strong>図2：使い分けのざっくりイメージ</strong>
+            <pre style="margin-top: 10px; font-family: monospace; line-height: 1.6;">
+ノーコードが向く場面
+  ・日報、申請フォーム、問い合わせ管理
+  ・特定部門だけで使う小さな業務アプリ
+  ・プロトタイプ・PoC（試作品）の作成
+
+ローコードが向く場面
+  ・複数部門にまたがる業務アプリ
+  ・既存システムとの連携が必要なアプリ
+  ・中〜大規模で、そこそこ柔軟なカスタマイズが必要なシステム
+
+フルコードが必要な場面
+  ・高い性能・特殊要件が求められる基幹系
+  ・ツールの制約を受けたくないプロダクト開発</pre>
+        </div>
+
+        <h2>参考サイト（本文作成に利用した記事）</h2>
+        <div class="reference-list">
+            <ul>
+                <li>ノーコードとは？ メリットと注意点、ローコードとの違いとは？<br><a href="https://www.sei-info.co.jp/webdatabase/column/nocode/">https://www.sei-info.co.jp/webdatabase/column/nocode/</a><br>住友電工情報システム株式会社</li>
+                <li>ノーコードとは？ローコードの違いやメリット・デメリットを解説<br><a href="https://www.intra-mart.jp/im-press/useful/no-code">https://www.intra-mart.jp/im-press/useful/no-code</a><br>IntraMart</li>
+                <li>ローコード開発とノーコード開発の違い<br><a href="https://www.intra-mart.jp/low-code/difference_nocode.html">https://www.intra-mart.jp/low-code/difference_nocode.html</a><br>IntraMart</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

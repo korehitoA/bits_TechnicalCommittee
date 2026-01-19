@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKYC（電子本人確認）について</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0066cc;
+        }
+        
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 5px solid #0066cc;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0066cc;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+        
+        .subsection {
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+        
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .method-item {
+            background: #fafafa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4caf50;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .method-title {
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+        
+        .case-study {
+            background: #fff3e0;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff9800;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .case-title {
+            font-weight: 600;
+            color: #e65100;
+            margin-bottom: 8px;
+        }
+        
+        .risk-item {
+            background: #fce4ec;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e91e63;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .risk-title {
+            font-weight: 600;
+            color: #ad1457;
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: #e8f5e8;
+            padding: 15px;
+            border: 1px solid #4caf50;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .references {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        
+        .references-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .reference-item {
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+        
+        .reference-item a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .reference-item a:hover {
+            text-decoration: underline;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        li {
+            margin-bottom: 3px;
+        }
+        
+        @media print {
+            body {
+                padding: 15mm;
+                font-size: 12px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .method-item,
+            .case-study,
+            .risk-item {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="main-title">eKYC（電子本人確認）について</h1>
+        <p class="subtitle">～非対面時代の安全な本人確認システム～</p>
+    </div>
+
+    <div class="intro">
+        <p>2020年以降、コロナ禍におけるニューノーマル対応として、業務や手続きの非対面化が急速に進展しています。本人確認においても、従来の郵送や窓口での対面式確認に代わって、非対面でのオンライン化が大きく加速しました。しかし、非対面では本人確認の信頼性をいかに担保するかが重要な課題となっています。その解決策の一つとして「eKYC」が注目を集めていますので、紹介します。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">1. eKYCとは</h2>
+        <p>eKYCとは「electronic Know Your Customer（電子本人確認）」の略で、オンライン上で本人確認を完結させる仕組みを指します。</p>
+        <p>従来の対面式確認に代わり、マイナンバーカードや運転免許証などの公的証明書の画像データと、顔認証や生体認証を組み合わせることで、遠隔地からでも安全に本人確認を行うことが可能となります。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">2. eKYCの4つの方法</h2>
+        <p>eKYCには犯罪収益移転防止法に基づく複数の手続き要件が定められており、その中でも利用シーンが多い4つの方法について説明します。</p>
+        
+        <div class="method-item">
+            <div class="method-title">①「ホ」方式：本人確認書類の画像と本人容貌画像の送信</div>
+            <p>運転免許証などの写真付き本人確認書類と本人の容貌画像を撮影して送信する方法です。現在、eKYCの主流となっているのがこの「ホ」方式です。</p>
+        </div>
+
+        <div class="method-item">
+            <div class="method-title">②「ヘ」方式：ICチップ情報と本人容貌画像の送信</div>
+            <p>本人確認書類に含まれるICチップ情報と本人の容貌画像を撮影して送信する方法です。ICチップ情報は、スマートフォンでは専用アプリ、ブラウザではカードリーダーを用いて読み取ります。</p>
+        </div>
+
+        <div class="method-item">
+            <div class="method-title">③「ト」方式：銀行など特定事業者への照会</div>
+            <p>写真付き本人確認書類の画像、またはICチップ情報を送信した後、事業者から顧客が既に利用している銀行やクレジットカード会社などへ本人特定事項を照会する方法です。</p>
+        </div>
+
+        <div class="method-item">
+            <div class="method-title">④「ワ」方式：公的個人認証（電子証明）の送信</div>
+            <p>マイナンバーカードのICチップに記録された署名用電子証明書と、電子証明書発行時に設定した暗証番号（PIN）を使用して本人確認を完了する手法です。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">3. 公的個人認証サービス（JPKI）について</h2>
+        <p>JPKIは「Japanese Public Key Infrastructure」の略で、マイナンバーカードICチップに搭載された電子証明書を利用し、オンラインで安全・確実な本人認証を行う仕組みです。eKYCの枠組みの中では「ワ」方式に該当し、マイナンバーカードの電子証明書を活用した本人確認手法として最も信頼性が高いと位置付けられています。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">4. 導入事例</h2>
+        
+        <div class="case-study">
+            <div class="case-title">・PayPay</div>
+            <p>大手キャッシュレス決済サービスPayPayでは、2019年9月30日から、PayPayマネー利用開始時などの本人確認において、株式会社ポラリファイが提供する「Polarify eKYC」の導入を開始しています。Polarify eKYCの導入により、利用者が自身の顔画像と本人確認書類をスマートフォンで撮影することで、本人確認が行えるようになりました。</p>
+        </div>
+
+        <div class="case-study">
+            <div class="case-title">・ゆうちょ銀行</div>
+            <p>なりすまし登録などを防ぐセキュリティ強化のため、2022年1月4日からゆうちょ認証アプリの口座等登録時の本人確認にeKYCを追加しています。eKYCには株式会社Liquidが提供する生体認証技術を活用した「LIQUID eKYC」を利用しており、ゆうちょ口座開設アプリの本人確認においてもLIQUID eKYCが使われています。LIQUID eKYCには株式会社Liquidが独自に研究開発した「フラッシュ判定」と「表情筋判定」が用いられ、よりセキュリティの強固な本人確認を実現しています。</p>
+        </div>
+
+        <div class="case-study">
+            <div class="case-title">・楽天モバイル</div>
+            <p>2020年11月9日よりスマートフォン（Web・アプリ）からの新規契約の本人確認において、「AIかんたん本人確認（eKYC）」を開始しています。NECが提供する顔認証を活用した本人確認サービス「Digital KYC」をスマートフォン向けアプリのmy楽天モバイルに組み込むことで、オンラインでの本人確認が迅速かつセキュアに完結します。eSIM対応のスマートフォンであれば、eKYCでの申し込みから最短3分ですぐに使えるようになり、ユーザーの利便性向上に貢献しています。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">5. 安全性確保のポイント</h2>
+        
+        <div class="subsection">
+            <div class="subsection-title">・多要素確認の組み合わせ</div>
+            <p>◆身元確認：運転免許証やマイナンバーカードの写真・ICチップ情報</p>
+            <p>◆当人認証：ID・パスワード、顔認証、生体認証（指紋・静脈など）</p>
+            <p>上記の要素から複数を組み合わせることで安全性を高めます。</p>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">・ICチップ情報の活用</div>
+            <p>マイナンバーカードICチップから取得した電子証明書（署名用・利用者証明用）を読み取り、真正性を検証します。偽造防止の観点からも極めて有効です。</p>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">・継続的顧客管理</div>
+            <p>初回確認だけでなく、定期的・継続的に顧客情報を更新・再確認することで、不正行為の早期検知と防止を図ります。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">6. 利用者・企業が留意すべきリスクと対策</h2>
+        
+        <div class="risk-item">
+            <div class="risk-title">・なりすまし・アカウント乗っ取り</div>
+            <p><strong>リスク：</strong>他人が偽造IDで登録し、不正取引を行う可能性があります。</p>
+            <p><strong>対策：</strong>顔認証とパスワードなど多要素認証の必須化により被害を防ぐ必要があります。</p>
+        </div>
+        
+        <div class="risk-item">
+            <div class="risk-title">・本人確認書類の偽造</div>
+            <p><strong>リスク：</strong>偽造した身分証明書やICチップを改ざんする事案があります。</p>
+            <p><strong>対策：</strong>ICチップ情報の読み取りによる照合、偽造防止加工（ホログラム・特殊印刷）の検証を複合的に行う必要があります。</p>
+        </div>
+
+        <div class="risk-item">
+            <div class="risk-title">・情報漏えい・不正アクセス</div>
+            <p><strong>リスク：</strong>認証プラットフォームが狙われ、顧客の個人情報が流出する恐れがあります。</p>
+            <p><strong>対策：</strong>強固なネットワークセキュリティ、最新の暗号化通信、アクセスログ監視・定期的な脆弱性診断などが有効です。</p>
+        </div>
+    </div>
+
+    <div class="references">
+        <h3 class="references-title">参考サイト</h3>
+        <div class="reference-item">・Nexway eKYC「eKYCとは？」<br><a href="https://ekyc.nexway.co.jp/blog/12">https://ekyc.nexway.co.jp/blog/12</a></div>
+        <div class="reference-item">・Nexway eKYC「JPKI（公的個人認証サービス）とは？」<br><a href="https://ekyc.nexway.co.jp/blog/94">https://ekyc.nexway.co.jp/blog/94</a></div>
+        <div class="reference-item">・eKYC導入ガイド「eKYCの安全性」<br><a href="https://www.ekyc-guide.com/base/safety.html">https://www.ekyc-guide.com/base/safety.html</a></div>
+        <div class="reference-item">・eKYC導入ガイド「eKYCの導入事例」<br><a href="https://www.ekyc-guide.com/scene/case-study.html">https://www.ekyc-guide.com/scene/case-study.html</a></div>
+    </div>
+</body>
+</html>
