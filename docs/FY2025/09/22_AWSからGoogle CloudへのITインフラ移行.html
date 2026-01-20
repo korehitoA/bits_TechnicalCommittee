@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>にゃんこ大戦争のインフラ移行事例</title>
+    <style>
+        body {
+            font-family: 'Meiryo', 'メイリオ', 'Hiragino Sans', 'ヒラギノ角ゴシック ProN', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', '游ゴシック', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0px;
+            background-color: #ffffff;
+            color: #333333;
+            font-size: 11pt;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 10px 0 30px 0;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 10px 0 20px 0;
+            padding: 12px 0 8px 20px;
+            background: linear-gradient(to right, #e8f4fd 0%, #ffffff 100%);
+            border-left: 5px solid #3498db;
+            border-radius: 3px;
+        }
+        
+        h3 {
+            color: #34495e;
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 5px 0 5px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        
+        h4 {
+            color: #7f8c8d;
+            font-size: 11pt;
+            font-weight: bold;
+            margin: 20px 0 12px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+        
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin: 8px 0;
+            padding-left: 5px;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 10pt;
+            color: #6c757d;
+        }
+        
+        .highlight-box {
+            background-color: #e8f6f3;
+            border: 1px solid #1abc9c;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .tech-features {
+            background-color: #fdf2e9;
+            border: 1px solid #e67e22;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .objectives {
+            background-color: #eaf2f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .definition {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .summary-box {
+            background-color: #f4f4f4;
+            border: 2px solid #95a5a6;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .emphasis {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+        
+        table th,
+        table td {
+            border: 1px solid #bdc3c7;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        
+        table th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        table tbody tr {
+            background-color: #f8f9fa;
+        }
+        
+        .references {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 25px 0;
+            font-size: 10pt;
+        }
+        
+        .references h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 11pt;
+        }
+        
+        .references a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                padding: 0; 
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>「にゃんこ大戦争」がAWSからGoogle Cloudへ移行<br>
+        ～ 無停止運営を実現したインフラ戦略 ～</h1>
+        
+        <h2>概要</h2>
+        <p>スマートフォン向けアプリケーション「にゃんこ大戦争」を開発・運営する株式会社ポノスが、サービスのITインフラをAWSからGoogle Cloudへ移行するプロジェクトを実施しました。この移行は、サービスの無停止運営にかかる手間やコストを削減するための戦略的な取り組みでした。</p>
+        
+        <h2>ITインフラ移行プロジェクト</h2>
+        
+        <h3>移行の背景と課題</h3>
+        
+        <p>ポノスが「にゃんこ大戦争」の運営において直面していた主要な課題は以下の通りです。</p>
+        
+        <div class="objectives">
+            <strong>移行の背景となった課題：</strong>
+            <ul>
+                <li>Amazon Aurora<sup>※1</sup>で発生するダウンタイム</li>
+                <li>無停止での運営を最優先事項としているため、メンテナンス対応の負担が大きい</li>
+            </ul>
+        </div>
+        
+        <p>AWS都合のメンテナンスが年に数回発生し、約数秒のダウンタイムが生じていました。Amazon Auroraでダウンタイムが発生する度に、無停止運営を維持するための手間やコストが発生していました。</p>
+        
+        <h3>Google Cloudを選択した理由</h3>
+        
+        <p>ポノスが移行先としてGoogle Cloudを選択した決定的な理由は以下の通りです。</p>
+        
+        <div class="objectives">
+            <strong>Google Cloud選択の理由：</strong>
+            <ul>
+                <li>DBのダウンタイムが発生しない</li>
+                <li>Cloud Spanner<sup>※2</sup>は、メンテナンスによるダウンタイムが発生しない設計</li>
+            </ul>
+        </div>
+        
+        <p>この技術的優位性により、無停止運営を継続する保守作業のコスト削減が狙えます。</p>
+        
+        <h3>移行プロジェクトの実施</h3>
+        <p>ポノスは、明確な目的を掲げてITインフラ移行プロジェクトを立ち上げました。</p>
+        
+        <div class="objectives">
+            <strong>プロジェクトの目的：</strong>
+            <ul>
+                <li>無停止運営のための手間とコストの削減</li>
+                <li>保守作業の時間を減らし、開発に携わる時間を増やす</li>
+            </ul>
+        </div>
+        
+        <p>プロジェクトは2023年夏に発足し、2025年1月に移行作業が完了しました。</p>
+        
+        <div class="note">
+            <p><strong>※1 Amazon Aurora</strong>…AWSが提供するリレーショナルデータベース（RDB）サービス。</p>
+            <p><strong>※2 Cloud Spanner</strong>…Google Cloudが提供するリレーショナルデータベース（RDB）サービス。NewSQL（後述）サービスの一つ。</p>
+        </div>
+        
+        <div class="summary-box">
+            <h2>まとめ</h2>
+            <p>ポノスの「にゃんこ大戦争」におけるインフラ移行事例は、明確な目的意識に基づいた戦略的な取り組みです。<span class="emphasis">DBダウンタイムの排除と無停止運営の実現</span>という具体的な課題に対して、適切な技術選択により解決策を見出しました。</p>
+            
+            <p>この事例は、クラウドサービス間でのITインフラ移行においても、サービスの特徴を十分に比較検討することの重要性を示しています。クラウドサービス間の技術的な違いに着目したITインフラ移行により、<span class="emphasis">保守作業のコスト削減、開発への集中という2つのメリットが生まれた成功事例</span>と言えるでしょう。</p>
+        </div>
+        
+        <h2>補足：Cloud Spannerに使用されるDB言語 - NewSQLとは -</h2>
+        
+        <p>Google CloudのCloud Spannerは、「NewSQL」と呼ばれる比較的新しいデータベース言語を用いたサービスです。NewSQLは、従来のSQLとNoSQLの長所を組み合わせた言語として登場しました。</p>
+        
+        <div class="tech-features">
+            <h3>SQL・NoSQL・NewSQLの比較</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モデル<br>言語</th>
+                        <th>一貫性(C)</th>
+                        <th>可用性(A)</th>
+                        <th>分断耐性(P)</th>
+                        <th>ACID<br>トランザクション</th>
+                        <th>スケーラビリティの<br>高さ</th>
+                        <th>コストの<br>安さ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SQL</strong></td>
+                        <td>◯</td>
+                        <td>◯</td>
+                        <td>×</td>
+                        <td>◯</td>
+                        <td>×</td>
+                        <td>◯</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NoSQL</strong></td>
+                        <td>×</td>
+                        <td>◯</td>
+                        <td>◯</td>
+                        <td>×</td>
+                        <td>◯</td>
+                        <td>△</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NewSQL</strong></td>
+                        <td>◯</td>
+                        <td>△</td>
+                        <td>◯</td>
+                        <td>◯</td>
+                        <td>◯</td>
+                        <td>×</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="references">
+            <h3>参考サイト</h3>
+            <p>
+                【AWSからGoogle Cloudへ　「にゃんこ大戦争」のインフラ"大引っ越し"の理由：「無停止」にこだわりぬく - TechTargetジャパン クラウド】<br>
+                <a href="https://techtarget.itmedia.co.jp/tt/news/2507/01/news01.html" target="_blank">https://techtarget.itmedia.co.jp/tt/news/2507/01/news01.html</a>
+            </p>
+            <p>
+                【ポノス：大人気ゲーム「にゃんこ大戦争」を Google Cloud へ移行、ユーザーへの影響を抑えつつ、モダナイズを実現 | Google Cloud 公式ブログ】<br>
+                <a href="https://cloud.google.com/blog/ja/products/application-modernization/ponos-migrating-thebattlecats-to-google-cloud" target="_blank">https://cloud.google.com/blog/ja/products/application-modernization/ponos-migrating-thebattlecats-to-google-cloud</a>
+            </p>
+            <p>
+                【SQL・NoSQL・NewSQLの違いは？【データベース言語】】<br>
+                <a href="https://zenn.dev/umi_mori/books/331c0c9ef9e5f0/viewer/da6ec2" target="_blank">https://zenn.dev/umi_mori/books/331c0c9ef9e5f0/viewer/da6ec2</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
