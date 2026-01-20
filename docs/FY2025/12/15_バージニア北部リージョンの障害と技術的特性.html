@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWSバージニア北部リージョン障害(2025年10月20日)調査レポート</title>
+    <style>
+        body {
+            font-family: 'Meiryo', 'メイリオ', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30mm 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #232f3e;
+            border-bottom: 4px solid #ff9900;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #232f3e;
+            border-left: 5px solid #ff9900;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        h4 {
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9900;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #0073bb;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        table th {
+            background-color: #232f3e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .summary-box {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .reference-list {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .reference-list a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .reference-list a:hover {
+            text-decoration: underline;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .red-bold {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20mm;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AWSバージニア北部リージョン障害(2025年10月20日)とバージニア北部リージョンの重要性</h1>
+        
+        <p>2025年10月20日に発生したAmazon Web Services(AWS)の大規模障害の概要、そして特に重要な役割を果たすバージニア北部リージョンの重要性について解説します。</p>
+
+        <h2>1. AWS障害の概要</h2>
+        
+        <div class="highlight-box">
+            <strong>発生日時:</strong> 2025年10月20日(月)日本時間15:48〜翌21日07:53(約16時間)<br>
+            <strong>影響を受けたリージョン:</strong> 米国 バージニア北部リージョン
+        </div>
+
+        <p>2025年10月20日、世界最大のクラウドサービスプロバイダーであるAWSで、近年稀に見る大規模障害が発生しました。この障害は、<span class="red-bold">AWSの中でも最も重要なデータセンター群である</span>バージニア北部リージョンで発生し、世界中の多数のWebサービスやアプリケーションに影響を与えました。</p>
+
+        <h3>影響を受けた著名なサービス</h3>
+        <ul>
+            <li>Perplexity(AI検索エンジン)</li>
+            <li>Slack(ビジネスチャットツール)</li>
+            <li>Amazon自社サービス(Alexa、Ring等)</li>
+        </ul>
+        <p>その他、2000以上のサービスが影響を受けたと報告されています</p>
+
+        <h3>障害発生から解決までの経緯</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>日本時間</th>
+                    <th>状態</th>
+                    <th>詳細</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10/20 15:48</td>
+                    <td>インシデント発生</td>
+                    <td>バージニア北部リージョンのサービスへのアクセスエラーと遅延が著しく上昇</td>
+                </tr>
+                <tr>
+                    <td>10/20 17:26</td>
+                    <td>原因調査中</td>
+                    <td>DynamoDBの大量エラーおよび他サービスへの影響が確認される</td>
+                </tr>
+                <tr>
+                    <td>10/20 18:01</td>
+                    <td>真因特定</td>
+                    <td>DynamoDBへの<span class="red-bold">DNS解決問題</span>が根本原因と判明、修復に着手</td>
+                </tr>
+                <tr>
+                    <td>10/20 18:27</td>
+                    <td>回復の兆し</td>
+                    <td>新規リクエストが成功し始める</td>
+                </tr>
+                <tr>
+                    <td>10/20 19:35</td>
+                    <td>初期解決</td>
+                    <td>ほとんどのサービスが復旧完了(EC2インスタンス起動にまだ問題あり)</td>
+                </tr>
+                <tr>
+                    <td>10/21 07:53</td>
+                    <td>完全解決</td>
+                    <td>すべての問題が解決</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <p><strong>障害の技術的な根本原因について詳しく知りたい方は、以下のQiita記事を参照してください。</strong></p>
+            <p><a href="https://qiita.com/zhang_hang/items/e63468ec53a95bb605a3" target="_blank">【振り返り】2025年10月20日AWS大規模障害、何が起こったの？ #AWS - Qiita</a></p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>2. 障害が発生したバージニア北部リージョンの重要性</h2>
+
+        <h3>バージニア北部リージョンの概要</h3>
+
+        <p>バージニア北部リージョンは、2006年にAWSが最初に開設した歴史的なリージョンです。首都ワシントンD.C.に近い立地にあり、AWSのインフラストラクチャの中核を成しています。</p>
+
+        <p>このリージョンが「なぜそんなに重要なのか?」を理解するには、<br>
+        <span class="bold">①コントロールプレーンとデータプレーン</span> <br>
+        <span class="bold">②バージニア北部リージョンの技術的特性</span> <br>
+        を知る必要があります。</p>
+
+        <h3>①コントロールプレーンとデータプレーン</h3>
+
+        <p>AWS のほとんどのサービスはコントロールプレーンとデータプレーンという概念に分かれています。</p>
+
+        <div class="info-box">
+            <h4>コントロールプレーンとデータプレーンの違い</h4>
+            <ul>
+                <li><strong>コントロールプレーン:</strong> <span class="red-bold">サービスの「管理機能」</span>。リソースの作成、削除、設定変更などのAPI(CRUDL: Create, Read, Update, Delete, List)を提供</li>
+                <li><strong>データプレーン:</strong> <span class="red-bold">サービスの「主機能」</span>。実際のデータ処理や業務処理を実行</li>
+            </ul>
+            <p><strong>例えばAmazon EC2（仮想サーバー）の場合:</strong></p>
+            <ul>
+                <li>コントロールプレーン: インスタンスの起動、停止、設定変更</li>
+                <li>データプレーン: 起動中のインスタンスそのもの、データの読み書き</li>
+            </ul>
+        </div>
+
+        <h3>②バージニア北部リージョンの技術的特性</h3>
+
+        <p>バージニア北部リージョンの最も重要な特性は、<span class="red-bold">多くのAWSグローバルサービスの「コントロールプレーン」がこのリージョンに集中していることです。</span> <br>
+        以下のAWSサービスのコントロールプレーンがバージニア北部リージョンに位置しています（一例）:</p>
+
+        <ul>
+            <li>AWS IAM(認証・認可サービス)</li>
+            <li>AWS Organizations(組織管理)</li>
+            <li>AWS Account Management(アカウント管理)</li>
+            <li>Amazon CloudFront(CDNサービス)</li>
+            <li>AWS WAF(Webアプリケーションファイアウォール)</li>
+            <li>AWS Shield Advanced(DDoS保護)</li>
+            <li>Route 53(DNSサービス)</li>
+            <li>S3(ストレージサービス)</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p>これが意味することは、東京リージョンでシステムを運用していても、IAMロールの新規作成やRoute 53の設定変更などを行う際には、<span class="red-bold">バージニア北部リージョンのコントロールプレーンと通信している</span>ということです。<br>
+            また、認証・認可や組織管理といった重要なサービスの「管理機能」がバージニア北部リージョンに集中しており、<span class="red-bold">同リージョンの障害発生はAWSサービスの運営に大きな影響をもたらしうる</span>のです。</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>3. まとめ</h2>
+
+        <div class="summary-box">
+            <h3>障害について</h3>
+            <ul>
+                <li><strong>概要:</strong> 2025年10月20日(月)、バージニア北部リージョンで障害発生</li>
+                <li><strong>影響範囲:</strong> Perplexity、Slackといった著名サービスに波及。その他2000以上のサービスが影響を受けた</li>
+                <li><strong>復旧:</strong> 約16時間で完全復旧。真因特定から初期解決までは約1.5時間と比較的迅速</li>
+            </ul>
+
+            <h3>バージニア北部リージョンの重要性</h3>
+            <ul>
+                <li><strong>最古のリージョン:</strong> 2006年開設、AWSの歴史的中核</li>
+                <li><strong>グローバルサービスの集中:</strong> IAM、Route 53、CloudFront等のコントロールプレーンが集中</li>
+                <li><strong>複雑な依存関係:</strong> 他リージョンのシステムも、設定変更時等にバージニア北部リージョンと通信</li>
+            </ul>
+        </div>
+
+        <h2>参考文献</h2>
+        <div class="reference-list">
+            <ul>
+                <li><a href="https://health.aws.amazon.com/health/status" target="_blank">AWS Health Dashboard - 公式障害レポート</a></li>
+                <li><a href="https://aws.amazon.com/jp/message/101925/" target="_blank">AWS Summary of DynamoDB Service Disruption</a></li>
+                <li><a href="https://qiita.com/zhang_hang/items/e63468ec53a95bb605a3" target="_blank">【振り返り】2025年10月20日AWS大規模障害、何が起こったの？ - Qiita</a></li>
+                <li><a href="https://blog.serverworks.co.jp/aws-us-east-1-outage-oct-2025-sts-regionalization-analysis" target="_blank">2025年10月発生の AWS us-east-1 障害を検証：STS リージョン分離 - Server Works</a></li>
+                <li><a href="https://dev.classmethod.jp/articles/us-east-1-global/" target="_blank">バージニア北部リージョンで障害が発生するとヒヤヒヤする理由 - Classmethod</a></li>
+                <li><a href="https://japan.zdnet.com/article/35239427/" target="_blank">AWS障害の余波、なお不安残る - ZDNet Japan</a></li>
+                <li><a href="https://dev.classmethod.jp/articles/aws-fault-isolation-boundaries/" target="_blank">AWS の障害分離境界について学べるホワイトペーパー AWS Fault Isolation Boundaries を読んでみた | DevelopersIO</a></li>
+                <li><a href="https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/abstract-and-introduction.html" target="_blank">AWS Fault Isolation Boundaries - AWS公式ホワイトペーパー</a></li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

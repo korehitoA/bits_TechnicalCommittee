@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS障害例及び対策の紹介</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        
+        body {
+            font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff;
+            font-size: 12px;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #34495e;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 15px;
+            margin: 20px 0 15px 0;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 15px 0 10px 0;
+            font-size: 13px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        
+        p {
+            margin: 8px 0;
+            text-align: justify;
+            text-indent: 1em;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .intro p {
+            text-indent: 0;
+            margin: 0;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .note strong {
+            color: #856404;
+        }
+        
+        .service-list {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .service-item {
+            margin: 8px 0;
+            padding-left: 15px;
+        }
+        
+        .measures {
+            background: #e8f5e8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .measures ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        
+        .measures li {
+            margin: 5px 0;
+        }
+        
+        .references {
+            background: #f1f3f4;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .references h3 {
+            margin-top: 0;
+            font-size: 12px;
+        }
+        
+        .references a {
+            color: #0066cc;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
+        .date-highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .impact-box {
+            border: 2px solid #dc3545;
+            background: #fef2f2;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .impact-box p {
+            margin: 5px 0;
+            text-indent: 0;
+        }
+        
+        @media print {
+            body {
+                font-size: 11px;
+            }
+            
+            .container {
+                padding: 0;
+            }
+            
+            h1 {
+                font-size: 16px;
+            }
+            
+            h2 {
+                font-size: 13px;
+            }
+            
+            h3 {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AWS障害例及び対策の紹介</h1>
+        
+        <div class="intro">
+            <p><span class="date-highlight">2025年4月15日(火)</span>に東京リージョンで発生したAWS障害について紹介します。AWSに関わっている社員も多いかと思うので皆さんご把握をお願いします。</p>
+        </div>
+
+        <h2>障害の概要</h2>
+        <p><span class="date-highlight">2025年4月15日(火)</span>の日本時間午後4時40分頃、東京リージョンのアベイラビリティーゾーンの一部でAWS障害が発生し、該当ゾーンを利用していた企業のサービスに影響が生じました。障害の原因は主電源及び二次電源が遮断されたことであると報告されています。</p>
+
+        <h2>AWSサービスの稼働領域と耐障害性の関係</h2>
+        <p>IaaS（Infrastructure As A Service）の一つであるAWSにおける障害発生により、多くのサービスに影響がありました。しかし、重要なポイントは、「AWSにおける障害発生＝障害が発生している間、AWSが使用できなくなる」ということではないということです。AWSサービスは「サービスが稼働する領域」によって耐障害性に差があります。サービスごとの耐障害性を理解し、障害に強いインフラ基盤を構築することが求められています。</p>
+
+        <div class="note">
+            <strong>注1：IaaS（Infrastructure As A Service）</strong>
+            　コンピュータ、ストレージ、ネットワークといったITインフラの構成要素をインターネットを通して提供するサービス。機材を購入することなく、ITインフラの基盤を構築することが可能。
+        </div>
+
+        <h2>AWSインフラストラクチャーの基本概念</h2>
+        <p>「サービスが稼働する領域」を理解するために、AWSインフラストラクチャーの基本概念である「リージョン」と「アベイラビリティーゾーン」について説明します。</p>
+
+        <h3>■ リージョン</h3>
+        <p>AWSが提供する複数のデータセンターが集められた地理的な場所のことです。リージョンは地名（例：東京、シンガポール、バージニア北部）で呼ぶことが多く、2025年6月時点で、世界36カ所に展開されています。</p>
+
+        <h3>■ アベイラビリティーゾーン</h3>
+        <p>リージョンを分割したグループのことです。リージョン内のデータセンター群は3つ以上のグループに分割され、分割されたグループはアベイラビリティーゾーンと呼ばれます。アベイラビリティーゾーン同士は地理的に離れた場所に配置されていますが、高速ネットワークで接続されています。</p>
+
+        <h2>AWSサービスの分類と耐障害性</h2>
+        <p>「サービスが稼働する領域」に応じて、AWSサービスは以下の3種類に分けられます。</p>
+
+        <div class="service-list">
+            <h3>■ グローバルサービス</h3>
+            <div class="service-item">
+                <p>リージョンやアベイラビリティーゾーンに依存せず稼働するサービスです。特定のリージョンやアベイラビリティーゾーンに障害が発生しても、世界中に存在する他のリージョン・アベイラビリティーゾーン上でサービスが稼働し続けます。</p>
+                <p><strong>例：</strong>AWS Certificate Manager（SSL/TLS証明書の発行・管理）</p>
+            </div>
+
+            <h3>■ リージョンサービス</h3>
+            <div class="service-item">
+                <p>特定のリージョンで稼働するサービスです。サービスが稼働しているリージョン内でアベイラビリティーゾーンに障害が発生した場合、同じリージョン内の他のアベイラビリティーゾーン上でサービスが稼働し続けます。ただし、同じリージョン内のすべてのアベイラビリティーゾーンに障害が発生した場合、サービスが停止します。</p>
+                <p><strong>例：</strong>Amazon DynamoDB（NoSQLデータベース）</p>
+            </div>
+
+            <h3>■ アベイラビリティーゾーンサービス</h3>
+            <div class="service-item">
+                <p>特定のアベイラビリティーゾーンで稼働するサービスです。サービスが稼働しているアベイラビリティーゾーンで障害が発生した場合、サービスが停止します。</p>
+                <p><strong>例：</strong>Amazon EC2（仮想サーバー）</p>
+            </div>
+        </div>
+
+        <h2>今回の障害の影響範囲</h2>
+        <div class="impact-box">
+            <p>上記の分類を踏まえると、2025年4月15日に東京で発生したAWS障害は、東京リージョンにおけるアベイラビリティーゾーンのうち1カ所で発生した局所的な障害でした。</p>
+            <p>したがって、今回の障害は主に「アベイラビリティーゾーンサービス」に影響し、障害が発生したアベイラビリティーゾーンで稼働していたサービス（主にAmazon EC2インスタンスなど）が停止しました。</p>
+            <p>一方で、リージョンサービスやグローバルサービスは継続して稼働していました。</p>
+        </div>
+
+        <h2>障害対策の重要性</h2>
+        <div class="measures">
+            <p>このような障害を踏まえ、以下のような対策が重要です。</p>
+            <ul>
+                <li><strong>マルチAZ構成：</strong>複数のアベイラビリティーゾーンにリソースを分散配置</li>
+                <li><strong>リージョン間冗長化：</strong>重要なシステムは複数リージョンでの運用を検討</li>
+                <li><strong>適切なサービス選択：</strong>耐障害性要件に応じたAWSサービスの選択</li>
+            </ul>
+        </div>
+
+        <div class="references">
+            <h3>※参考</h3>
+            <p><strong>IaaS とは - Infrastructure as a Service の説明 - AWS</strong><br>
+            <a href="https://aws.amazon.com/jp/what-is/iaas/">https://aws.amazon.com/jp/what-is/iaas/</a></p>
+            
+            <p><strong>AWS グローバルインフラストラクチャ | AWS</strong><br>
+            <a href="https://aws.amazon.com/jp/about-aws/global-infrastructure/">https://aws.amazon.com/jp/about-aws/global-infrastructure/</a></p>
+            
+            <p><strong>グローバルインフラストラクチャリージョンと AZ</strong><br>
+            <a href="https://aws.amazon.com/jp/about-aws/global-infrastructure/regions_az/">https://aws.amazon.com/jp/about-aws/global-infrastructure/regions_az/</a></p>
+        </div>
+    </div>
+</body>
+</html>
