@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>「AIを好む人」と「AIを嫌う人」を分けるものは一体何なのか？</title>
+    <style>
+        @media print {
+            @page {
+                margin: 0;
+            }
+            body {
+                margin: 0;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            line-height: 1.7;
+            color: #1e3a5f;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+        
+        .container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 20mm;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            border-left: 6px solid #1976d2;
+            padding-left: 16px;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #e3f2fd, transparent);
+            padding: 16px;
+            padding-left: 20px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            color: #0d47a1;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            color: #1565c0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .subtitle::before {
+            content: '🔹';
+            font-size: 14px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 18px;
+            color: #0d47a1;
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 3px solid #42a5f5;
+            font-weight: bold;
+        }
+        
+        h3 {
+            font-size: 15px;
+            color: #1565c0;
+            margin-bottom: 10px;
+            margin-top: 16px;
+            font-weight: bold;
+            background: #e3f2fd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border-left: 4px solid #1976d2;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 13px;
+            text-align: justify;
+            text-indent: 1em;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        
+        .highlight-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 14px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .conclusion h2 {
+            color: white;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 12px;
+        }
+        
+        .conclusion p {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        strong {
+            color: #0d47a1;
+            font-weight: bold;
+        }
+        
+        .references {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #90caf9;
+        }
+        
+        .references h2 {
+            font-size: 16px;
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .references ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .references li {
+            font-size: 11px;
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .references li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #1976d2;
+        }
+        
+        .references a {
+            color: #1565c0;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, #42a5f5, transparent);
+            margin: 20px 0;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        
+        .key-point {
+            background: white;
+            border: 2px solid #90caf9;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+        }
+        
+        .key-point-title {
+            font-weight: bold;
+            color: #1565c0;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>「AIを好む人」と「AIを嫌う人」を分けるものは一体何なのか？</h1>
+        </div>
+        
+        <div class="section">
+            <p>近年、AIツールの利用が身近になる一方で、「AIを積極的に使いたい」人と「懐疑的・拒否的」な人に二極化が見られます。この隔たりは「技術への慣れ」や「知識の差」だけでなく、「リスク認知」と「信頼の感じ方」という心理・認知のあり方が大きく関係しています。</p>
+        </div>
+        
+        
+        <div class="section">
+            <h2>主な「分かれ目」の理由</h2>
+            
+            <h3>1. アルゴリズム嫌悪(Algorithm aversion)</h3>
+            <p>多くの人は「人間による意思決定」を好み、機械のミスには過度に敏感です。これは、鍵を回して車が動く、ボタンを押してエレベーターが止まるといった、因果関係が明確な従来システムに慣れているためです。対してAIはそんな従来システムと違い、ロジックが見えづらいため、因果関係からの安心感や納得感が得られにくい存在です。結果として、「AIが間違ったとき」に強い不信感や嫌悪感が湧きやすくなります。</p>
+            
+            <h3>2. AIへの「感情の投影」と「不気味さ」</h3>
+            <p>人は機械に対して人間的な感情や意図を投影しがちです(擬人化)。チャットAIが人間らしく応答すると、「本当に考えている」ように錯覚します。しかし同時に、会話のトーン、間の取り方など"人間らしさと異なる微妙なズレ"が「不気味の谷」として「冷たさ」「不信感」「不安」を生みます。この「感情の投影」と「不気味さの混在」が、人によって「親しみ」にも「拒絶感」にもつながります。</p>
+            
+            <h3>3. 「仕事・アイデンティティの脅威」「倫理・公正性への不安」</h3>
+            <p>専門職では「AIが自分の職能を置き換えるのでは」という存在価値の揺らぎが不安の源です。また、AIシステムがバイアスを含む判断をするケースも報告されており、懐疑は十分な根拠のある防御反応と言えます。</p>
+            
+            <h3>4. 「状況に応じた受け入れ・拒否」――決して二元論ではない</h3>
+            <p>最近の研究では、人は単純に"AI好き/嫌い"に分かれるのではなく、「AIの能力(正確性、効率性)」と「タスクの個別性」によって判断することが示されています。株価予測など定量的・客観的なタスクではAIへの信頼が高まる一方、医療診断や芸術創作など個別性が重要な領域では人間の判断を好みます。多くの人は「完全拒否」ではなく、"ハイブリッド利用"を選んでいます。</p>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="section" style="margin-top: 200px;">
+            <h2>社会・組織として知っておきたい示唆</h2>
+            
+            <div class="highlight-box">
+                <ul>
+                    <li>「性能向上」だけでなく、「信頼」「透明性」「説明可能性」「選択肢の確保」が重要です。特に機密性や個別事情を伴う業務では、「人間による最終判断」「エラー時の説明責任」「疑問を持てる仕組み」を整える必要があります。</li>
+                    <li>社内導入時は、「技術理解」だけでなく「心理的受け入れ」を高める教育やコミュニケーション設計が鍵です。「便利」「効率化」だけで押し切ると反発や拒否感を招く可能性があります。</li>
+                    <li>従業員に対しAIで『何を』『どこまで』やっていいのかを組織として明確に示すことでも、心理的ハードルは大きく下がるでしょう。</li>
+                </ul>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-title">✓ 透明性</div>
+                    AIの判断プロセスを可視化
+                </div>
+                <div class="key-point">
+                    <div class="key-point-title">✓ 説明責任</div>
+                    エラー時の対応体制を整備
+                </div>
+                <div class="key-point">
+                    <div class="key-point-title">✓ 規則整備</div>
+                    利用する際の不明点を先行して解消
+                </div>
+                <div class="key-point">
+                    <div class="key-point-title">✓ 心理的配慮</div>
+                    安心感・納得感を重視
+                </div>
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h2>結び――「好き／嫌い」の図式を超えて</h2>
+            <p>「AIを好む人」「AIを嫌う人」の違い、技術の是非や知識の有無ではなく、「人間の心理が、AIという未知・不透明な存在をどう受け止めるか」が鍵となります。</p>
+            <p>今後AIを導入・活用するなら、技術だけでなく<strong style="color: #ffeb3b;">"人が安心して使える環境づくり"</strong>が重要です。透明性、説明責任、選択の自由――これらの配慮を行いつつ、どんな利用を、どこまでやっていいのかを明確に定め、AIを「数多ある選択肢の一つ」として提示することで、「嫌い・不信」の壁を少しずつ乗り越えられるでしょう。</p>
+        </div>
+        
+        <div class="references">
+            <h2>参考文献</h2>
+            <ul>
+                <li><a href="https://gigazine.net/news/20251110-ai-love-hate-perceive-risk-trust/" target="_blank">https://gigazine.net/news/20251110-ai-love-hate-perceive-risk-trust/</a></li>
+                <li><a href="https://theconversation.com/why-do-some-of-us-love-ai-while-others-hate-it-the-answer-is-in-how-our-brains-perceive-risk-and-trust-268588" target="_blank">https://theconversation.com/why-do-some-of-us-love-ai-while-others-hate-it-the-answer-is-in-how-our-brains-perceive-risk-and-trust-268588</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

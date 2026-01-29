@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ソフトウェア開発者の単価とAI自動化の影響</title>
+<style>
+  :root { --lime: #84cc16; --ink: #1f2937; --text: #334155; --card: #f8fff0; --border: #d1fae5; }
+  body { background:white; margin:0; padding:0; color:var(--text); }
+  .page { width:920px; margin:40px auto; padding:32px 36px; background:var(--card); border:2px solid var(--border);
+           border-radius:14px; box-shadow:0 6px 20px rgba(132,204,22,0.08); }
+  h1 { font-size:26px; color:var(--ink); margin:0 0 8px; text-align:center; }
+  h2 { font-size:18px; color:var(--ink); margin:26px 0 6px; }
+  p  { margin:10px 0; line-height:1.85; }
+  .chart { margin:12px 0 6px; display:flex; justify-content:center; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <h1>ソフトウェア開発者の単価とAI自動化の影響</h1>
+
+    <h2>1．世界で進む「AI効率化」と単価下落の現実</h2>
+    <p>
+      AI技術の導入が進むなか、海外ではすでに開発者単価への影響が顕在化しています。
+      Times of India（2025年1月）の報道によると、AIの普及により<strong>2024年比で東ヨーロッパではソフトウェア開発者の時給が約9％下落</strong>、
+      <strong>南アジアでは最大16％下落</strong>したとされています。
+    </p>
+    <p>
+      背景には、AIがコーディングやテストといった定型業務を部分的に代替し、開発プロセス全体の効率化が進んだことがあります。
+      一方で、AI導入を進める企業では単純作業から高度な設計業務へと価値がシフトしており、開発者に求められるスキルの方向性も変化しつつあります。
+    </p>
+
+    <h2>2．日本の現状：高水準を維持しつつも、領域ごとの格差が拡大</h2>
+    <p>
+      エン・ジャパン「フリーランススタート」の調査によると、
+      2024年12月〜2025年9月の平均単価は<strong>73.8〜76.0万円</strong>の範囲で推移しており、<strong>全体として約3％上昇</strong>しています。
+    </p>
+    <p>
+      ただし、この数字は「平均値」であり、実際には案件内容やスキル領域によって単価のばらつきが顕在化しています。
+    </p>
+    <p>
+      AI活用が進む定型業務（コーディング、テスト等）の案件単価は低下傾向にある一方、
+      要件定義や設計といった非定型業務は高需要を維持しており、スキルによる報酬格差が拡大しています。
+      平均値の上昇は、高単価案件の増加によるものと考えられます。
+    </p>
+    <p>※このデータは「フリーランス案件」を対象としたものであり、正社員や派遣などは含まれません。</p>
+    <p>※データは平均値の推移を示したもので、短期的な変動を含みます。</p>
+    <div class="chart">
+<svg width="760" height="360" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+  <style>
+    .grid{stroke:#e5f3c6;stroke-width:1}
+    .lbl{font-size:12px;fill:#334155}
+    .title{font-size:16px;font-weight:600;fill:#1f2937}
+  </style>
+  <text x="380.0" y="24" text-anchor="middle" class="title">日本のフリーランス平均単価の推移（万円/月）</text>
+  <rect x="50" y="50" width="660" height="260" fill="white" stroke="#d1fae5"/>
+  <line x1="50" y1="310.0" x2="710" y2="310.0" class="grid"/><text x="42" y="314.0" text-anchor="end" class="lbl">73.5</text><line x1="50" y1="263.6" x2="710" y2="263.6" class="grid"/><text x="42" y="267.6" text-anchor="end" class="lbl">74.0</text><line x1="50" y1="217.1" x2="710" y2="217.1" class="grid"/><text x="42" y="221.1" text-anchor="end" class="lbl">74.5</text><line x1="50" y1="170.7" x2="710" y2="170.7" class="grid"/><text x="42" y="174.7" text-anchor="end" class="lbl">75.0</text><line x1="50" y1="124.3" x2="710" y2="124.3" class="grid"/><text x="42" y="128.3" text-anchor="end" class="lbl">75.5</text><line x1="50" y1="77.9" x2="710" y2="77.9" class="grid"/><text x="42" y="81.9" text-anchor="end" class="lbl">76.0</text>
+  <line x1="50.0" y1="50" x2="50.0" y2="310" class="grid"/><text x="50.0" y="328" text-anchor="middle" class="lbl">2024/12</text><line x1="182.0" y1="50" x2="182.0" y2="310" class="grid"/><text x="182.0" y="328" text-anchor="middle" class="lbl">2025/01</text><line x1="314.0" y1="50" x2="314.0" y2="310" class="grid"/><text x="314.0" y="328" text-anchor="middle" class="lbl">2025/04</text><line x1="446.0" y1="50" x2="446.0" y2="310" class="grid"/><text x="446.0" y="328" text-anchor="middle" class="lbl">2025/05</text><line x1="578.0" y1="50" x2="578.0" y2="310" class="grid"/><text x="578.0" y="328" text-anchor="middle" class="lbl">2025/06</text><line x1="710.0" y1="50" x2="710.0" y2="310" class="grid"/><text x="710.0" y="328" text-anchor="middle" class="lbl">2025/09</text>
+  <polyline points="50.0,180.0 182.0,180.0 314.0,207.9 446.0,282.1 578.0,272.9 710.0,77.9" fill="none" stroke="#84cc16" stroke-width="3"/>
+  <circle cx="50.0" cy="180.0" r="3.6" fill="#84cc16" /><circle cx="182.0" cy="180.0" r="3.6" fill="#84cc16" /><circle cx="314.0" cy="207.9" r="3.6" fill="#84cc16" /><circle cx="446.0" cy="282.1" r="3.6" fill="#84cc16" /><circle cx="578.0" cy="272.9" r="3.6" fill="#84cc16" /><circle cx="710.0" cy="77.9" r="3.6" fill="#84cc16" />
+</svg>
+    </div>
+    
+    <h2>3．AIが得意な業務・苦手な業務</h2>
+    <p>
+      Salesforce社の社内分析によると、AIエージェントのタスク成功率は「単一の指示で完結する業務」では58%、
+      複数の判断や確認を必要とする「複雑なワークフロー（マルチターンタスク）」では35%にとどまります。
+    </p>
+    <p>
+      つまり、AIは単発の処理には強い一方、文脈理解や柔軟な判断が必要な業務では課題が残ります。
+      この違いは、実際の開発現場でも実感されているのではないでしょうか。
+    </p>
+
+    <h2>4．これからのエンジニアに求められる視点</h2>
+    <p>
+      AIが仕事の形を変えつつある今、私たちに必要なのは「AIとどう共存して成果を出すか」という視点です。
+      コードを書く力だけでなく、設計力・レビュー力・業務理解といった"考える力"の重要性が増しています。
+    </p>
+    <p>
+      今後は、AIを活用するだけでなく、AIを前提に業務を設計できるエンジニアが求められます。
+      変化に適応しながら、技術と業務を結びつける視点がこれからのキャリアを左右していくでしょう。
+    </p>
+    <p>
+      国内では高水準を維持しているものの、スキルによる二極化が進行しています。
+      今後は、AIに代替されにくい設計・要件定義・業務理解などのスキルを磨くことが重要です。
+    </p>
+
+    <p><strong>参考</strong><br>
+      - Times of India（2025年1月）：「With AI on the rise, developer rates decline」<br>
+      - エン・ジャパン「フリーランススタート」調査（2024年12月〜2025年9月）<br>
+      - Salesforce internal analysis on AI agents (2025)
+    </p>
+  </div>
+</body>
+</html>

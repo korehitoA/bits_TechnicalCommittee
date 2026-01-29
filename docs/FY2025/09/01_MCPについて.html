@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCPについて(2025/8版)</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a0dab;
+            border-bottom: 2px solid #1a0dab;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2d2d2d;
+            margin-top: 30px;
+            border-left: 5px solid #1a0dab;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .emphasis {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        .note {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .tool-name {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        .tweet {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>MCPについて(2025/8版)</h1>
+
+    <h2>OpenAIによるMCP採用の表明</h2>
+    <p>2025年3月27日、OpenAIのCEOであるサム・アルトマンが自身のXアカウントで以下のように投稿しました：</p>
+    <div class="tweet">
+        "people love MCP and we are excited to add support across our products. available today in the agents SDK and support for chatgpt desktop app + responses api coming soon!"
+    </div>
+    <p>この一言は、AI業界に大きな反響を呼び起こしました。競合であるAnthropic社が開発したMCPを、OpenAIが自社製品に採用すると表明したのです。</p>
+
+    <h2>MCPとは</h2>
+    <p>MCP(Model Context Protocol)は、Anthropic社によって開発されたプロトコルで、「AIのUSB」とも呼ばれる革新的な標準規格です。AIシステムとツール・データを簡単に接続できるようにする仕組みを提供します。</p>
+
+    <h2>MCPの仕組み</h2>
+    <p>MCPは、AIシステムとツールを効率的に接続するためのクライアント・サーバーモデルを採用しています。AIシステム側にMCPクライアント、ツール側にMCPサーバーを実装し、両者の間で標準化された通信ルールを定めることで、異なるシステムや異なるツールでも同じ方法で利用できるようになります。</p>
+    <p>MCPサーバーはツールの管理と実行を行いますが、ツールの説明を定義しておくことで、AIシステムからの問い合わせの際にAIが理解できる形式で呼び出しを行えるようになっています。</p>
+    <p>アクセス権限の管理やツール実行の制限、データの暗号化などの機能もありセキュリティ面も対応しています。</p>
+
+    <h2>MCPが登場する前のAIの課題</h2>
+    <p>MCPが登場する前のAIシステムは、ツールやデータとの連携をする際、それぞれのツールやデータに対して個別の実装が必要で、AIの持つ本来の力を十分に活用できない状況でした。特にAIエージェントの場合、期待する稼働量に反してできることが限られてしまい、多くの業務で活用が困難でした。</p>
+
+    <h2>MCPの活用シーン</h2>
+    <p>MCPの登場により、AIシステムの活用範囲が大きく広がりました。例えば社内システムとの連携では、AIが必要な機能を自動的に選択・実行し、データベース操作、ファイル管理、Webアプリケーション制御など、複数の処理を組み合わせた複雑な業務を自動化できます。ユーザーは自然な対話を通じて、曖昧な指示でもAIに業務を依頼することが可能です。</p>
+    <p>異なるAIモデル間でのコンテキストの共有や、特化型AIと汎用AIの協調動作などのAIとAIとの連携も容易になります。</p>
+    <p>※AIエージェントとAIエージェントの直接連携はA2Aプロトコルを活用します。</p>
+
+    <h2>MCPの利用方法</h2>
+    <p>MCPはオープンな標準規格として公開されており、様々な形での導入が可能です。多くのベンダーが公式なMCP対応ライブラリやフレームワークを提供しており、これらを利用することで効率的にMCP対応システムを構築できます。また、MCP仕様に基づいて独自の実装を行うことも可能です。</p>
+
+    <h2>MCPサーバーの例</h2>
+    <p>MCPサーバーは、AIが各種システムを操作できるように設計されています。重要なのは、これらが<span class="emphasis">対話的に・曖昧な指示</span>でも操作できる点です。</p>
+    <p>以下に主な種類を紹介します：</p>
+
+    <h3>データベース系</h3>
+    <p><span class="tool-name">PostgreSQL MCP, Supabase MCP, SQLite MCP</span>など</p>
+    <p>AIがテーブル構造やデータ内容を理解して操作できるようになります。</p>
+
+    <h3>ブラウザ操作系</h3>
+    <p><span class="tool-name">Browser MCP, PlayWright MCP</span>など</p>
+    <p>AIがブラウザを操作できるようになります。</p>
+
+    <h3>コミュニケーション系</h3>
+    <p><span class="tool-name">Slack MCP, Google Calendar MCP</span>など</p>
+    <p>AIが内容を理解し送信や管理などができるようになります。</p>
+
+    <h2>まとめ</h2>
+    <p>MCPの普及により、AIシステムはより実用的で柔軟な業務支援が可能になります。業務でのAIシステム製造時の利用だけでなく開発の場面でもAIエージェント+MCPを活用した効率化が期待できますので、積極的に活用していきましょう。</p>
+
+</body>
+</html>

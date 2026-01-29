@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI推進法の概要と内容</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .intro {
+            background: #e8f4f8 !important;
+            color: #2c3e50;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #2c3e50 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #fafafa !important;
+            border-left: 5px solid #e74c3c !important;
+            border: 2px solid #e0e0e0 !important;
+            border-left: 5px solid #e74c3c !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .section:nth-child(even) {
+            background: #f9f9f9 !important;
+            border-left: 5px solid #3498db !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .section:nth-child(3n) {
+            background: #f8f8f8 !important;
+            border-left: 5px solid #9b59b6 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 3px solid rgba(44, 62, 80, 0.3);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section h2::before {
+            content: '■';
+            margin-right: 10px;
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+        
+        .section h3 {
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            color: #34495e;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .article-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .article-box:hover {
+            border-color: #2980b9;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .article-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+            font-style: italic;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 3em;
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            opacity: 0.3;
+        }
+        
+        .bullet-point {
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            transition: all 0.3s ease;
+        }
+        
+        .bullet-point:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateX(5px);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8ff78 0%, #78ffd6 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #e91e63;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+        }
+        
+        .summary-box h2 {
+            text-align: center;
+            color: #c0392b;
+            margin-bottom: 25px;
+        }
+        
+        .summary-item {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .summary-item::before {
+            content: counter(summary-counter);
+            counter-increment: summary-counter;
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .summary-box {
+            counter-reset: summary-counter;
+        }
+        
+        .summary-item h4 {
+            color: #c0392b;
+            margin-bottom: 10px;
+            margin-left: 25px;
+        }
+        
+        .summary-item p {
+            margin-left: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>AI推進法の概要と内容</h1>
+            <p class="subtitle">人工知能関連技術の研究開発及び活用の推進に関する法律</p>
+        </header>
+
+        <main class="content">
+            <div class="intro">
+                <p>技術委員会でも度々紹介している通り、AIは開発と発展、ビジネスでの利用が進められています。日本でも6月にAI推進法と呼ばれる法律が制定されました。今回はその目的や内容について、要約してまとめる形で紹介します。</p>
+            </div>
+
+            <section class="section">
+                <h2>概要</h2>
+                <p>日本初のAI推進に関する基本法として、<span class="highlight">2025年6月4日</span>にAI推進法（人工知能関連技術の研究開発及び活用の推進に関する法律）が施行されました。</p>
+                <p>AIを国家戦略の根幹に据え、<span class="highlight">経済成長と安全保障をバランスよく推進</span>するための制度設計を示す法律です。</p>
+            </section>
+
+            <section class="section">
+                <h2>目的（原文引用）</h2>
+                <h3>第1条</h3>
+                <div class="quote-box">
+                    この法律は、人工知能関連技術が我が国の経済社会の発展の基盤となる技術であることに鑑み、人工知能関連技術の研究開発及び活用の推進に関する施策について、基本理念並びに人工知能関連技術の研究開発及び活用の推進に関する基本的な計画の策定その他の施策の基本となる事項を定めるとともに…
+                </div>
+                <p>上記の通り、<span class="highlight">AI政策を国家戦略の柱として確立</span>し、法的裏付けを伴う形で定めています。</p>
+            </section>
+
+            <section class="section">
+                <h2>法律の構成</h2>
+                <p>本法律は以下の構成になっています。その中で、注目するべき内容をピックアップしています。</p>
+                
+                <div class="bullet-point"><strong>第1章：</strong>総則（第1条～第10条）</div>
+                <div class="bullet-point"><strong>第2章：</strong>基本的施策（第11条～第17条）</div>
+                <div class="bullet-point"><strong>第3章：</strong>人工知能基本計画（第18条）</div>
+                <div class="bullet-point"><strong>第4章：</strong>人工知能戦略本部（第19条～第28条）</div>
+
+                <h3>🔹 基本的施策（第11条～第17条）</h3>
+                
+                <div class="article-box">
+                    <div class="article-title">第11条（研究開発の推進等）</div>
+                    <p>「国は、AI関連技術の基礎研究から実用化までの一貫した研究開発の推進、研究開発機関における研究成果の移転のための体制整備、研究成果に係る情報の提供その他の施策を講ずるものとする」</p>
+                </div>
+
+                <div class="article-box">
+                    <div class="article-title">第12条（施設及び設備等の整備及び共用の促進）</div>
+                    <p>「国は、AIの研究開発・活用に当たって必要なデータセンターやデータセット、その他の知的基盤を研究開発機関および活用事業者が広く利用できるよう整備し、共用の促進に必要な施策を講ずるものとする」</p>
+                </div>
+
+                <div class="article-box">
+                    <div class="article-title">第13条（適正性の確保）</div>
+                    <p>「国は、AI関連技術の研究開発及び活用の適正な実施を図るため、国際的な規範の趣旨に即した指針（ガイドライン）の整備その他の必要な施策を講ずるものとする」</p>
+                </div>
+
+                <h3>🔹 他の条文（概要）</h3>
+                <div class="bullet-point"><strong>第14条：</strong>人材の確保・育成（例：研究者育成や業界人材強化）</div>
+                <div class="bullet-point"><strong>第15条：</strong>教育振興（AIリテラシー向上や普及啓発）</div>
+                <div class="bullet-point"><strong>第16条：</strong>調査研究、モニタリング、不適切事案への対応、指導・助言</div>
+                <div class="bullet-point"><strong>第17条：</strong>国際協力・国際規範への参画（G7などとの連携含む）</div>
+
+                <p>基礎研究から実用化への橋渡しを支援し、研究成果を社会に広く展開する意図が示されています。また、AI開発に必要な情報処理に関する資源の共有体制を国家的に整備するように定められています。</p>
+                <p>AIの信頼性・透明性を担保するため、国際基準に沿ったガイドライン整備を明文化しています。その他の条文では、AI開発を推進する上での人材育成や、その教育と研究、AI開発の国際協力に関するガイドラインが定められています。</p>
+            </section>
+
+            <section class="section">
+                <h2>人工知能基本計画（第18条）</h2>
+                <p>政府は、基本理念および基本的施策に基づき、AI関連技術の研究開発・活用の推進に関する施策についての基本的な方針および総合的・計画的に講ずべき施策等を定めた<span class="highlight">「人工知能基本計画」</span>を策定・公表する。</p>
+                
+                <div class="bullet-point">人工知能関連技術の研究開発及び活用の推進に関する施策についての基本的な方針</div>
+                <div class="bullet-point">人工知能関連技術の研究開発及び活用の推進に関し、政府が総合的かつ計画的に講ずべき施策</div>
+                <div class="bullet-point">前2号に掲げるもののほか、人工知能関連技術の研究開発及び活用の推進に関する施策を政府が総合的かつ計画的に推進するために必要な事項</div>
+                
+                <p>上記に掲げる内容が<span class="highlight">国の方針として定められる</span>ことになります。</p>
+            </section>
+
+            <section class="section">
+                <h2>人工知能戦略本部（第19条〜第28条）</h2>
+                <p>AI戦略本部は内閣に設置され、<span class="highlight">総理大臣が本部長、全閣僚が構成員</span>として国家統括体制を担うことが定められています。</p>
+            </section>
+
+            <div class="summary-box">
+                <h2>📋 まとめ</h2>
+                <p>AI推進法の具体的内容について、紹介しました。定められた内容で注目する点は以下のようにまとめられます。</p>
+                
+                <div class="summary-item">
+                    <h4>イノベーション促進とリスク管理の両立</h4>
+                    <p>EUのAI法が「リスク分類＋禁止型規制」を軸にするのに対し、日本は「基本法＋ガイドライン」による推奨型枠組みを軸にしています。スタートアップや中小企業も参入しやすい環境を確保する目的があります。</p>
+                </div>
+                
+                <div class="summary-item">
+                    <h4>ソフトロー型アプローチの採用</h4>
+                    <p>行政が企業活動を制限するのではなく支援する発想に近く、特に民間主導の技術革新を尊重しています。</p>
+                </div>
+                
+                <div class="summary-item">
+                    <h4>研究開発・人材育成の重点強化</h4>
+                    <p>特に第12条の「共用の促進」は、中小企業でも国家的リソースを利用できる可能性を広げる重要規定になっています。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
