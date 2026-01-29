@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニコニコ生放送復旧の軌跡</title>
+    <style>
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                max-width: none;
+                width: 100%;
+            }
+            .header {
+                background: linear-gradient(135deg, #1e40af, #3b82f6) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-height: 297mm;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 24px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 20px;
+            border-left: 4px solid #3b82f6;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 30px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3b82f6;
+            position: relative;
+        }
+
+        h2:first-of-type {
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 24px 0 12px 0;
+            padding-left: 12px;
+            border-left: 3px solid #60a5fa;
+        }
+
+        p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 16px 0;
+            padding-left: 0;
+        }
+
+        li {
+            list-style: none;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: '■';
+            color: #3b82f6;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 1px solid #0284c7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #0c4a6e;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .url-section {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .url-section p {
+            margin-bottom: 12px;
+            color: #475569;
+        }
+
+        .url {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            color: #1e40af;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .timeline-section {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            left: -16px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #3b82f6, #60a5fa);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ニコニコ生放送復旧の軌跡</h1>
+            <div class="subtitle">ランサムウェア攻撃からの復活 - 2024年6月事件の記録</div>
+        </div>
+
+        <div class="content">
+            <div class="intro">
+                <p>2024年6月、ランサムウェア攻撃によりニコニコ動画、ニコニコ生放送など「ニコニコ」の全サービスが停止しました。これらのサービスをよく利用する方には、いまだに記憶に新しい事件かと思います。</p>
+                
+                <p>そしてこの度、対象サービスの中でもニコニコ生放送がサービス再開するまでの軌跡が『dwango on GitHub』にて公開されました。開発マネージャーという当事者の視点から時系列順に語られており、簡単な時系列と復旧成功の要因を抜粋して紹介します。</p>
+            </div>
+
+            <h2>簡単な時系列</h2>
+            
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <h3>サイバー攻撃直後の状況と影響</h3>
+                    <p>大部分のシステムはパブリッククラウド上で稼働していましたが、プライベートクラウド上で稼働していた一部の主要システムが攻撃の対象となりました。特に、コメント機能の要であるメッセージサーバーと映像配信システムの停止により、生放送の基本機能がすべて使えなくなってしまいました。</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>初動対応</h3>
+                    <p>事態の長期化は避けられないことから、まずユーザーに「生きている」ということ、サービス復旧に取り組んでいるということを示すため、最低限の機能を持つ復旧版の開発が行われました。復旧版はわずか3日で開発され、6月19日の仮復旧版の提供開始後、本格復旧作業が始まりました。</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>本格復旧作業</h3>
+                    <p>他サービスとの連携部分を縮退運転できるよう改修、復旧のめどが立たない旧メッセージサーバーに見切りをつけ、もともと開発していた新メッセージサーバーへの移行を行う等、様々な作業がチームの垣根を越えて行われました。そしてサービス停止から2か月後の8月5日、ニコニコ生放送がサービスを再開しました。</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top:500px">復旧を成功させた要因</h2>
+            
+            <div class="highlight-box">
+                <h4>技術的な幸運</h4>
+                <ul>
+                    <li>大部分のシステムが既にパブリッククラウドに移行済みだった</li>
+                    <li>重要なデータのバックアップが存在していた</li>
+                    <li>新メッセージサーバーの開発が完了していた</li>
+                    <li>連携先サービスも復旧できた</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4>組織的な強み</h4>
+                <p><strong>合意形成の文化</strong>：日頃から実践していた「課題認識の共有→解決策の検討→手段の選択→実行」という流れを今回も適用。全員が納得して同じ目標に向かえました。</p>
+                
+                <p><strong>柔軟なコミュニケーション</strong>：</p>
+                <ul>
+                    <li>専用のSlackチャンネルで情報を集約</li>
+                    <li>開発チームを横断しての毎日の進捗共有会</li>
+                    <li>「偉業」絵文字で小さな進歩を互いに称え合う文化</li>
+                </ul>
+            </div>
+
+            <h2>まとめ</h2>
+            <p>今回の事件では、技術的な幸運を逃さず活用し、緊急事態であっても、普段から行っていた合意形成の方法や、チーム間の連携方法をそのまま活用できたことが、短期間での復旧を可能にしました。</p>
+
+            <p>特に『組織的な強み』については、我々にも通用する事柄かと思います。スムーズな意思決定や合意形成が可能であることは、現場を問わず重要なことです。</p>
+
+            <p>今回ご紹介した内容は、記事のほんの一部を抜粋したものにすぎません。他にも、「復旧可否の判断、復旧難易度の見極め」や「アクセスできなくなったコードを開発者のローカル環境から集約」等、上記では紹介しきれなかった事項も多数あります。</p>
+
+            <div class="url-section">
+                <p>もし興味がわきましたら、ぜひ下記のURLから元の記事を閲覧してみてください。</p>
+                <div class="url">https://dwango.github.io/articles/2025-06_docs_of_recovering_from_a_cyberattack/</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

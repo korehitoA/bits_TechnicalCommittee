@@ -1,0 +1,281 @@
+    <div class="reference"><!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTTマルチAIエージェント技術 - 概要資料</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #1a5490;
+            border-left: 5px solid #2e7db8;
+            padding-left: 10px;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2e7db8;
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #f0f7fc;
+            border-left: 4px solid #4a90c9;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .highlight-box h3 {
+            color: #1a5490;
+        }
+        .tech-point {
+            background: #fafbfc;
+            border-left: 3px solid #a8c8e1;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+        .tech-point strong {
+            color: #1a5490;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-item {
+            border: 1px solid #d4e3f0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .comparison-item h4 {
+            margin-top: 0;
+            color: #2e7db8;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .figure {
+            text-align: center;
+            margin: 25px 0;
+            page-break-inside: avoid;
+        }
+        .figure img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+        }
+        .figure-caption {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .reference {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        .badge {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .result-box {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .highlight-box, .tech-point {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+    <h1>NTTによるマルチAIエージェント技術</h1>
+    </header>
+    
+    <div class="highlight-box">
+        <h3>🚀 導入</h3>
+        <p>AIエージェントについてはGitHubやCopilotなどにも取り入れられて注目が高まっています。今回はマルチAIエージェントという新しい形のAIの活用について紹介します。</p>
+    </div>
+
+    <div class="highlight-box">
+        <h3>📌 概要</h3>
+        <p>NTTが開発した、複数のAIエージェントが人間のようにコミュニケーションを取りながら協調して複雑なタスクを解決する基盤技術。従来は困難だった「企業ブランディング戦略の立案」や「多角的なビジネスプラン検討」など、一貫性・実現性・具体性が求められる複雑な業務への適用が可能になった。</p>
+    </div>
+
+    <h2>1. 背景・課題</h2>
+    
+    <h3>従来のマルチAIエージェントシステムの限界</h3>
+    <div class="comparison">
+        <div class="comparison-item">
+            <h4>❌ 従来の問題点</h4>
+            <ul>
+                <li>各エージェントがサブタスクを個別に処理</li>
+                <li>他のエージェントとの整合性が取りにくい</li>
+                <li>単純な定型タスクには対応できるが、複雑なタスクは困難</li>
+                <li>相反するニーズを満たす必要がある場合に対応できない</li>
+            </ul>
+        </div>
+        <div class="comparison-item">
+            <h4>✅ 新技術で解決</h4>
+            <ul>
+                <li>エージェント同士が対話を通じて協調</li>
+                <li>アウトプットイメージを継続的にすり合わせ</li>
+                <li>複雑なプランニング業務に対応</li>
+                <li>多様なニーズを統合した解を生成</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="figure">
+        <img src="https://digitalpr.jp/simg/2341/115794/600_301_202508081146396895650fa1ea3.png" alt="AIエージェント自律協調の基盤技術の特徴" width="500px">
+        <div class="figure-caption">図1: AIエージェント自律協調の基盤技術の特徴</div>
+    </div>
+
+    <h2>2. マルチAIエージェント技術とは</h2>
+
+    <h3>技術の全体像</h3>
+    <p>マルチAIエージェント技術とは、複数のAIエージェントが協調して1つの目標を達成するシステムです。本技術の特徴は、各AIエージェントが単に分担作業をするのではなく、<strong>人間のチームのように対話を通じて相互理解を深めながら協力する</strong>点にあります。</p>
+
+    <h3>従来のマルチエージェントシステムとの違い</h3>
+    <p>従来のマルチエージェントシステムでは、タスクを分割して各エージェントが個別に処理し、最後に結果を結合するだけでした。これに対し、本技術では：</p>
+    <ul>
+        <li><strong>継続的な対話：</strong>タスク遂行中も常にコミュニケーションを取り合う</li>
+        <li><strong>相互理解の構築：</strong>他のエージェントの役割や能力、進捗を把握</li>
+        <li><strong>動的な調整：</strong>状況に応じて方針を修正しながら進める</li>
+        <li><strong>統合的なアウトプット：</strong>バラバラな結果ではなく、一貫性のある成果物を生成</li>
+    </ul>
+
+    <h2>3. 技術の仕組み</h2>
+
+    <h3>人間の認知プロセスを模倣</h3>
+    <p>本技術では、人間の記憶構造と協働創造プロセスをAIに実装しています。</p>
+
+    <div class="tech-point">
+        <strong>① 記憶構造の模倣</strong>
+        <ul>
+            <li><strong>エピソード記憶：</strong>具体的な経験・会話内容を記録</li>
+            <li><strong>意味記憶：</strong>エピソードから抽象化された一般的な知識</li>
+            <li>この2つの記憶を組み合わせて知識を階層的に管理</li>
+        </ul>
+    </div>
+
+    <div class="tech-point">
+        <strong>② 協働創造プロセス</strong>
+        <ul>
+            <li>チーム会議を通じて他のエージェントの状況を把握</li>
+            <li>必要に応じて専門家エージェントを生成し議論</li>
+            <li>タスク解決の方針を継続的にすり合わせ</li>
+            <li>互いに協調しながらサブタスクを統合</li>
+        </ul>
+    </div>
+
+    <div class="tech-point">
+        <strong>③ エージェント再利用</strong>
+        <ul>
+            <li>議論を通じて蓄積した知識を以降のタスクで再利用</li>
+            <li>タスク解決性能が継続的に向上</li>
+        </ul>
+    </div>
+
+    <div class="figure">
+        <img src="https://digitalpr.jp/simg/2341/115794/400_413_202508081146386895650e7fa59.png" alt="NTTがめざす「Human-AI協調」社会" width="350px">
+        <div class="figure-caption">図2: NTTがめざす「Human-AI協調」社会</div>
+    </div>
+
+    <div class="figure">
+        <img src="https://digitalpr.jp/simg/2341/115794/700_159_202508081146386895650e63336.png" alt="本技術の概要">
+        <div class="figure-caption">図3: 本技術の概要</div>
+    </div>
+
+    <h2>4. 主要な技術ポイント</h2>
+
+    <h3>✓ 人間の記憶構造を模倣した知識管理</h3>
+    <p>会話を通じて「エピソード記憶」を獲得し、それを段階的に抽象化して「意味記憶」として保存。この知識に基づいて議論を繰り返すことで、相互理解が進み、多様な視点を取り入れた議論が可能になる。</p>
+
+    <h3>✓ 知識の相互チェックによる正確性の担保</h3>
+    <p>チーム会議や専門家エージェントとの対話を通じて知識を更新。異なる立場のエージェント同士で知識を相互チェックすることで、最終的な解の正確性を高める。</p>
+
+    <h3>✓ エージェント再利用によるタスク解決性能の向上</h3>
+    <p>蓄積された知識と相互理解を持つエージェント群を再利用することで、継続的にパフォーマンスが向上する仕組み。</p>
+
+    <h2>5. 適用可能な業務領域</h2>
+
+    <ul>
+        <li>企業ブランディング戦略の立案（デザイン・広報・マーケティングの統合）</li>
+        <li>多角的なビジネスプラン検討</li>
+        <li>複数部署間の調整が必要な企業戦略検討</li>
+        <li>多様な解を持つビジネス企画策定</li>
+    </ul>
+
+    <h2>6. 今後の展開</h2>
+
+    <ul>
+        <li><strong>2025年度中のPoC（概念実証）実施予定</strong></li>
+        <li>人間の意図の汲み上げ機能の実装（改善・方向修正の反映）</li>
+        <li>実ビジネスシーンでの活用促進</li>
+        <li>Human-AI協調社会の実現に向けた研究開発の継続</li>
+    </ul>
+
+    <h2>7. まとめ</h2>
+    
+    <div class="highlight-box">
+        <h3>本技術の重要ポイント</h3>
+        <ul>
+            <li><strong>マルチAIエージェント技術：</strong>複数のAIが人間のチームのように対話・協調してタスクを解決</li>
+            <li><strong>人間の認知プロセスを模倣：</strong>エピソード記憶と意味記憶を組み合わせた知識管理</li>
+            <li><strong>継続的な対話と調整：</strong>チーム会議や専門家エージェントとの議論を通じて相互理解を深化</li>
+            <li><strong>知識の再利用：</strong>蓄積した知識を活用して継続的にパフォーマンスを向上</li>
+            <li><strong>複雑なタスクに対応：</strong>企業戦略立案やビジネスプラン検討など、一貫性・実現性が求められる業務で効果を発揮</li>
+            <li><strong>従来技術との差別化：</strong>単なる分担作業ではなく、統合的で一貫性のあるアウトプットを生成</li>
+            <li><strong>実用化に向けた動き：</strong>2025年度中にPoCを実施予定で、実ビジネスへの適用を推進</li>
+        </ul>
+    </div>
+
+    <h3>参考出典</h3>
+        <p>本資料は以下のページの内容をもとに作成しました：</p>
+        <p><a href="https://digitalpr.jp/r/115794" target="_blank">https://digitalpr.jp/r/115794</a></p>
+        <p>「お互いに空気を読みながら複雑なプロジェクトを推進するマルチAIエージェント技術 ～対話を通じて相手の意図を読むAIエージェントが自律的に連携して問題解決～」NTT株式会社</p>
+        <p style="margin-top: 10px;">論文情報：<br>
+        Makoto Nakatsuji, Shuhei Tateishi, Yasuhiro Fujiwara, Ayaka Matsumoto, Narichika Nomoto, and Yoshihide Sato. 2025. ACT: Knowledgeable Agents to Design and Perform Complex Tasks. In Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 16831–16861, Vienna, Austria.</p>
+ 
+</body>
+</html>

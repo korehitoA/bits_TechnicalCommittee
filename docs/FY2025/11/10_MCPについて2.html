@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCPについて2 - MCPの仕組み(2025/10版)</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a0dab;
+            border-bottom: 2px solid #1a0dab;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2d2d2d;
+            margin-top: 30px;
+            border-left: 5px solid #1a0dab;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #555;
+            margin-top: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .emphasis {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        .note {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        .diagram {
+            background-color: #f0f7ff;
+            border: 2px solid #1a0dab;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        .highlight-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step {
+            background-color: #e8f4f8;
+            border-left: 4px solid #1a0dab;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>MCPについて2 - MCPの仕組み(2025/10版)</h1>
+
+    <h2>はじめに</h2>
+    <p>前回の資料では、MCPの概要と活用シーンについて紹介しました。今回は、MCPがどのような仕組みで動作し、AIエージェントがどのようにMCPを通じて様々なツールやサービスを利用できるようになっているのかについて解説します。MCPサーバーやクライアントを自作する際にも必要となる観点となります。</p>
+
+    <h2>MCPサーバー</h2>
+    <p>MCPサーバーは、具体的なサービスの機能をMCP形式で公開します。リソース・ツール・プロンプトの3つの要素を組み合わせて、AIエージェントに統合的な機能を提供します。</p>
+
+    <h3>主な機能</h3>
+    <ul>
+        <li><strong>要素定義の公開</strong>: リソース、ツール、プロンプトの名前、説明、パラメータ情報を提供</li>
+        <li><strong>リクエスト処理</strong>: クライアントからのアクセス・実行要求を受け付け</li>
+        <li><strong>処理の実行</strong>: 実際の処理を実行（データ取得、操作実行、プロンプト提供など）</li>
+        <li><strong>結果の返却</strong>: 実行結果を標準化された形式でクライアントに返す</li>
+    </ul>
+
+    <h3>定義の重要性</h3>
+    <p>MCPサーバーは、各要素を<span class="emphasis">AIが理解できる形式</span>で定義します。これには以下の情報が含まれます：</p>
+    <ul>
+        <li><strong>名前</strong>: 要素の識別子</li>
+        <li><strong>説明</strong>: 要素が何をするかの自然言語での説明</li>
+        <li><strong>パラメータ</strong>: 必要な入力情報と型定義</li>
+        <li><strong>戻り値</strong>: 期待される出力の形式</li>
+    </ul>
+    <p>この定義により、AIエージェントは「どの要素をどう使えばよいか」を自律的に判断できます。</p>
+
+    <h2>MCPが提供する3つの基本要素</h2>
+    <p>MCPサーバーは、AIエージェントに対して以下の3つの基本要素を提供します：</p>
+
+    <h3>1. Resources（リソース）</h3>
+    <p><span class="emphasis">データソースへのアクセス</span>を提供します。ファイルの内容、データベースのレコード、APIからのデータなど、AIが読み取ることができる情報源です。</p>
+    <ul>
+        <li>例：テキストファイル、画像、データベースの内容、Webページの情報</li>
+        <li>AIはリソースを参照して、文脈に基づいた回答を生成できます</li>
+    </ul>
+
+    <h3>2. Tools（ツール）</h3>
+    <p><span class="emphasis">AIが実行できる操作・機能</span>を提供します。AIは状況に応じて適切なツールを選択し、実行することができます。</p>
+    <ul>
+        <li>例：データベースへのクエリ実行、ファイルの作成・編集、APIの呼び出し</li>
+        <li>AIは複数のツールを組み合わせて複雑なタスクを実行できます</li>
+    </ul>
+
+    <h3>3. Prompts（プロンプト）</h3>
+    <p><span class="emphasis">事前定義されたプロンプトテンプレート</span>を提供します。特定のタスクや質問のための構造化された指示です。</p>
+    <ul>
+        <li>例：コードレビュー用のプロンプト、文書要約用のプロンプト</li>
+        <li>ユーザーや開発者が一貫性のある結果を得るための標準化された方法</li>
+    </ul>
+
+    <h2>AIエージェントによる利用</h2>
+    <p>AIエージェントは、MCPクライアントを通じて以下のように動作します：</p>
+    <ol>
+        <li>ユーザーからの指示を受け取る</li>
+        <li>MCPクライアントに利用可能なリソース・ツール・プロンプトを問い合わせる</li>
+        <li>指示を実行するために必要な要素を選択</li>
+        <li>MCPクライアント経由で要素にアクセス・実行</li>
+        <li>実行結果を解釈し、ユーザーに返答</li>
+    </ol>
+
+    <h2>MCPクライアント</h2>
+    <p>MCPクライアントは、ホストアプリケーション内で動作し、MCPサーバーと通信するためのインターフェースです。各クライアントは特定のMCPサーバーと1:1の関係を持ちます。</p>
+
+    <h3>主な機能</h3>
+    <ul>
+        <li><strong>サーバー接続管理</strong>: MCPサーバーとの接続を確立・維持</li>
+        <li><strong>リソース・ツール・プロンプトの取得</strong>: サーバーが提供する要素の一覧を取得</li>
+        <li><strong>リクエスト送信</strong>: ユーザーの指示に基づいて適切な要素を呼び出す</li>
+        <li><strong>レスポンス処理</strong>: サーバーからの結果を受け取り、ホスト（AIモデル）に渡す</li>
+    </ul>
+
+    <h3>通信の流れ</h3>
+    <div class="diagram">
+        [ユーザー] → [ホスト（LLMアプリ）] → [MCPクライアント] → [MCPサーバー] → [実際のサービス]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└────────────────── 結果の受け取りと解釈 ─────────────────┘
+    </div>
+
+    <h2>AIエージェントがMCPを利用する具体的な流れ</h2>
+
+    <div class="step">
+        <h3>ステップ1: 初期化と機能ネゴシエーション</h3>
+        <p>AIアプリケーション（ホスト）起動時、MCPクライアントは設定された各MCPサーバーに接続します。</p>
+        <ul>
+            <li><strong>initializeメッセージ</strong>を送信し、プロトコルバージョンを確認</li>
+            <li>クライアントとサーバーがサポートする機能を交換</li>
+            <li>互換性を確認してセッションを確立</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h3>ステップ2: 利用可能な要素の発見</h3>
+        <p>接続が確立されると、クライアントは各サーバーから以下を取得します：</p>
+        <ul>
+            <li><strong>resources/list</strong>: 参照可能なデータソース</li>
+            <li><strong>tools/list</strong>: 実行可能なツール</li>
+            <li><strong>prompts/list</strong>: 利用可能なプロンプトテンプレート</li>
+        </ul>
+        <p>これらの情報は、AIエージェントが利用できる「能力」として認識されます。</p>
+    </div>
+
+    <div class="step">
+        <h3>ステップ3: ユーザー指示の解釈</h3>
+        <p>ユーザーから指示を受け取ると、AIエージェントは：</p>
+        <ol>
+            <li>指示の内容を分析</li>
+            <li>必要なリソース・ツールを特定</li>
+            <li>実行順序を計画</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <h3>ステップ4: リソースへのアクセスとツールの実行</h3>
+        <p>AIエージェントはMCPクライアント経由でリソースにアクセスし、ツールを実行します：</p>
+        
+        <p><strong>リソースの読み取り例：</strong></p>
+        <div class="code-block">
+{
+  "jsonrpc": "2.0",
+  "method": "resources/read",
+  "params": {
+    "uri": "file:///project/config.json"
+  }
+}
+        </div>
+
+        <p><strong>ツールの実行例：</strong></p>
+        <div class="code-block">
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "database_query",
+    "arguments": {
+      "query": "SELECT * FROM users WHERE active = true"
+    }
+  }
+}
+        </div>
+    </div>
+
+    <p>このように、AIエージェントは必要に応じてリソースにアクセスし、ツールを実行することで、ユーザーの指示を実現します。サーバーからの応答を受け取った後、AIエージェントは結果を解釈して次のアクションを決定し、必要に応じてさらに別のリソースを参照したり、ツールを呼び出すこともあります。</p>
+
+    <h2>セキュリティと権限管理</h2>
+    <p>MCPは、セキュリティを考慮した設計になっています：</p>
+
+    <h3>アクセス制御</h3>
+    <ul>
+        <li>ツールごとに実行権限を設定可能</li>
+        <li>ユーザーの承認が必要な操作を定義可能</li>
+    </ul>
+
+    <h3>データ保護</h3>
+    <ul>
+        <li>通信の暗号化をサポート</li>
+        <li>機密情報の扱いに関する制御機能</li>
+    </ul>
+
+    <h3>監査とログ</h3>
+    <ul>
+        <li>ツールの実行履歴を記録</li>
+        <li>問題発生時のトレーサビリティを確保</li>
+    </ul>
+
+    <h2>まとめ</h2>
+    <p>MCPは、標準化されたプロトコルにより、AIエージェントが様々なツールやサービスを統一的な方法で利用できる仕組みを提供しています。</p>
+
+    <div class="highlight-box">
+        <h3>MCPの価値</h3>
+        <ul>
+            <li><span class="emphasis">Resources（リソース）、Tools（ツール）、Prompts（プロンプト）</span>の3つの要素を通じて、AIエージェントは外部システムと柔軟に連携</li>
+            <li>AIエージェントは、利用可能な要素を<span class="emphasis">自律的に発見</span>し、その説明から<span class="emphasis">適切な使い方を理解</span>できる</li>
+            <li>複数のリソースとツールを<span class="emphasis">組み合わせて複雑なタスクを実行</span>できる</li>
+        </ul>
+    </div>
+
+    <p>この仕組みにより、AIエージェントは真の意味での「エージェント」として、ユーザーの意図を理解し、最適な方法でタスクを実行できるようになるのです。</p>
+
+</body>
+</html>
+
