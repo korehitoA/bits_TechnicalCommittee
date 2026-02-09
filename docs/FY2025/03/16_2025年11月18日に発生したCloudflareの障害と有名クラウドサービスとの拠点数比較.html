@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年11月18日に発生したCloudflareの障害と有名クラウドサービスとの拠点数比較</title>
+    <style>
+        body {
+            font-family: 'Meiryo', 'メイリオ', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30mm 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #232f3e;
+            border-bottom: 4px solid #ff9900;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #232f3e;
+            border-left: 5px solid #ff9900;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        h4 {
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9900;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #0073bb;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        table th {
+            background-color: #232f3e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .summary-box {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .reference-list {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .reference-list a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .reference-list a:hover {
+            text-decoration: underline;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .red-bold {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20mm;
+            }
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2025年11月18日に発生したCloudflareの障害と有名クラウドサービスとの拠点数比較</h1>
+        
+        <p>2025年11月18日に発生したCloudflareの大規模障害について、その発生原因と復旧までの経緯を解説します。また、事業継続の観点から考えられる対策案や、主要CDNサービスの拠点数比較を通じて、ベンダー選定の考え方について説明します。</p>
+
+        <h2>1. 2025年11月18日に発生したCloudflareの障害</h2>
+        
+        <h3>Cloudflareとは</h3>
+        <p>CDN（コンテンツ配信ネットワーク）やWebセキュリティ機能を世界的規模で提供する事業者です。
+        <br>CDN（コンテンツ配信ネットワーク）とは、世界中のエッジ拠点（PoP: Point of Presence）でユーザーに近い場所からコンテンツ配信を行うことで、表示高速化や突発的なトラフィック増加への耐性向上を実現する仕組みです。</p>
+
+        <h3>障害発生から解決までの経緯</h3>
+
+        <div class="info-box">
+            <p><strong>発生原因</strong></p>
+            <p>内部DB権限変更によりボット管理システムの「フィーチャーファイル」のファイルサイズが想定以上に膨らみ、	トラフィック処理ソフトが上限超過で異常終了したことでした。</p>
+            <p><span class="red-bold">サイバー攻撃や悪意のある行為によるものではない、組織内部の設定変更が原因でした。</span></p>
+        </div>
+
+        <h3>障害解決までの経緯</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>時刻（UTC）</th>
+                    <th>状態/<br>フェーズ</th>
+                    <th>何が起きたか（要点）</th>
+                    <th>影響の見え方（例）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>11:05</td>
+                    <td>変更投入</td>
+                    <td>内部DB権限変更をデプロイ</td>
+                    <td>直後は平常</td>
+                </tr>
+                <tr>
+                    <td>11:20</td>
+                    <td>兆候（公式冒頭）</td>
+                    <td>コアトラフィック配送で重大な失敗が発生し始める</td>
+                    <td>利用者にはCloudflare側の障害を示すエラーページ/5xxとして顕在化</td>
+                </tr>
+                <tr>
+                    <td>11:28</td>
+                    <td>影響開始（タイムライン）</td>
+                    <td>変更が顧客環境へ到達し、顧客HTTPトラフィックで最初のエラー観測</td>
+                    <td>5xx増加</td>
+                </tr>
+                <tr>
+                    <td>11:32–13:05</td>
+                    <td>調査・一次対応</td>
+                    <td>主にWorkers KVのエラー増加等の症状を調査（当初は別要因も疑う）。自動テストが11:31に検知、11:35にインシデントコール開始</td>
+                    <td>断続的に成功/失敗が揺れる（5分周期の設定生成・配布が背景）</td>
+                </tr>
+                <tr>
+                    <td>13:05</td>
+                    <td>影響低減</td>
+                    <td>Workers KV と Access に対し、コアプロキシをバイパスする回避を適用し影響を軽減</td>
+                    <td>一部サービスのエラー率が低下</td>
+                </tr>
+                <tr>
+                    <td>13:37</td>
+                    <td>原因特定の収束</td>
+                    <td>Bot Management設定ファイルのロールバック（既知の正常）に注力</td>
+                    <td>依然として広範囲影響</td>
+                </tr>
+                <tr>
+                    <td>14:24</td>
+                    <td>封じ込め</td>
+                    <td>不正（肥大化）したBot Management設定ファイルの生成・配布停止</td>
+                    <td>新たな悪化の抑止</td>
+                </tr>
+                <tr>
+                    <td>14:24</td>
+                    <td>復旧確認</td>
+                    <td>正常ファイルでの回復を確認し、グローバル適用を加速</td>
+                    <td>回復に向けた転換点</td>
+                </tr>
+                <tr>
+                    <td>14:30</td>
+                    <td>主要影響解消</td>
+                    <td>正常なBot Management設定ファイルをグローバル配布し、多くのサービスが正常化</td>
+                    <td>コアトラフィックが概ね通常へ</td>
+                </tr>
+                <tr>
+                    <td>17:06</td>
+                    <td>完全復旧</td>
+                    <td>下流サービスの再起動等を完了し、全体として復旧</td>
+                    <td>5xxが平常水準へ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box">
+            <p><strong>詳細情報：</strong></p>
+            <p>詳しくは、Cloudflare公式の障害報告ページを参照してください。</p>
+            <p><a href="https://blog.cloudflare.com/18-november-2025-outage/" target="_blank">2025年11月18日のCloudflareの障害</a></p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h3>事業継続の観点から考える対策案</h3>
+        
+        <p>Cloudflareを利用する側としては、<span class="red-bold">他CDNベンダーを併用することが直接的な対策</span>になります。</p>
+        
+        <p>具体的には、CloudflareとAWS CloudFrontなど、2つのCDNベンダーと契約し、片方がダウンしてももう片方を使ってサービス提供を停止させないインフラ設計を行います。</p>
+        
+        <p><span class="red-bold">わずかなサービス停止も許さない、真に安定したサービス提供を目指す</span>のであれば、1つのベンダーに頼りきりにならず<span class="red-bold">複数ベンダーの併用</span>が有効です。</p>
+
+        <h2>2. Cloudflareと他CDNサービスの拠点数比較</h2>
+        
+        <p>CDNベンダーであるCloudflareと、有名クラウドサービスが提供するCDNサービスを拠点数という切り口から比較します。</p>
+
+        <h3>拠点数（PoP/エッジ拠点）の比較</h3>
+        
+        <p style="font-size: 12px; color: #666;">※数値は公開情報の記載に基づいています。一部情報は非公開となっている場合があります。</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ベンダー/サービス</th>
+                    <th>国・都市数</th>
+                    <th>拠点数<br>（PoP/エッジ拠点）</th>
+                    <th>出典</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cloudflare</td>
+                    <td>125か国・330都市</td>
+                    <td>-</td>
+                    <td><a href="https://www.cloudflare.com/ja-jp/network/" target="_blank">Cloudflareグローバルネットワーク</a></td>
+                </tr>
+                <tr>
+                    <td>AWS / CloudFront</td>
+                    <td>50か国以上・100以上の都市</td>
+                    <td>700以上の拠点</td>
+                    <td><a href="https://aws.amazon.com/jp/cloudfront/features/?nc=sn&loc=2" target="_blank">Amazon CloudFront 機能</a></td>
+                </tr>
+                <tr>
+                    <td>Google Cloud / Cloud CDN</td>
+                    <td>100以上の都市</td>
+                    <td>-</td>
+                    <td><a href="https://docs.cloud.google.com/cdn/docs/locations" target="_blank">Cloud CDN ロケーション</a></td>
+                </tr>
+                <tr>
+                    <td>Azure / Front Door</td>
+                    <td>109都市</td>
+                    <td>192拠点</td>
+                    <td><a href="https://learn.microsoft.com/ja-jp/azure/frontdoor/edge-locations-by-region" target="_blank">Azure Front Door POP の場所</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <p>カバーしている国・都市数で比較すると、<span class="red-bold">Cloudflareが最もカバー数が多い</span>ことが分かります。</p>
+            <p>ただし、<span class="red-bold">ベンダーごとにネットワーク構成の作り方、サービス提供形態が異なるため、自社サービスの提供形態に合ったベンダーを選ぶ</span>ことが大切です。</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>3. まとめ</h2>
+
+        <div class="summary-box">
+            <h3>障害について</h3>
+            <ul>
+                <li>2025年11月18日のCloudflare障害は、内部DB権限変更→設定ファイル肥大化→トラフィック処理ソフト異常終了という連鎖で発生しました。</li>
+                <li>11:20 UTC頃から障害が顕在化し、14:30 UTC頃に主要影響が概ね解消、17:06 UTCに完全復旧しました。</li>
+            </ul>
+
+            <h3>対策について</h3>
+            <ul>
+                <li>障害に強いサービス提供形態を目指すなら、<span class="red-bold">複数ベンダーの併用</span>という案が考えられます。</li>
+            </ul>
+
+            <h3>拠点数比較について</h3>
+            <ul>
+                <li>有名クラウドサービスと比較して、CDN拠点が存在する国・都市数ではCloudflareが最も多いという結果になりました。</li>
+                <li>ただし、拠点数だけでなく、<span class="red-bold">ベンダーごとの特長と自社サービスの相性</span>を考慮してベンダーを選ぶことが大切です。</li>
+            </ul>
+        </div>
+
+        <h2>参考文献</h2>
+        <div class="reference-list">
+            <ul>
+                <li><a href="https://blog.cloudflare.com/ja-jp/18-november-2025-outage/" target="_blank">2025年11月18日のCloudflareの障害</a></li>
+                <li><a href="https://techtarget.itmedia.co.jp/tt/news/2511/21/news07.html" target="_blank">ChatGPTやXも止まった「大事件」　Cloudflare大規模障害の教訓は：専門家が指摘 - TechTargetジャパン セキュリティ</a></li>
+                <li><a href="https://techtarget.itmedia.co.jp/tt/news/2511/30/news01.html" target="_blank">【経営層からの質問対応】あの問題、どう説明する？　Cloudflare障害編：「うちは大丈夫なの？」にサクッと答える - TechTargetジャパン セキュリティ</a></li>
+                <li><a href="https://www.cloudflare.com/ja-jp/network/" target="_blank">Cloudflareグローバルネットワーク | データセンターのロケーション | Cloudflare</a></li>
+                <li><a href="https://aws.amazon.com/jp/cloudfront/features/?nc=sn&loc=2" target="_blank">コンテンツ配信ネットワークの主な機能 – パフォーマンス、セキュリティ – Amazon CloudFront</a></li>
+                <li><a href="https://docs.cloud.google.com/cdn/docs/locations" target="_blank">キャッシュのロケーション  |  Cloud CDN  |  Google Cloud Documentation</a></li>
+                <li><a href="https://learn.microsoft.com/ja-jp/azure/frontdoor/edge-locations-by-region" target="_blank">リージョン別の Azure Front Door POP の場所 | Microsoft Learn</a></li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
