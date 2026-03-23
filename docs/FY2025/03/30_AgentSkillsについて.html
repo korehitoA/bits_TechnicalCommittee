@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Skillsについて</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a0dab;
+            border-bottom: 2px solid #1a0dab;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2d2d2d;
+            margin-top: 30px;
+            border-left: 5px solid #1a0dab;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .emphasis {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        .note {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .tool-name {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        code, .path {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.95em;
+            background: #f4f4f4;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agent Skillsについて</h1>
+
+    <h2>はじめに</h2>
+    <p>Agent Skillsは、MCPと同じくAnthropic社が提案した仕組みで、AIエージェントに専門知識やワークフローを教えるための方法です。<span class="emphasis">オープン規格</span>として仕様が公開されており、OpenAIやGoogleなども採用し、利用できるようにする取り組みを進めています。</p>
+
+    <h2>Agent Skillsとは何か</h2>
+
+    <h3>概要</h3>
+    <p>Agent Skillsは、AIエージェントがユーザーの質問やタスクに応じて適切なSkillを自動的に選択し、その指示に従って作業を行う仕組みです。各Skillはフォルダ1つが1パッケージで、中心となる <span class="emphasis">SKILL.md</span> に、手順や判断基準などを書きます。</p>
+    <p>手順の文章だけに限らず、同じフォルダ内に <span class="path">scripts/</span>（実行可能なコード）、<span class="path">references/</span>（参照ドキュメント）、<span class="path">assets/</span>（テンプレート等）を任意で同梱できます。scripts は、エージェントが SKILL.md の指示に従ってコマンドやスクリプトを実行する用途向けで、変換・検証・定型処理などをコードに落として再利用しやすくします。</p>
+    <p>Anthropicの公式説明では、用途ごとに断片的な専用エージェントを設計し分けるのではなく、手順や知識を組み合わせ可能なSkillにまとめ、<span class="emphasis">汎用エージェントをSkillで専門化する</span>方法とされています。Skillは汎用エージェントに専門性を足す拡張という位置づけです。</p>
+
+    <h2>Agent Skillsの主な特徴</h2>
+    <p>Agent Skillsにはおおむね次の3つの特徴があります。</p>
+
+    <h3>1. 汎用エージェントの専門化</h3>
+    <p>汎用エージェントが、タスクに応じて複数のSkillを読み込み・切り替えながら動くことで、それぞれのSkillが担う範囲では、複数の専門エージェントに近い振る舞いが一つのエージェント上で実現しやすくなります。Skillパッケージとして、手順・基準に加え必要なら scripts など実行資産もまとめて載せ、エージェントが SKILL.md とそれに紐づく処理に従って動きます。振る舞いの揃えやすさや専門性の載せ方の統一もしやすくなります。</p>
+    <p>これにより — 用途ごとに専門エージェントを複数つくり、連携させる前提を取りにくくでき、製造負荷やメンテナンス負荷を軽減しやすくなります。専用設定や長いプロンプトだけを増やして断片化しがちだった点を、Skillとして一つのまとまった形で載せ・直し・広げることもしやすくなります。</p>
+
+    <h3>2. 段階的開示によるコンテキスト効率</h3>
+    <p>利用可能なSkillの名前・説明だけを先に把握し、本文（SKILL.md など）は必要になったときに読み込みます <span class="emphasis">（段階的開示）</span>。使わない長い手順を常時コンテキストに載せない設計です。</p>
+    <p>これにより — 手順やルールを毎回すべてプロンプトに載せる運用で起きやすい<span class="emphasis">トークン負荷</span>や、今の作業に不要な説明まで同時に読ませてしまう負担を抑えやすくなります。</p>
+
+    <h3>3. 共有・再利用</h3>
+    <p>繰り返し同じ説明を書く回数を減らしやすく、版管理しやすい資産としてチームで共有できます。複数のSkills対応製品でも同じSkillを使い回しやすいです。</p>
+    <p>これにより — 都度プロンプトやカスタム指示に頼ると起きやすい書き方のばらつきや、ノウハウが個人に閉じてしまう問題を和らげやすくなります。チームで同じ手順を資産として再利用しやすくなります。同じSkillを共有・適用する範囲では、エージェントの動き方や判断の枠組みをチームや利用環境の間で揃えやすくなります。</p>
+
+    <h2>MCPとの関係</h2>
+    <p>ざっくりいうと、MCP は AI とツール・データをつなぐための標準的な仕方で、Agent Skills はエージェントに「この仕事はこう進めて」と教える内容を、フォルダにまとめて用意しエージェントが読み込む仕組みです。</p>
+    <p>役割が違うので対立ではなく補完です。実務では、MCP でツールやデータにつなぎつつ、Skills で進め方やルールを揃える、といった併用が想定されます。</p>
+
+    <h2>MCPと同様、自作・拡張しやすい</h2>
+    <p>MCP と同じく Agent Skills もオープンな仕様として公開されており、MCP の節で触れたように仕様に沿った形で独自に実装・組み込みができるのと同様、Skill も自前で作成して配布・再利用できます。Claude Code や Cursor など、Agent Skills に対応する AI コーディングツールでは、既に対話で Skill の作成を補助する Skill やコマンドが用意されています。</p>
+
+    <h2>まとめ</h2>
+    <p>Agent Skillsにより、エージェントに組織や現場の手順・判断基準を載せやすくなり、汎用エージェントの専門化や振る舞いの揃えやすさ、段階的開示によるコンテキスト効率、チームでの共有・再利用が期待できます。MCPと併せて使うことで業務や開発の支援設計の幅が広がりますので積極的に活用していきましょう。</p>
+
+</body>
+</html>
