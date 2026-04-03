@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>トライアルGOから学ぶIT活用</title>
+  <style>
+    :root{
+      --bg:#f5f8fc;
+      --card:#ffffff;
+      --text:#1f2a37;
+      --muted:#5b6472;
+      --line:#dbe4f0;
+      --blue:#1f6feb;
+      --blue2:#0f4fb8;
+      --green:#16a34a;
+      --orange:#f59e0b;
+      --red:#dc2626;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:18px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+      background:linear-gradient(180deg,#edf4ff 0%, #f5f8fc 24%, #f5f8fc 100%);
+      color:var(--text);
+      line-height:1.8;
+    }
+    a{color:var(--blue); text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px 16px 48px}
+    .hero{
+      background:linear-gradient(135deg,#0f4fb8 0%, #1f6feb 45%, #5ea0ff 100%);
+      color:#fff;
+      border-radius:24px;
+      padding:28px 22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero h1{margin:0 0 10px; font-size:clamp(26px,4vw,42px); line-height:1.25}
+    .hero p{margin:0; max-width:900px; font-size:clamp(14px,2vw,18px); opacity:.96}
+    .pillrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .pill{
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.22);
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:13px;
+      backdrop-filter:blur(4px);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+    h2{
+      margin:0 0 14px;
+      font-size:22px;
+      line-height:1.3;
+      color:#0f172a;
+    }
+    h3{
+      margin:0 0 10px;
+      font-size:17px;
+      color:#0f172a;
+    }
+    .muted{color:var(--muted)}
+    .lead{font-size:16px; margin:0}
+    .photo{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .photo img{display:block; width:100%; height:auto}
+    .caption{font-size:12px; color:var(--muted); padding-top:8px}
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .chip{
+      padding:8px 12px;
+      border-radius:12px;
+      background:#eef5ff;
+      color:#0f4fb8;
+      font-size:13px;
+      font-weight:600;
+    }
+    .techlist{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .tech{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      background:linear-gradient(180deg,#fff 0%, #fbfdff 100%);
+    }
+    .tech .name{font-weight:700; margin-bottom:6px}
+    .tech .desc{font-size:14px; color:var(--muted)}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:14px;
+      font-size:14px;
+    }
+    th,td{
+      border-bottom:1px solid var(--line);
+      padding:12px 10px;
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      background:#f8fbff;
+      color:#0f172a;
+      width:24%;
+    }
+    .callout{
+      border-left:6px solid var(--blue);
+      background:#f3f8ff;
+      padding:16px 16px 16px 14px;
+      border-radius:14px;
+      margin-top:14px;
+    }
+    .callout strong{color:#0f4fb8}
+    .timeline{
+      display:grid;
+      gap:12px;
+      margin-top:8px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns:60px 1fr;
+      gap:12px;
+      align-items:start;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+    }
+    .num{
+      width:48px; height:48px;
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,var(--blue),#67a8ff);
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+    }
+    .num.g{background:linear-gradient(135deg,#16a34a,#4ade80)}
+    .num.o{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+    .num.r{background:linear-gradient(135deg,#dc2626,#fb7185)}
+    ul{margin:10px 0 0 18px; padding:0}
+    li{margin:6px 0}
+    .footer{
+      margin-top:18px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .imggrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    .smallnote{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:8px;
+    }
+    .reflinks{
+      margin-top:32px;
+      padding:20px;
+      background:#f8fafc;
+      border-radius:var(--radius);
+    }
+    .reflinks h3{margin:0 0 14px}
+    .reflinks ul{margin:0; padding-left:20px}
+    .reflinks li{margin:8px 0}
+    .reflinks a{font-weight:500}
+    @media (max-width: 860px){
+      .grid,.techlist,.imggrid{grid-template-columns:1fr}
+      th{width:auto; display:block}
+      td{display:block}
+      tr{display:block; margin-bottom:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>トライアルGOから学ぶIT活用</h1>
+      <p>トライアルホールディングスの先進小型スーパー「トライアルGO」は、顔認証決済、レジカート、AIカメラ、電子棚札などを組み合わせ、少人数運営と低価格を両立する新しい小売モデルです。</p>
+      <div class="pillrow">
+        <span class="pill">24時間営業</span>
+        <span class="pill">省人化オペレーション</span>
+        <span class="pill">AI × 小売</span>
+        <span class="pill">顔認証決済</span>
+        <span class="pill">電子棚札</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>トライアルGOについて</h2>
+        <p class="lead">トライアルGOは、都市部でも展開しやすい小型スーパーで、食品・惣菜・日用品などを24時間提供する業態です。東京進出時の報道でも、デジタル技術を駆使して低価格と省人化を実現する店舗として注目されました。</p>
+        <div class="callout">
+          <strong>ポイント：</strong>見た目は小型店でも、裏側は高度にデジタル化された「小売ITの実験場」です。
+        </div>
+        <div class="chips">
+          <span class="chip">小型店舗</span>
+          <span class="chip">24時間営業</span>
+          <span class="chip">都市型フォーマット</span>
+          <span class="chip">西友との連携</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>店舗イメージ</h2>
+        <div class="photo">
+          <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/2ff30702485a13be43de320837165472917fde27.jpg" alt="トライアルGO店舗外観" />
+        </div>
+        <div class="caption">トライアルGOの店舗イメージ。小型店舗でも視認性の高い売場づくりが特徴です。</div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:18px;">
+      <h2>使われている最新技術</h2>
+      <div class="techlist">
+        <div class="tech">
+          <div class="name">顔認証決済</div>
+          <div class="desc">AIカメラで顔を認識し、セルフレジで支払いを完結できます。トライアルGOでは一般導入が進められ、年齢確認が不要な運用も特徴です。顧客は現金やスマートフォン、クレジットカードを取り出すことなく支払いを済ませて、そのまま退店可能です。</div>
+          <div class="photo">
+            <img src="https://it.impress.co.jp/mwimgs/2/a/500/img_2af7e1af784bd85d01c50c57beaa7efa183562.jpg" alt="顔認証決済画面のイメージ" />
+          </div>
+        </div>
+        <div class="tech">
+          <div class="name">レジカート / Skip Cart</div>
+          <div class="desc">商品を入れながら会計できるカートで、レジ待ちを減らし、買い物体験をスムーズにします。顔認証決済にも対応しており、専用アプリ「SU-PAU」と連動することで自動決済を実現しています。</div>
+          <div class="photo" style="grid-column:1/-1">
+            <img src="https://dx-bespra.com/wp-content/uploads/2023/07/image-35-768x512.jpg.webp" alt="レジカート使用イメージ" />
+          </div>
+        </div>
+        <div class="tech">
+          <div class="name">AIカメラ</div>
+          <div class="desc">店内や棚前の状況を把握し、欠品検知や購買行動の分析に活用します。トライアルは小売特化のリテールAIカメラを早期に導入してきました。</div>
+          <div class="photo">
+            <img src="https://pplx-res.cloudinary.com/image/upload/pplx_search_images/7c6fee8091c01b434ebfed5b954f3c8b098b7acb.jpg" alt="AIカメラによる棚監視イメージ" />
+          </div>
+        </div>
+        <div class="tech">
+          <div class="name">電子棚札 × 自動値下げ</div>
+          <div class="desc">AIカメラと電子棚札を連動させ、売れ行きに応じて値下げ表示を自動更新します。値引き作業の省力化と廃棄抑制に効きます。</div>
+          <div class="photo">
+            <img src="https://retailguide.tokubai.co.jp/wp-content/uploads/2022/04/sub2-4.png" alt="自動値下げのイメージ" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid" style="margin-top:18px;">
+      <section class="card">
+        <h2>企業の目的</h2>
+        <p class="lead">トライアルは「流通情報革命」や「リテールAI技術を活用し、流通業界を変革すること」を掲げ、AIやIoTを小売の現場に組み込み続けています。</p>
+        <p class="lead">目的は単なる新技術の展示ではなく、少人数でも回る店舗運営、低価格の実現、購買体験の向上、そして小売データの蓄積と活用です。</p>
+        <p class="lead">また、広告事業であるリテールメディアは単に広告枠を販売するだけでなく、顧客が購買を決める「買う瞬間」に情報を届ける仕組みの構築を目指しています。</p>
+        <p class="lead">一部実現しているのが「カート広告」であり、購入時に広告することで新規顧客獲得に繋げています。</p>
+        <p class="lead">このような形で顧客体験と広告の一体設計で、小売りに新たな価値を生み出すことを狙っています。
+      </section>
+
+      <section class="card">
+        <h2>仕組みの流れ</h2>
+        <div class="timeline">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>来店・認識</strong>
+              <div class="muted">AIカメラや顔認証で、顧客の行動や決済をスムーズにします。</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num g">2</div>
+            <div>
+              <strong>購買支援</strong>
+              <div class="muted">レジカートやセルフレジで、買い物を自分のペースで進められます。</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num o">3</div>
+            <div>
+              <strong>価格最適化</strong>
+              <div class="muted">電子棚札をAIと連携し、売れ行きに応じて自動で値下げします。</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num r">4</div>
+            <div>
+              <strong>省人化・改善</strong>
+              <div class="muted">データを蓄積して、欠品対策、発注、配置、販促を改善します。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:18px;">
+      <h2>トライアルGOから学ぶべきIT事項</h2>
+      <table>
+        <tr>
+          <th>1. ITは業務を置き換えるだけでなく、業務設計そのものを変える</th>
+          <td>トライアルGOは、AIを単独で使うのではなく、決済・棚・発注・値引き・運営を一体化しています。IT導入の価値は「現場の流れをどう再設計するか」にあります。</td>
+        </tr>
+        <tr>
+          <th>2. データが競争力になる</th>
+          <td>AIカメラや電子棚札で得たデータを使い、欠品検知や自動値下げを回します。データが集まるほど、改善の精度が上がる構造です。</td>
+        </tr>
+        <tr>
+          <th>3. UX改善は売上と効率の両方に効く</th>
+          <td>顔認証決済やレジカートは、顧客の「待たない・迷わない」を実現し、同時に店舗側の省人化にもつながります。</td>
+        </tr>
+        <tr>
+          <th>4. 技術導入は“実験→検証→展開”が重要</th>
+          <td>トライアルは実証実験を重ね、限定導入から一般導入へ進めています。小さく試して、データで判断して広げる進め方が参考になります。</td>
+        </tr>
+        <tr>
+          <th>5. 既存業務に後付けできる設計が強い</th>
+          <td>レトロフィット的に既存店舗へAIを追加し、現場を止めずに高度化しています。既存資産を活かしながら変革する発想は、中小企業でも重要です。</td>
+        </tr>
+      </table>
+    </section>
+    <section class="reflinks">
+      <h3>参考リンク</h3>
+      <ul>
+        <li><a href="https://trial-holdings.inc/news/release/63982ae208b68f333ae8f90a/" target="_blank">日本初 AIカメラによる24時間顔認証決済が一般導入</a></li>
+        <li><a href="https://trial-holdings.inc/news/blog/647ed3f7dc999730bff2faa2/" target="_blank">世界初、店内カメラと連動したダイナミックプライシング技術</a></li>
+        <li><a href="https://prtimes.jp/main/html/rd/p/000000099.000043820.html" target="_blank">福岡で実験を重ねた次世代ローコスト小売モデルが東京展開</a></li>
+        <li><a href="https://news.yahoo.co.jp/expert/articles/c220721fe6e141ccbfa51ed86053acfb18488da9" target="_blank">デジタル駆使した小型スーパー「トライアルGO」が東京に進出</a></li>
+        <li><a href="https://diamond.jp/articles/-/378841" target="_blank">「まいばすけっと民」にぶっ刺さる？九州発「トライアルGO」首都圏進出</a></li>
+        <li><a href="https://paymentnavi.com/paymentnews/158122.html" target="_blank">トライアルが決済機能搭載のショッピングカート「Skip Cart」や顔認証決済</a></li>
+        <li><a href="https://www.trial-net.co.jp/mag/detail/16914/" target="_blank">手ぶらで決済！？顔だけで楽々お買い物！登録の方法</a></li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      2026年4月 bits_itトレンド通信
+    </div>
+  </div>
+</body>
+</html>
