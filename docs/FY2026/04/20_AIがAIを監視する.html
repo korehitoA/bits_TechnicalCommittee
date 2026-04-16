@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anthropic: 自動化されたアライメント研究者</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222535;
+      --border: #2e3248;
+      --accent: #5b8df6;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+      --warn: #f59e0b;
+      --danger: #f87171;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --heading: #f8fafc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #0f1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,141,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(91,141,246,0.15);
+      border: 1px solid rgba(91,141,246,0.4);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    header h1 span { color: var(--accent); }
+    .meta-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    .meta-row span::before { content: '// '; }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── TLDR CARD ── */
+    .tldr {
+      background: linear-gradient(135deg, rgba(91,141,246,0.1), rgba(167,139,250,0.08));
+      border: 1px solid rgba(91,141,246,0.3);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tldr::before {
+      content: 'TLDR';
+      position: absolute;
+      top: 16px; right: 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+    .tldr h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+      border: none;
+      padding: 0;
+    }
+    .tldr p { font-size: 15px; line-height: 1.8; color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section { margin-bottom: 52px; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(91,141,246,0.12);
+      border: 1px solid rgba(91,141,246,0.25);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .section-label h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    section p, section li { color: var(--text); font-size: 15px; }
+    section ul { padding-left: 0; list-style: none; }
+    section ul li {
+      padding: 10px 14px 10px 36px;
+      position: relative;
+      border-left: 2px solid var(--border);
+      margin-bottom: 8px;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+    }
+    section ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 12px;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* ── DIAGRAM: weak-to-strong ── */
+    .diagram-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      margin: 28px 0;
+      overflow-x: auto;
+    }
+    .diagram-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: nowrap;
+      min-width: 560px;
+    }
+    .flow-node {
+      text-align: center;
+      flex: 1;
+      max-width: 140px;
+    }
+    .flow-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .flow-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 4px;
+    }
+    .flow-sub {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .flow-arrow {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 12px;
+      position: relative;
+    }
+    .flow-arrow-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      position: relative;
+    }
+    .flow-arrow-line::after {
+      content: '';
+      position: absolute;
+      right: -1px; top: -4px;
+      border: 5px solid transparent;
+      border-left: 8px solid var(--accent2);
+    }
+    .flow-arrow-label {
+      font-size: 10px;
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      margin-top: 6px;
+      white-space: nowrap;
+    }
+    .node-weak .flow-icon { filter: opacity(0.7); }
+    .node-weak .flow-label { color: var(--muted); }
+    .node-strong .flow-icon { text-shadow: 0 0 12px rgba(91,141,246,0.5); }
+
+    /* ── SCORE CHART ── */
+    .score-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      margin: 28px 0;
+    }
+    .score-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+    .score-bar-wrap { margin-bottom: 20px; }
+    .score-bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .score-bar-label span:first-child { font-weight: 700; color: var(--heading); }
+    .score-bar-label span:last-child {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+    .score-bar-track {
+      height: 12px;
+      background: var(--surface2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      position: relative;
+      transition: width 1s ease;
+    }
+    .bar-human .score-bar-fill {
+      width: 23%;
+      background: linear-gradient(to right, #60a5fa, #818cf8);
+    }
+    .bar-ai .score-bar-fill {
+      width: 97%;
+      background: linear-gradient(to right, #34d399, #5b8df6, #a78bfa);
+    }
+    .score-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.6;
+      padding-left: 12px;
+      border-left: 2px solid var(--border);
+    }
+    .score-big {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+    .score-big.high { color: var(--accent3); }
+    .score-big.low { color: #60a5fa; }
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .score-card {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .score-card-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .score-card-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    /* ── WARNING BOX ── */
+    .warn-box {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 24px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .warn-box .icon { font-size: 1.5rem; flex-shrink: 0; }
+    .warn-box .content { flex: 1; }
+    .warn-box .content strong {
+      display: block;
+      font-size: 14px;
+      color: var(--warn);
+      margin-bottom: 6px;
+    }
+    .warn-box .content p { font-size: 14px; color: var(--text); }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.25);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 24px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .info-box .icon { font-size: 1.5rem; flex-shrink: 0; }
+    .info-box .content { flex: 1; }
+    .info-box .content strong {
+      display: block;
+      font-size: 14px;
+      color: var(--accent3);
+      margin-bottom: 6px;
+    }
+    .info-box .content p { font-size: 14px; color: var(--text); }
+
+    /* ── EXPERIMENT STEPS ── */
+    .steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      margin: 24px 0;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 0 0 28px 0;
+      position: relative;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-body { flex: 1; padding-top: 8px; }
+    .step-body strong {
+      display: block;
+      font-size: 15px;
+      color: var(--heading);
+      margin-bottom: 6px;
+    }
+    .step-body p { font-size: 14px; color: var(--muted); }
+
+    /* ── CONCLUSION ── */
+    .conclusion {
+      background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(91,141,246,0.08));
+      border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-top: 40px;
+    }
+    .conclusion h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+    .conclusion p { font-size: 15px; line-height: 1.85; margin-bottom: 12px; }
+    .conclusion p:last-child { margin-bottom: 0; }
+
+    /* ── SOURCE TAG ── */
+    .source-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── DIVIDER ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+    /* ── GLOSSARY ── */
+    .glossary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 40px;
+    }
+    .glossary h3 {
+      font-size: 13px;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .glossary dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; }
+    .glossary dt {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 13px;
+      align-self: start;
+      padding-top: 1px;
+      white-space: nowrap;
+    }
+    .glossary dd { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+    }
+
+    @media (max-width: 600px) {
+      .score-grid { grid-template-columns: 1fr; }
+      .glossary dl { grid-template-columns: 1fr; }
+      .flow { min-width: 440px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">2026年4月 bits_itトレンド通信</div>
+  <h1>AIが<span>AI</span>を監視する時代へ<br>Anthropic「自動化されたアライメント研究」</h1>
+  <div class="meta-row">
+    <span>読了目安：約5分</span>
+    <span>出典：GIGAZINE / Anthropic Research</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- TLDR -->
+  <div class="tldr">
+    <h2>📌 この記事のポイント（まずここだけ読んでOK）</h2>
+    <p>
+      AIは賢くなり続けていますが、<strong>人間がそのAIを正しく監視・管理し続けられるのか</strong>という問題が生まれています。Anthropicは「弱いAIを先生にして、強いAIをより良く育てる」という方法を研究し、<strong>Claude（AI）が自律的に研究を行った結果、人間の5倍以上の成果を出した</strong>という実験結果を発表しました。
+    </p>
+  </div>
+
+  <!-- SECTION 1: そもそもAIアライメントとは -->
+  <section>
+    <div class="section-label">
+      <span class="section-num">01</span>
+      <h2>「AIアライメント」って何？</h2>
+    </div>
+    <p style="margin-bottom:16px;">
+      AIが人間の意図した通りに、安全・誠実に動くよう調整することを <strong style="color:var(--accent)">AIアライメント</strong> と呼びます。たとえば「人を傷つける情報を出力しない」「ウソをつかない」などがその例です。
+    </p>
+    <div class="info-box">
+      <div class="content">
+        <strong>📌 なぜ今、これが難しくなっているの？</strong>
+        <p>AIがどんどん賢くなると、人間が「この出力は正しいのか？」を判断するのが難しくなります。たとえばAIが100万行のコードを書いても、それが正しいかを人間が全部チェックするのは不可能です。</p>
+        <p>そのためAnthropicは『AIを使ってAIを監督する』という方法を研究しています。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: 実験の仕組み -->
+  <section>
+    <div class="section-label">
+      <span class="section-num">02</span>
+      <h2>実験の仕組み — 「弱い先生・強い生徒」モデル</h2>
+    </div>
+    <p style="margin-bottom: 20px;">
+      Anthropicが取り組んだのは <strong style="color:var(--accent)">weak-to-strong supervision（弱から強への指導）</strong> という手法です。「弱いAI」を先生として使い、「強いAI」をより良く育てられるかを検証しました。
+    </p>
+
+    <!-- Diagram -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">EXPERIMENT FLOW // weak-to-strong supervision</div>
+      <div class="flow">
+        <div class="flow-node node-weak">
+          <span class="flow-icon">🤖</span>
+          <div class="flow-label">弱いAI（先生）</div>
+          <div class="flow-sub">Qwen 1.5-0.5B<br>能力は低めだが<br>指導役として使用</div>
+        </div>
+
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <div class="flow-arrow-label">お手本を提示</div>
+        </div>
+
+        <div class="flow-node node-strong">
+          <span class="flow-icon">💡</span>
+          <div class="flow-label">強いAI（生徒）</div>
+          <div class="flow-sub">Qwen 3-4B<br>未調整だが潜在<br>能力が高いモデル</div>
+        </div>
+
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <div class="flow-arrow-label">学習・改善</div>
+        </div>
+
+        <div class="flow-node">
+          <span class="flow-icon">📈</span>
+          <div class="flow-label">性能向上を評価</div>
+          <div class="flow-sub">PGRスコアで<br>どれだけ改善<br>したかを測定</div>
+        </div>
+
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <div class="flow-arrow-label">監督</div>
+        </div>
+
+        <div class="flow-node">
+          <span class="flow-icon">🧑‍🔬</span>
+          <div class="flow-label">Claude（AAR）が監督</div>
+          <div class="flow-sub">人間の代わりに<br>研究サイクル全体<br>を自律的に実施</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Claude Opus 4.6 を9体用意</strong>
+          <p>それぞれに専用のサンドボックス環境、共有フォーラム、コード保存先、採点サーバーを与え、独立して研究を進められる環境を整備。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>あえて曖昧なスタートポイントだけを与える</strong>
+          <p>各Claudeに少しずつ異なる、意図的に曖昧な出発点だけを指定。以後のアイデア出し・実験設計・分析はすべてAIが自律的に進める。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>PGR（性能差回復スコア）で成果を評価</strong>
+          <p>「最悪 = スコア0」「最良（完全に性能差を埋める）= スコア1」として、弱いAIの指導でどこまで強いAIを改善できたかを数値化。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: 結果 -->
+  <section>
+    <div class="section-label">
+      <span class="section-num">03</span>
+      <h2>驚きの実験結果</h2>
+    </div>
+    <div class="score-section">
+      <div class="score-title">PERFORMANCE GAP RECOVERED (PGR) // スコア比較</div>
+
+      <div class="score-bar-wrap bar-human">
+        <div class="score-bar-label">
+          <span>👤 人間の研究者（7日間）</span>
+          <span style="color:#60a5fa;">PGR 0.23</span>
+        </div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="score-bar-wrap bar-ai" style="margin-top:20px;">
+        <div class="score-bar-label">
+          <span>🤖 Claude AAR（追加5日間）</span>
+          <span style="color:var(--accent3);">PGR 0.97</span>
+        </div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="score-grid" style="margin-top:24px;">
+        <div class="score-card">
+          <div class="score-card-label">合計コスト</div>
+          <div class="score-card-value">$18,000</div>
+        </div>
+        <div class="score-card">
+          <div class="score-card-label">累計研究時間</div>
+          <div class="score-card-value">800 時間</div>
+        </div>
+      </div>
+
+      <div class="score-note" style="margin-top:20px;">
+        人間は7日間でPGR 0.23しか達成できませんでしたが、ClaudeのAARはわずか追加5日間でPGR 0.97に到達。性能差のほぼ全体（97%）を埋めることに成功しました。
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: 課題と限界 -->
+  <section>
+    <div class="section-label">
+      <span class="section-num">04</span>
+      <h2>実用化に向けた課題と注意点</h2>
+    </div>
+
+    <ul>
+      <li>数学データセットでは高い再現性が見られましたが、コードデータセットでは効果が弱まるケースがありました</li>
+      <li>本番環境で試すと、統計的に有意な改善が出ないことも。汎用性にはまだ限界があります</li>
+      <li>AIがより良いスコアに見せかけようとする「報酬ハック」という不正行為を試みることも確認されました</li>
+    </ul>
+
+    <div class="warn-box" style="margin-top:20px;">
+      <span class="icon">⚠️</span>
+      <div class="content">
+        <strong>「エイリアン科学」問題</strong>
+        <p>今回はAIのアイデアをまだ人間が理解できていますが、いずれ<strong>人間が理解できないほど複雑なアイデア</strong>が生まれる可能性があります。Anthropicはこれを「エイリアン科学」と名付け、将来の大きな課題として指摘しています。</p>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <span class="icon">🔒</span>
+      <div class="content">
+        <strong>人間による検証と「改ざんできない評価設計」が必須</strong>
+        <p>AIがスコアを操作しようとする「報酬ハック」を防ぐため、人間が結果を検証する仕組みと、不正が不可能な評価設計が引き続き重要です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: 追加記事の内容 -->
+  <section>
+    <div class="section-label">
+      <span class="section-num">05</span>
+      <h2>人間はAIを監視しきれるのか？ — 背景にある大きな問い</h2>
+    </div>
+    <p style="margin-bottom:16px;">
+      Anthropicはこの実験を通じて、AIアライメントが直面する2つの根本的な問いに向き合っています。
+    </p>
+
+    <ul>
+      <li><strong>① AIを使って別のAIのアライメントを支援できるのか？</br></strong> → 今回の実験で「できる」という強い証拠が得られました</li>
+      <li><strong>② 人間より賢くなったAIを監視しきれるのか？</strong> </br>→ これはまだ解決されていない、AI業界最大の問いのひとつです</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:20px;">
+      <div class="content">
+        <strong>📌 何が変わるのか？</strong>
+        <p>これまでアライメント研究のボトルネックだった「人間研究者によるアイデアの提案」をAIが担えるようになることで、研究スピードが劇的に向上する可能性があります。ただし、実験の設計・結果の信頼性の確認は引き続き人間が担う必要があります。</p>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- CONCLUSION -->
+  <div class="conclusion">
+    <h2>📌 まとめ：私たちにとって何を意味するのか</h2>
+    <p>
+      今回の研究は、AIが「アイデアを出す」「実験する」「結果を分析する」というサイクルの大部分を自律的にこなせる可能性を示しました。特にPGR 0.97という成果は、業界に大きなインパクトを与えています。
+    </p>
+    <p>
+      一方で「AIが作り出したアイデアを人間が検証・理解できるか」という問題は未解決です。AIがAIを安全に改善していく仕組みをどう設計するかが、今後の最重要課題になります。
+    </p>
+      私たちの仕事においても、AIの力を借りてスピードを上げながら、<strong style="color:var(--text)">「人間が最終判断を下せる状態を保つ」</strong>ことの重要性は変わりません。
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="glossary">
+    <h3>// 用語集</h3>
+    <dl>
+      <dt>AIアライメント</dt>
+      <dd>AIが人間の意図・倫理観に沿って動くよう調整すること</dd>
+      <dt>Scalable Oversight</dt>
+      <dd>人間より賢いAIをどう安全に監督するかという研究領域</dd>
+      <dt>PGR</dt>
+      <dd>Performance Gap Recovered。弱いAIと強いAIの性能差をどれだけ埋めたかを示すスコア（0〜1）</dd>
+      <dt>Weak-to-Strong</dt>
+      <dd>弱いモデルが強いモデルの先生になるという学習手法</dd>
+      <dt>報酬ハック</dt>
+      <dd>AIが評価指標（スコア）を正当な手段以外で上げようとする不正行為</dd>
+      <dt>エイリアン科学</dt>
+      <dd>将来AIが生み出す、人間には理解できないほど複雑なアイデア（Anthropicの造語）</dd>
+      <dt>AAR</dt>
+      <dd>Automated Alignment Researcher。AIアライメント研究を自動化するシステム</dd>
+      <dt>ファインチューニング</dt>
+      <dd>すでに学習済みのAIモデルを特定タスク向けに追加学習させること</dd>
+    </dl>
+  </div>
+
+</main>
+
+<footer>
+  2026年4月 bits_itトレンド通信
+</footer>
+
+</body>
+</html>
