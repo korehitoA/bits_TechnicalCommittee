@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>国内企業で進む「脱Oracle」と基幹システム再構築</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      line-height: 1.8;
+      color: #2c3e50;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    header .subtitle {
+      font-size: 1.2em;
+      opacity: 0.9;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    header .date {
+      margin-top: 16px;
+      font-size: 0.95em;
+      opacity: 0.8;
+    }
+
+    .content {
+      padding: 50px 40px;
+    }
+
+    h2 {
+      color: #667eea;
+      font-size: 1.8em;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #667eea;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: #764ba2;
+      font-size: 1.4em;
+      margin: 30px 0 15px;
+      font-weight: 600;
+      padding-left: 15px;
+      border-left: 4px solid #764ba2;
+    }
+
+    h4 {
+      color: #8b5cf6;
+      font-size: 1.1em;
+      margin: 20px 0 10px;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    ul {
+      margin: 15px 0 15px 30px;
+      list-style-type: none;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    ul li:before {
+      content: "●";
+      color: #667eea;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    strong {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      padding: 25px;
+      margin: 25px 0;
+      border-radius: 8px;
+      border-left: 5px solid #667eea;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    table tr:nth-child(even) {
+      background-color: rgba(102, 126, 234, 0.05);
+    }
+
+    table tr:hover {
+      background-color: rgba(102, 126, 234, 0.1);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+      margin: 20px 0;
+    }
+
+    .grid-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.07) 0%, rgba(118, 75, 162, 0.07) 100%);
+      border: 1px solid rgba(102, 126, 234, 0.25);
+      border-radius: 10px;
+      padding: 22px;
+    }
+
+    .grid-box h4 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .flow-step {
+      flex: 1;
+      min-width: 160px;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border: 2px solid #667eea;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .arrow {
+      font-size: 22px;
+      color: #764ba2;
+      font-weight: bold;
+    }
+
+    .key-point {
+      background: #fff5f5;
+      border-left: 5px solid #764ba2;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 2px solid #667eea;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 25px 0;
+    }
+
+    .summary-box h3 {
+      border: none;
+      color: white;
+      padding-left: 0;
+      margin-top: 0;
+    }
+
+    .summary-box p {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .summary-box ul li:before {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .section-divider {
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      margin: 50px 0;
+      border-radius: 2px;
+    }
+
+    .reference {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 10px;
+      line-height: 2;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .content {
+        padding: 30px 20px;
+      }
+
+      header {
+        padding: 40px 20px;
+      }
+
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      table {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>国内企業で進む「脱Oracle」と<br>基幹システム再構築</h1>
+      <p class="subtitle">〜 コスト・ロックイン問題からAIネイティブ移行まで 〜</p>
+    </header>
+
+    <div class="content">
+
+      <h2>■ はじめに</h2>
+
+      <p>
+        かつて基幹システムのデータベースといえば「Oracle Database（以下、Oracle DB）」が事実上の標準とされていました。しかし近年、コストやDX推進を背景に「脱Oracle」という言葉が企業のIT戦略会議で公然と語られるようになっています。
+      </p>
+
+      <p>
+        この流れは今後の案件・技術動向にも直結するため、SEとして背景・手法・業界の動きを押さえておくことが重要です。
+      </p>
+
+      <div class="highlight-box">
+        <strong>現在のトレンド：</strong><br>
+        単なるDB移行ではなく、「クラウド化」「AI活用」「運用自動化」を含めた"基幹システム全体のモダナイゼーション"が主流になりつつあります。
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h2>■ 1. 「Oracle依存」をどう減らすか</h2>
+
+      <h3>背景 ― なぜ今「脱Oracle」なのか</h3>
+
+      <p>「脱Oracle」が起きている主な理由は2つです。</p>
+
+      <div class="grid">
+        <div class="grid-box">
+          <h4>① コスト高騰とベンダーロックイン</h4>
+          <p>
+            Oracle DBはCPUコア数や利用機能に応じてライセンス費用が増加する複雑な体系です。
+            年間保守費だけでライセンス費用の20％前後に達するケースも珍しくありません。
+          </p>
+          <p>
+            また、一度Oracle前提で構築した基幹システムは他DBへの移行難易度が高く、長期的なロックインが発生しやすい構造となっています。
+          </p>
+        </div>
+
+        <div class="grid-box">
+          <h4>② クラウドネイティブとの相性</h4>
+          <p>
+            マイクロサービス・コンテナ・従量課金を前提とするクラウドネイティブ設計と、Oracleのライセンス体系は相性が良いとは言えません。
+          </p>
+          <p>
+            クラウド移行後もコストメリットが出にくいことから、PostgreSQL系サービスへ切り替える企業が増加しています。
+          </p>
+        </div>
+      </div>
+
+      <h3>取り組みの実態 ― 段階的なハイブリッド戦略が主流</h3>
+
+      <p>
+        大企業の基幹システムは長い歴史を持つため、一気に切り替えるのは現実的ではありません。現在の主流は「段階的移行」です。
+      </p>
+
+      <div class="flow">
+        <div class="flow-step">Oracle環境の整理</div>
+        <div class="arrow">→</div>
+        <div class="flow-step">仮想化・クラウドリフト</div>
+        <div class="arrow">→</div>
+        <div class="flow-step">DB置き換え</div>
+        <div class="arrow">→</div>
+        <div class="flow-step">AI活用基盤へ統合</div>
+      </div>
+
+      <ul>
+        <li>新規開発・更改案件は PostgreSQL や SQL Server などオープン技術へ切り替え</li>
+        <li>Oracle依存の強いシステムは Nutanix 等で効率化し、段階的にクラウド化</li>
+        <li>Azure・AWS を中心に再設計し、将来的な脱却を見据えた構成へ</li>
+      </ul>
+
+      <h3>主な移行事例</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>企業</th>
+            <th>概要</th>
+            <th>ポイント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ベネッセコーポレーション</strong></td>
+            <td>約350システムの7割をAzureへ移行</td>
+            <td>Oracle DBからSQL Serverへ移行し、年間ITコストを約2割削減</td>
+          </tr>
+          <tr>
+            <td><strong>田辺ファーマ</strong></td>
+            <td>段階的クラウド移行を推進</td>
+            <td>Oracle依存度に応じてAzure移行とNutanix活用を使い分け</td>
+          </tr>
+          <tr>
+            <td><strong>Amazon（海外事例）</strong></td>
+            <td>75PBのデータをAWSへ移行</td>
+            <td>Aurora・DynamoDB・Redshiftによる超大規模基盤を実現</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-divider"></div>
+
+      <h2>■ 2. 移行先として選ばれているDB</h2>
+
+      <h3>主な移行先</h3>
+
+      <p>
+        現在、移行先として最も多く選ばれているのは PostgreSQL 系です。
+        OSSであることに加え、AWS・Azure・Google Cloud すべてがマネージドサービスを提供しているため、クラウドとの親和性が高い点が評価されています。
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>移行先DB</th>
+            <th>特徴</th>
+            <th>主な用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PostgreSQL</strong></td>
+            <td>OSS・高機能・クラウド対応</td>
+            <td>基幹システム全般</td>
+          </tr>
+          <tr>
+            <td><strong>SQL Server / Azure SQL</strong></td>
+            <td>Microsoft製品との統合性</td>
+            <td>Azure中心企業</td>
+          </tr>
+          <tr>
+            <td><strong>Amazon Aurora</strong></td>
+            <td>高性能マネージドDB</td>
+            <td>大規模Web/OLTP</td>
+          </tr>
+          <tr>
+            <td><strong>BigQuery / Redshift</strong></td>
+            <td>分析・DWH特化</td>
+            <td>BI・AI分析基盤</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>移行における最大の課題</h3>
+
+      <p>
+        DBの移行自体は変換ツールで一定自動化できますが、最大の難所はアプリケーション改修です。
+      </p>
+
+      <div class="highlight-box">
+        <strong>主な改修ポイント：</strong>
+        <ul>
+          <li>Oracle独自SQL（ROWNUM / CONNECT BY / DECODE 等）の書き換え</li>
+          <li>PL/SQL ストアドプロシージャの移植</li>
+          <li>バッチ処理・トランザクション制御の再設計</li>
+          <li>「Oracle特有の挙動」に依存したコードの洗い出し</li>
+        </ul>
+      </div>
+
+      <div class="key-point">
+        多くのSIerでは事前アセスメントとPoC（概念実証）を必須工程として位置づけています。
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h2>■ 3. 日立によるOracle基幹システムのクラウド移行支援</h2>
+
+      <h3>サービスが生まれた背景と目的</h3>
+
+      <p>
+        Oracle DBを使った基幹システムのクラウド移行は、大規模かつミッションクリティカルなシステムが多く、高度なノウハウが必要とされます。
+      </p>
+
+      <p>
+        こうした背景を受け、日立製作所は2025年3月に「クラウド移行支援サービス for Oracle Database」を提供開始しました。
+      </p>
+
+      <div class="highlight-box">
+        <strong>サービスの狙い：</strong><br>
+        単なるDB移行ではなく、AI活用を前提としたモダナイゼーション基盤へ再構築すること。「Lumada」戦略の一環として位置づけられています。
+      </div>
+
+      <h3>サービスの概要と最新動向</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>クラウド対応</strong></td>
+            <td>Oracle Database@AWS に対応し、Azure / AWS の両方へ移行可能</td>
+          </tr>
+          <tr>
+            <td><strong>共同検証</strong></td>
+            <td>日立・日本オラクル・AWSの連携で移行コスト30%削減、期間2か月短縮を実証</td>
+          </tr>
+          <tr>
+            <td><strong>AI活用</strong></td>
+            <td>基幹DBとAI分析用DBを分離し、リアルタイム分析基盤を提供</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>SEに求められるスキルの変化</h3>
+
+      <div class="grid">
+        <div class="grid-box">
+          <h4>DBスキル</h4>
+          <p>PostgreSQL / SQL Server / Aurora 等の設計・移行知識</p>
+        </div>
+        <div class="grid-box">
+          <h4>クラウドスキル</h4>
+          <p>AWS / Azure のマネージドDB・IaC・運用自動化</p>
+        </div>
+        <div class="grid-box">
+          <h4>AI基盤理解</h4>
+          <p>データ連携・分析基盤・RAG向けデータ構造理解</p>
+        </div>
+      </div>
+
+      <div class="key-point">
+        標準化・テンプレート化が進む一方で、「DB」「クラウド」「AI基盤」を横断して理解できるSEの価値はさらに高まっていくと考えられます。
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h2>■ まとめ ─ SEとして今押さえておくべきこと</h2>
+
+      <div class="highlight-box">
+        <h4>意識しておきたいポイント：</h4>
+        <ul>
+          <li>PostgreSQL等オープンソースDBの設計・移行知識</li>
+          <li>各クラウドのマネージドDBサービスの特性理解</li>
+          <li>アプリケーション移行時のSQL変換スキル</li>
+          <li>AI活用を見据えたデータ基盤設計への理解</li>
+        </ul>
+      </div>
+
+      <p>「脱Oracle」の動きは今後も加速が見込まれ、この分野の案件は増え続けることが予想されます。</p>
+
+      <div class="metric-card" style="text-align: center;">
+        <h3 style="color: #667eea; margin: 0; border: none; padding: 0;">基幹システムの再構築はまだ道半ばの企業が多く、<br>今後数年間にわたって継続的な需要が生まれる領域です。</h3>
+      </div>
+
+      <div class="section-divider"></div>
+  </div>
+</body>
+</html>
