@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #f0f2f5;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* Bootstrapのcontainerのような中央寄せ設定 */
+        .container {
+            width: 100%;
+            max-width: 180mm;
+            /* A4幅から余白を引いた程度のサイズ */
+            margin-left: auto;
+            margin-right: auto;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            min-height: 260mm;
+            padding: 0 0 20px 0;
+        }
+
+        .header {
+            background-color: #0078d4;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22pt;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 12pt;
+            opacity: 0.9;
+        }
+
+        .content-body {
+            padding: 0 40px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        h2 {
+            color: #0078d4;
+            font-size: 15pt;
+            border-bottom: 2px solid #0078d4;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 13pt;
+            color: #444;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        .stats-grid {
+            display: table;
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        .stat-card {
+            display: table-cell;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            width: 33%;
+        }
+
+        .stat-value {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #d83b01;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 10pt;
+            color: #6c757d;
+            font-weight: bold;
+        }
+
+        .rec-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rec-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #ffffff;
+            border-left: 4px solid #0078d4;
+            border-bottom: 1px solid #eee;
+        }
+
+        .rec-title {
+            font-weight: bold;
+            color: #0078d4;
+            font-size: 12pt;
+            display: block;
+        }
+
+        .rec-desc {
+            font-size: 10.5pt;
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .alert-box {
+            background-color: #fff4ce;
+            border-left: 5px solid #ffb900;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-size: 10.5pt;
+        }
+
+        ul.bullet-list {
+            padding-left: 20px;
+        }
+
+        ul.bullet-list li {
+            margin-bottom: 8px;
+            font-size: 10.5pt;
+        }
+
+        .reference-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px 25px;
+        }
+
+        .reference-section h4 {
+            margin: 0 0 10px 0;
+            font-size: 11pt;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .reference-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .reference-list li {
+            font-size: 9pt;
+            color: #0078d4;
+            word-break: break-all;
+            margin-bottom: 5px;
+        }
+
+        .reference-list li::before {
+            content: "■ ";
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 9pt;
+            color: #aaa;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>2025年のサイバーセキュリティに関するレポートとセキュリティ対策</h1>
+            <p>Microsoftがサイバーセキュリティ動向に関する年次レポートの最新版を公開しました。</p>
+        </div>
+
+        <div class="content-body">
+            <div class="section">
+                <h2>1. サイバー脅威の現状と分析</h2>
+                <p>攻撃は「侵入」から「正規ログイン」へ、そして「ビジネス」へと進化しています。</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value">52%</span>
+                        <span class="stat-label">金銭目的の攻撃</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">32%</span>
+                        <span class="stat-label">ID攻撃の増加</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">4%</span>
+                        <span class="stat-label">国家諜報目的</span>
+                    </div>
+                </div>
+
+                <h3>■ 主要な攻撃トレンド</h3>
+                <ul class="bullet-list">
+                    <li><strong>公共サービスの危機：</strong> 病院や自治体など、止めることができないインフラが最大の標的となっています。</li>
+                    <li><strong>ID情報の武器化：</strong> 脆弱性を突くのではなく、盗んだパスワードで正規に「サインイン」する手口が主流です。</li>
+                    <li><strong>AIの悪用：</strong> フィッシング詐欺の自動化や高度ななりすましにAIが使われています。</li>
+                </ul>
+
+                <div class="alert-box">
+                    <strong>国内の脅威状況：</strong> 2025年には大手製造業や物流サービスでの被害が相次ぎ、供給網全体への影響が深刻化しています。
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2. 組織防衛のための推奨事項 (1-5)</h2>
+                <div class="rec-list">
+                    <div class="rec-item">
+                        <span class="rec-title">01. 経営リスクとしての管理</span>
+                        <p class="rec-desc">セキュリティを経営層が直接監督し、具体的な指標（MFA導入率等）で評価する体制を構築する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">02. ID保護の徹底</span>
+                        <p class="rec-desc">全ユーザーに対して、フィッシングに強い多要素認証（MFA）の導入を必須化する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">03. 人材と文化への投資</span>
+                        <p class="rec-desc">IT部門だけでなく、全社員の意識を高め、セキュリティ貢献を評価に組み込む。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">04. 攻撃対象領域の防御</span>
+                        <p class="rec-desc">VPNやクラウド、サプライチェーンの接続点すべてを把握し、即座にパッチを適用する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">05. 侵害前提の計画（IR）</span>
+                        <p class="rec-desc">「もしも」ではなく「いつか起きる」と考え、実戦的なインシデント対応訓練を行う。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- <div class="header">
+        <h1>Microsoft Digital Defense Report 2025</h1>
+        <p>推奨事項の継続と総括</p>
+    </div> -->
+
+        <div class="content-body">
+            <div class="section">
+                <h2>2. 組織防衛のための推奨事項 (6-10)</h2>
+                <div class="rec-list">
+                    <div class="rec-item">
+                        <span class="rec-title">06. クラウドアセットの監視</span>
+                        <p class="rec-desc">すべてのAPIやワークロードの棚卸しを行い、設定ミスや不正アクセスを常時監視する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">07. レジリエンス（回復力）の構築</span>
+                        <p class="rec-desc">オフラインバックアップを確保し、侵害後もクリーンな状態で迅速に復旧できる手順を確立する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">08. 脅威情報の共有</span>
+                        <p class="rec-desc">業界内や政府との情報共有に参加し、攻撃者の手法を先回りして把握する。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">09. 法規制への準拠</span>
+                        <p class="rec-desc">国内外の新たなセキュリティ法（報告義務等）に対応できるガバナンス体制を整える。</p>
+                    </div>
+                    <div class="rec-item">
+                        <span class="rec-title">10. 次世代リスク（AI・量子）</span>
+                        <p class="rec-desc">AI利用のリスク評価と、将来的な耐量子暗号（PQC）への移行準備を開始する。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" style="background: #f1f8ff; border-radius: 8px; padding: 25px;">
+                <h3>■ まとめ：これからのセキュリティの在り方</h3>
+                <p style="font-size: 11pt;">
+                    防御壁を作るだけの時代は終わりました。現代のセキュリティは、侵害を早期に発見し、ビジネスを止めずに回復させる「レジリエンス」が中心です。
+                    特にID管理の不備は致命的なリスクとなります。経営・技術の両面から対策を強化することが求められています。
+                </p>
+            </div>
+
+
+            <div class="reference-section">
+                <h4>参考資料・URL</h4>
+                <ul class="reference-list">
+                    <li><a
+                            href="https://atmarkit.itmedia.co.jp/ait/articles/2605/06/news014.html">ランサムウェア攻撃が相次ぐ今、100兆件超の兆候を分析したMicrosoftが10のセキュリティ対策を提言</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
