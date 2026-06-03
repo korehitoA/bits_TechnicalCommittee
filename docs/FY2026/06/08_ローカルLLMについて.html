@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ローカルLLMについて(2026/5版)</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a0dab;
+            border-bottom: 2px solid #1a0dab;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2d2d2d;
+            margin-top: 30px;
+            border-left: 5px solid #1a0dab;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #444;
+            margin-top: 25px;
+        }
+        h4 {
+            color: #555;
+            margin-top: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .note {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f0f4ff;
+            color: #1a0dab;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 30px 0;
+        }
+        strong {
+            color: #2d2d2d;
+        }
+    </style>
+</head>
+<body>
+    <h1>ローカルLLMについて(2026/5版)</h1>
+
+    <h2>はじめに</h2>
+    <p>かつてローカルLLMは「実験・趣味向け」「クラウドに比べて品質・速度が足りない」という印象が強く、本格的な業務利用には向かないと見られがちでした。</p>
+    <p>しかし近年は、モデルの品質向上、推論ソフトウェアの高速化、GPUの性能向上が重なり、ローカル環境でも実務に耐える応答品質・速度が得られるケースが増えています。2026年4月にはGemma 4、Qwen3.6などの高性能なモデルもリリースされ、水準が一段上がりました。コーディング補助、社内文書の要約、エージェント連携など、<strong>業務利用が現実的な水準</strong>に達しつつあります。</p>
+    <p>本資料では、ローカルLLMの説明やメリット、動かすのに重要なハードウェアなどを解説します。</p>
+
+    <hr>
+
+    <h2>ローカルLLMとは</h2>
+    <p>ローカルLLMとは、LLMの推論処理を自社や手元の実行環境（個人PC、社内サーバーなど）上で行い、クラウド型LLMのように外部サービスへプロンプトやデータを送信しない形態を指します。</p>
+    <p>そのために、おおむね次の3つが必要です。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>必要なもの</th>
+                <th>役割</th>
+                <th>例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1. LLMモデル</strong></td>
+                <td>推論の「頭脳」。学習済みパラメータ（重み）をファイルとして保持する</td>
+                <td>Gemma 4、Qwen 3.6 などのオープンウェイトモデル</td>
+            </tr>
+            <tr>
+                <td><strong>2. 推論ソフトウェア</strong></td>
+                <td>LLMモデルを読み込み、プロンプトから回答を生成する</td>
+                <td>Ollama、llama.cpp、vLLM、LM Studio</td>
+            </tr>
+            <tr>
+                <td><strong>3. 実行環境</strong></td>
+                <td>上記を動かすPCやサーバー。とくに <strong>GPUのVRAM</strong> が重要</td>
+                <td>個人PC、社内GPUサーバーなど</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <p>※ <strong>オープンウェイトモデル</strong> … <strong>パラメータ（重み）</strong>が公開され、実行環境に配置して推論できるLLMモデル。</p>
+    </div>
+
+    <h3>クラウド型との違い（概要）</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>観点</th>
+                <th>クラウド型</th>
+                <th>ローカルLLM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>処理の場所</td>
+                <td>提供企業のサーバー</td>
+                <td>自社・手元の実行環境</td>
+            </tr>
+            <tr>
+                <td>データの行き先</td>
+                <td>インターネット経由で送信される</td>
+                <td>原則として自環境内に留まる</td>
+            </tr>
+            <tr>
+                <td>料金の考え方</td>
+                <td>従量課金（使うほど増える）</td>
+                <td>設備投資＋電力（使い方次第で定額に近い）</td>
+            </tr>
+            <tr>
+                <td>性能の上限</td>
+                <td>提供側の最新・大規模モデル</td>
+                <td>自環境のハードと選んだモデルに依存</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>ローカルLLMの強み</h3>
+    <p>上記の対比から読み取れる、ローカルLLMの主な強みは次のとおりです。</p>
+
+    <p><strong>1. データを社外のクラウドに送らない</strong></p>
+    <ul>
+        <li>推論が自社・手元の実行環境で完結するため、プロンプトや入力データを外部のLLMサービスへ送信しない</li>
+        <li>設計書・顧客情報・未公開コードなど、機密性の高い業務で検討しやすい</li>
+    </ul>
+
+    <p><strong>2. 利用量が増えてもコストを抑えやすい</strong></p>
+    <ul>
+        <li>クラウド型のようなトークン従量課金ではなく、実行環境の設備投資が中心</li>
+        <li>同じ実行環境の範囲であれば、利用回数が増えてもAPI料金が比例して増えにくい</li>
+    </ul>
+
+    <p><strong>3. 運用を自組織でコントロールできる</strong></p>
+    <ul>
+        <li>ログの保存方針などを自社のルールで決められる</li>
+        <li>提供企業のサービス変更や提供終了の影響を受けにくい</li>
+    </ul>
+
+    <h3>注意点</h3>
+    <ul>
+        <li><strong>性能</strong>: 応答の品質や速度は、実行環境とLLMモデルの選定次第であり、クラウドの最新・最上位モデルとは差が出てしまう。用途に応じた使い分けをする必要がある。</li>
+        <li><strong>安全性の範囲</strong>: ローカルLLMで抑えられるのは、主にLLMへの推論処理が外部クラウドに送られないことである。AIツールが行う通信は別問題である。</li>
+    </ul>
+
+    <h3>性能の見方のポイント</h3>
+    <p>ローカルLLMの性能は、冒頭で挙げた<strong>LLMモデル・推論ソフトウェア・実行環境</strong>の組み合わせで決まります。クラウド型のように提供側がすべて揃えた状態ではなく、自分で選ぶことになるため、分けて見ることが大切です。</p>
+
+    <h4>1. LLMモデル</h4>
+    <p><strong>モデルの種類（系列・世代）</strong><br>
+    Gemma、Qwen、Llama など。モデルごとに得意分野が異なり、同じパラメータ数でも世代が新しいほど能力は高いことが多いです。</p>
+
+    <p><strong>パラメータ数（7B、27B など）</strong><br>
+    モデル名に付く <strong>B</strong>（Billion＝10億）は、モデルの規模の目安です。同じ系列内では、<strong>Bが大きいほど品質は上がりやすい</strong>一方、必要なVRAMや応答速度の負荷も増えます。</p>
+
+    <p><strong>量子化</strong><br>
+    学習済みモデルの重みを、もともとの高精度（16bit など）から <strong>より少ないビット数で表現してファイルを軽くする</strong> 処理です。ローカルLLMでは、同じ <strong>B</strong> でも量子化次第で <strong>必要なメモリが大きく変わる</strong> ため、モデル選定とセットで意識します。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>呼び方</th>
+                <th>おおよその精度</th>
+                <th>1パラメータあたり</th>
+                <th>向き</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Q4（4bit）</strong></td>
+                <td>低〜中</td>
+                <td>約 <strong>0.5</strong> バイト</td>
+                <td>ローカルでよく使う。VRAM を抑えつつ実用品質になりやすい</td>
+            </tr>
+            <tr>
+                <td><strong>Q8（8bit）</strong></td>
+                <td>中〜高</td>
+                <td>約 <strong>1.0</strong> バイト</td>
+                <td>Q4 より品質を優先。VRAM に余裕があるとき</td>
+            </tr>
+            <tr>
+                <td><strong>FP16 / BF16（16bit）</strong></td>
+                <td>高</td>
+                <td>約 <strong>2.0</strong> バイト</td>
+                <td>非量子化に近い。VRAM を多く使う</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Dense と MoE</strong><br>
+    モデルには、推論のたびにパラメータをすべて使う <strong>Dense（密結合）</strong> 型と、<strong>MoE（Mixture of Experts／混合エキスパート）</strong> 型があります。</p>
+    <p>MoE では、ルーターが選んだエキスパートだけを推論に使います。モデル名の <strong>A</strong> は Active（推論時に計算するパラメータ数）を表します。VRAM には推論のたびに使わない部分も含め <strong>重みの全量</strong> を読み込むため、<strong>VRAM の目安に使うのは Active ではなく総パラメータ数（B）</strong> です。MoE の利点はVRAM 節約ではなく、同程度の VRAM で計算を軽くし、<strong>精度は高いまま応答を速くしやすい</strong> 点にあります。</p>
+
+    <p><strong>例（2026年4月モデル）</strong></p>
+    <ul>
+        <li><strong>Gemma 4 31B（Dense）</strong> … 総パラメータ約 31B。推論時も全パラメータを使用。</li>
+        <li><strong>Qwen3.6-27B（Dense）</strong> … 総パラメータ約 27B。推論時も全パラメータを使用。</li>
+        <li><strong>Gemma 4 26B A4B（MoE）</strong> … 総パラメータ約 26B、推論時は約 <strong>4B</strong>（128 エキスパート中 8＋共有 1）を使用。</li>
+        <li><strong>Qwen3.6-35B-A3B（MoE）</strong> … 総パラメータ約 35B、推論時は約 <strong>3B</strong>（256 エキスパート中 8＋共有 1）を使用。</li>
+    </ul>
+
+    <h4>2. 推論ソフトウェア</h4>
+    <p>Ollama、llama.cpp、vLLM など。同じLLMモデルでも推論ソフトウェアによって処理時間は変わります。上記の <strong>量子化</strong> をどの形式で読み込むかも、推論ソフトウェアや配布形式（GGUF など）に依存します。</p>
+
+    <h4>3. 実行環境</h4>
+    <p>推論を実際に動かすPCやサーバーのスペック。関係する主な要素は次のとおりです。</p>
+    <ul>
+        <li><strong>GPU</strong> … LLM推論の<strong>計算</strong>を担当するハードウェア。同じモデルでもGPUの性能が高いほど、<strong>応答は速く</strong>なりやすい</li>
+        <li><strong>VRAM（GPUのメモリ）</strong> … GPU上にLLMモデルの<strong>重みを載せるメモリ容量</strong>。<strong>どのモデルが載るか</strong>を決める。</li>
+        <li><strong>CPU</strong> … GPU推論が主ならそこまで必要ではない。GPUなしの場合は、CPU推論としてCPUで動作させることも可能(非常に遅い)。</li>
+        <li><strong>RAM（システムメモリ）</strong> … OS・推論ソフト用。VRAM不足時に重みの一部をRAMに載せる運用では特に重要。</li>
+    </ul>
+
+    <p><strong>Mac（Apple Silicon）の場合</strong><br>
+    M4 / M5 などのApple Silicon Mac には、VRAM という独立したメモリはありません。CPU と GPU が <strong>統一メモリ（Unified Memory）</strong> と呼ばれる同じ物理 RAM を共有し、LLM の重みもその中に載せます。Windows/Linux でいう VRAM の目安は、<strong>搭載している統一メモリの容量</strong>で判断します。</p>
+
+    <h4>VRAM / 統一メモリの目安</h4>
+    <p>必要な容量は、<strong>総パラメータ数 B</strong> と <strong>量子化</strong> からおおむね次の式で見積もれます。</p>
+
+    <p><strong>1. モデル重みだけ（読み込み時）</strong></p>
+    <div class="code-block">重みのメモリ（GB）≈ B ×（1パラメータあたりのバイト数）</div>
+    <ul>
+        <li><strong>B</strong> … モデル名の <strong>B</strong>（Billion＝10億）と同じ単位の <strong>総パラメータ数</strong>。MoE も <strong>Active（A4B の 4 など）ではなく総 B</strong> を入れる。</li>
+        <li><strong>1パラメータあたりのバイト数</strong> … 上記 <strong>量子化</strong> の目安（Q4 ≒ 0.5、Q8 ≒ 1.0、FP16/BF16 ≒ 2.0）</li>
+    </ul>
+
+    <p><strong>2. 実際に用意する VRAM / 統一メモリ</strong></p>
+    <p>重み以外に、推論ソフト・OS・<strong>KV キャッシュ</strong>（会話の長さ）分が加わるため、次のように <strong>余裕</strong> を見ます。</p>
+    <div class="code-block">必要メモリ（GB）≈ B ×（バイト数/パラメータ）× 1.1 〜 1.2 ＋ 1〜2 GB</div>
+    <p>コンテキストを長く使うほど、<strong>KV キャッシュ分がさらに上乗せ</strong>されます。</p>
+
+    <p><strong>計算例</strong></p>
+    <ul>
+        <li><strong>Dense 7B・Q4</strong> … 7 × 0.5 ≈ 3.5 GB（重みのみ）→ 余裕込みで約 <strong>5〜8 GB</strong></li>
+        <li><strong>Dense 27B・Q4</strong> … 27 × 0.5 ≈ 13.5 GB → 余裕込みで約 <strong>16〜20 GB</strong></li>
+        <li><strong>MoE Gemma 4 26B A4B・Q4</strong> … <strong>26</strong> × 0.5 ≈ 13 GB → 余裕込みで約 <strong>16〜18 GB</strong>（Google 公式の Q4 目安は約 <strong>15.6 GB</strong>）</li>
+        <li><strong>MoE Qwen3.6-35B-A3B・Q4</strong> … <strong>35</strong> × 0.5 ≈ 17.5 GB → 余裕込みで約 <strong>18〜22 GB</strong></li>
+    </ul>
+
+    <hr>
+
+    <h2>まとめ</h2>
+    <p>ローカルLLMは、推論を自社・手元の環境で完結させる方式です。Gemma 4 や Qwen3.6 など高性能なオープンウェイトモデルの登場により、コーディング補助や社内文書の要約など、実務に耐える品質・速度がローカルでも得られる場面が増えています。</p>
+    <p>データを社外のクラウドに送らない点やコストの面では選ぶ理由となり。AIの利用方式を検討する際は、<strong>クラウド型LLMと並ぶ選択肢の一つ</strong>としてローカルLLMを位置づけておくとよいでしょう。</p>
+
+</body>
+</html>
