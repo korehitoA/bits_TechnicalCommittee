@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>AI脅威の「自動化」と新時代への防衛戦略</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #0056b3;
+            --accent: #d35400;
+            --bg: #f0f2f5;
+            --white: #ffffff;
+            --text: #2c3e50;
+            --light-blue: #e3f2fd;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .paper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 60px 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--primary);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .issue-tag {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        h1 {
+            font-size: 30px;
+            color: var(--primary);
+            margin: 20px 0;
+            line-height: 1.3;
+        }
+        .lead {
+            font-size: 1.1em;
+            color: #444;
+            border-left: 4px solid var(--secondary);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        h2 {
+            font-size: 22px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-top: 50px;
+        }
+        h3 {
+            font-size: 18px;
+            color: var(--secondary);
+            margin-top: 30px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 10px;
+        }
+        p { margin-bottom: 20px; text-align: justify; }
+        
+        /* データビジュアライズ */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: var(--light-blue);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        .stat-num {
+            display: block;
+            font-size: 38px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        .stat-desc { font-size: 0.9em; font-weight: bold; color: #555; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            text-align: left;
+        }
+        th { background-color: #f1f3f5; color: var(--primary); }
+        .row-highlight { background-color: #fff9e6; }
+
+        .quote-box {
+            background: #fff4f0;
+            border-left: 5px solid var(--accent);
+            padding: 30px;
+            margin: 40px 0;
+            font-style: italic;
+            position: relative;
+        }
+        .case-study {
+            border: 2px dashed var(--secondary);
+            padding: 30px;
+            border-radius: 12px;
+            background: #fafafa;
+            margin: 35px 0;
+        }
+        .case-study h4 { margin-top: 0; color: var(--secondary); font-size: 1.1em; }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #ccc;
+        }
+        .bibliography {
+            list-style: none;
+            padding: 0;
+            font-size: 13px;
+        }
+        .bibliography li {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .bibliography a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        .bibliography a:hover { text-decoration: underline; }
+        
+        .copyright {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="paper">
+    <header>
+        <h1>AI脅威の「自動化」と新時代への防衛戦略<br>— Claude Mythos 5 / Fable 5 登場 —</h1>
+    </header>
+
+    <div class="lead">
+        4/27の配信記事では、セキュリティ分野で飛びぬけた性能を発揮する「Claude Mythos Preview」の衝撃と、それに対抗する国内防衛策「Project Glasswing」について解説しました。しかし、2026年6月現在、事態は新たなフェーズに突入しています。AIによるサイバー攻撃はもはや予測の域を超え、「高度な自動化」が現実のものとなっています。本稿ではAnthropic社のレポートと正式版モデルのリリース情報を基に、我々が直面している新たな現実を深掘りします。
+    </div>
+
+    <h2>1. 調査報告：サイバー攻撃の「自動化」はすでに完了している</h2>
+    <p>
+        米Anthropic社は、2025年3月から2026年3月までの1年間にわたり、サイバー攻撃に関与したとして利用停止措置を講じた832件のアカウントを詳細に調査しました。その結果、「サイバー攻撃はすでにAIによって自動化されている」実態が浮き彫りになりました。
+    </p>
+
+    <div class="grid-container">
+        <div class="stat-card">
+            <span class="stat-num">67.3%</span>
+            <span class="stat-desc">停止アカウントにおいてマルウェア作成等の攻撃準備にAIを活用された割合</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">8.9%</span>
+            <span class="stat-desc">侵害された環境内で有効なアカウントを特定するためにAIを利用するケースの増加率</span>
+        </div>
+    </div>
+
+    <h3>攻撃におけるAI活用傾向の変化</h3>
+    <p>
+        これまでのAI利用はフィッシングメールの作成など「初期アクセス」が中心でしたが、最新の分析では、侵害したネットワーク内を深く探索する「横方向の移動（ラテラルムーブメント）」や「権限昇格」といった、より高度な活動にAIが活用され始めています。
+    </p>
+    <p>
+        特筆すべきは、**「攻撃者のスキルと使用テクニック数の相関が消失している」**という点です。調査によれば、最もスキルが低い攻撃者でも平均16種類のテクニックを使用しており、最高スキル層の20種類と大差ないレベルにまで攻撃能力が底上げされています。AIは、技術的知識に乏しい攻撃者に対しても、熟練ハッカーと同等の武器を授けてしまったのです。
+    </p>
+
+    <div class="quote-box">
+        高リスクの攻撃者は、AIモデルを『自律エージェント』として機能させ、コマンド実行から戦術的意思決定までを、人間の介入なしに連結して実行するアーキテクチャを設計しつつある
+    </div>
+
+    <h2>2. 正式版「Mythos 5」と一般公開版「Fable 5」の登場</h2>
+    <p>
+        2026年6月9日、Anthropic社は待望の正式アップデート版である **Claude Mythos 5**、および一般利用者向けの **Claude Fable 5** をリリースしました。
+    </p>
+
+    <table>
+        <tr>
+            <th>モデル名称</th>
+            <th>主な対象者</th>
+            <th>セキュリティ特性</th>
+        </tr>
+        <tr class="row-highlight">
+            <td><strong>Claude Mythos 5</strong></td>
+            <td>一部の重要組織・政府</td>
+            <td><strong>制限解除版。</strong>防御研究のため、高度な攻撃コードの生成が許可される。</td>
+        </tr>
+        <tr>
+            <td><strong>Claude Fable 5</strong></td>
+            <td>一般企業・個人</td>
+            <td><strong>厳重な制限適用。</strong>攻撃成功率は驚異の「0%」を記録。業務利用に特化。</td>
+        </tr>
+    </table>
+
+    <p>
+        これら新モデルは、同社のOpus 4.8やGPT-5.5を大きく上回るベンチマークスコアを記録しています。特に、投資コストを増やすほど性能が直線的に向上し続ける特性を持っており、AI開発が新たなスケーリングの段階に入ったことを示唆しています。
+    </p>
+
+    <div class="case-study">
+        <h4>【実例】Stripe社が示した「1日」の衝撃</h4>
+        <p>
+            決済大手Stripeの初期テストにおいて、エンジニアチーム全員で2カ月以上かかると推測されていた「5,000万行のRubyコード修正タスク」を、Claude Fable 5はわずか<b>1日</b>で完遂させました。この圧倒的な生産性は、AIが単なる補助ツールではなく、自律的にプロジェクトを完遂させる「エージェント」へと進化した証左です。
+        </p>
+    </div>
+
+    <h2>3. 「N-hour」時代への突入と、求められる防御戦略</h2>
+    <p>
+        防御側にとって最大の脅威は、脆弱性が公開（N-day）されてから攻撃コードが開発されるまでのタイムラグの消滅です。Anthropicは、これまで数日を要していたこのプロセスが「数時間（N-hour）」単位に短縮されると警告しています。
+    </p>
+
+    <h3>我々が取るべき「AIネイティブ・セキュリティ」の要諦</h3>
+    <p>
+        前回の「Project Glasswing」構想 でも提唱された通り、もはや人間の手動パッチ適用や監視だけではAIのスピードに対抗することは困難です。
+    </p>
+    <ul>
+        <li><b>防御の自律化：</b> 防御側もAIを自律エージェントとして活用し、リアルタイムでの脆弱性スキャンとコードの自動修正をシステムに組み込む等、高度なAIの存在を前提とした対策が必要となります。</li>
+        <li><b>挙動ベースの監視：</b> 単一の攻撃手法（テクニック）に注目するのではなく、AIが攻撃チェーンをどのように連結させているかという「運用アーキテクチャ」の監視が重要となります。</li>
+    </ul>
+
+    <p>
+        最新AIは、Stripeの事例に見られるような驚異的な恩恵をもたらす一方で、サイバー攻撃の参入障壁を破壊しました。我々ITエンジニアは、この「光と影」の両面を正しく理解し、自律型AIを前提とした次世代のインフラ設計と運用にシフトしなければなりません。
+    </p>
+
+    <div class="footer">
+        <h4 style="margin-bottom: 10px;">参考文献・出典</h4>
+        <ul class="bibliography">
+            <li>・<a href="https://gigazine.net/news/20260604-anthropic-ai-cyber-threats/" target="_blank">Anthropicが「サイバー攻撃はすでにAIで自動化されている」と報告 - GIGAZINE</a></li>
+            <li>・<a href="https://gigazine.net/news/20260610-anthropic-claude-mythos-5-fable-5/" target="_blank">ついに「Claude Mythos」の正式版が登場＆利用者制限撤廃版の「Claude Fable」も登場して誰でも使用可能に - GIGAZINE</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
